@@ -1,19 +1,435 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import '../styles/Timeline.css';
+
+// Media type detection helpers (same as Projects)
+const getMediaType = (url) => {
+  if (!url) return 'unknown';
+  const lower = url.toLowerCase();
+  
+  // Image extensions
+  if (lower.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) return 'image';
+  
+  // YouTube
+  if (lower.includes('youtube.com') || lower.includes('youtu.be')) return 'youtube';
+  
+  // Google Drive
+  if (lower.includes('drive.google.com')) return 'gdrive';
+  
+  // OneDrive
+  if (lower.includes('onedrive.live.com') || lower.includes('1drv.ms')) return 'onedrive';
+  
+  // Direct video
+  if (lower.match(/\.(mp4|webm|ogg|mov)$/)) return 'video';
+  
+  // LinkedIn
+  if (lower.includes('linkedin.com')) return 'linkedin';
+  
+  // Google Slides
+  if (lower.includes('docs.google.com/presentation')) return 'slides';
+  
+  return 'link';
+};
+
+const toYouTubeEmbed = (url) => {
+  // Handle playlists
+  if (url.includes('playlist')) {
+    const match = url.match(/list=([a-zA-Z0-9_-]+)/);
+    if (match) return `https://www.youtube.com/embed/videoseries?list=${match[1]}`;
+  }
+  // Handle regular videos
+  let videoId = '';
+  if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1]?.split(/[?&]/)[0];
+  } else if (url.includes('v=')) {
+    videoId = url.split('v=')[1]?.split(/[&?]/)[0];
+  }
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+};
+
+const toGoogleDriveEmbed = (url) => {
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
+  return url;
+};
+
+const toOneDriveEmbed = (url) => {
+  return url.replace('view.aspx', 'embed');
+};
+
+const toLinkedInEmbed = (url) => {
+  // Extract post/activity ID from LinkedIn URL
+  
+  // Handle ugcPost format
+  if (url.includes('ugcPost-')) {
+    const match = url.match(/ugcPost-(\d+)/);
+    if (match) {
+      return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${match[1]}`;
+    }
+  }
+  
+  // Handle activity format (activity-XXXXX)
+  if (url.includes('activity-')) {
+    const match = url.match(/activity-(\d+)/);
+    if (match) {
+      return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${match[1]}`;
+    }
+  }
+  
+  // Handle /posts/ format - try to find activity or ugcPost ID in the slug
+  if (url.includes('/posts/')) {
+    const lastSeg = url.split('/posts/').pop()?.split('?')[0] || '';
+    // Check for activity ID pattern
+    const activityMatch = lastSeg.match(/activity-(\d+)/);
+    if (activityMatch) {
+      return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${activityMatch[1]}`;
+    }
+    // Check for ugcPost ID pattern
+    const ugcMatch = lastSeg.match(/ugcPost-(\d+)/);
+    if (ugcMatch) {
+      return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${ugcMatch[1]}`;
+    }
+  }
+  
+  return null;
+};
+
+const toSlidesEmbed = (url) => {
+  // Convert Google Slides URL to embed format with auto-play and loop
+  return url.replace('/edit', '/embed').replace(/\?.*$/, '') + '?start=true&loop=true&delayms=4000';
+};
+
+// MediaItem component for gallery
+const MediaItem = ({ item, originalUrl, onOpenModal }) => {
+  const type = item.type || getMediaType(item.url);
+  
+  const handleClick = (e) => {
+    // Don't trigger modal for external link clicks
+    if (e.target.tagName === 'A') return;
+    if (onOpenModal) onOpenModal(item, type);
+  };
+  
+  switch (type) {
+    case 'image':
+      return (
+        <div className="timeline-media-item clickable" onClick={handleClick}>
+          <div className="media-expand-hint">Click to expand</div>
+          <img src={item.url} alt={item.title || 'Media'} className="timeline-media-thumb" />
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'youtube':
+      return (
+        <div className="timeline-media-item clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <iframe
+            src={toYouTubeEmbed(item.url)}
+            title={item.title || 'YouTube Video'}
+            className="timeline-media-iframe"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'gdrive':
+      return (
+        <div className="timeline-media-item clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <iframe
+            src={toGoogleDriveEmbed(item.url)}
+            title={item.title || 'Google Drive'}
+            className="timeline-media-iframe"
+            allow="autoplay"
+            allowFullScreen
+          />
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'onedrive':
+      return (
+        <div className="timeline-media-item clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <iframe
+            src={toOneDriveEmbed(item.url)}
+            title={item.title || 'OneDrive'}
+            className="timeline-media-iframe"
+            allowFullScreen
+          />
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'video':
+      return (
+        <div className="timeline-media-item clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <video src={item.url} controls className="timeline-media-video">
+            Your browser does not support the video tag.
+          </video>
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'linkedin':
+      return (
+        <div className="timeline-media-item timeline-media-linkedin clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <iframe
+            src={toLinkedInEmbed(item.url)}
+            title={item.title || 'LinkedIn Post'}
+            className="timeline-media-iframe linkedin"
+            allowFullScreen
+          />
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="timeline-media-open-overlay"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Open in LinkedIn
+          </a>
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'slides':
+      return (
+        <div className="timeline-media-item timeline-media-slides clickable">
+          <div className="media-click-overlay" onClick={handleClick}>
+            <div className="media-expand-hint">Click to expand</div>
+          </div>
+          <iframe
+            src={toSlidesEmbed(item.url)}
+            title={item.title || 'Google Slides'}
+            className="timeline-media-iframe slides"
+            allowFullScreen
+          />
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="timeline-media-open-overlay"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Open in Slides
+          </a>
+          {item.title && <div className="timeline-media-title">{item.title}</div>}
+        </div>
+      );
+    
+    case 'link':
+    default:
+      // Render a styled link card instead of iframe preview
+      const getDomain = (url) => {
+        try {
+          return new URL(url).hostname.replace('www.', '');
+        } catch {
+          return 'External Link';
+        }
+      };
+      
+      const getFavicon = (url) => {
+        try {
+          const domain = new URL(url).hostname;
+          return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+        } catch {
+          return null;
+        }
+      };
+      
+      return (
+        <div className="timeline-media-item">
+          <div className="timeline-link-card">
+            <div className="timeline-link-card-content">
+              <div className="timeline-link-card-header">
+                {getFavicon(item.url) && (
+                  <img 
+                    src={getFavicon(item.url)} 
+                    alt="" 
+                    className="timeline-link-card-favicon"
+                  />
+                )}
+                <span className="timeline-link-card-domain">{getDomain(item.url)}</span>
+              </div>
+              <div className="timeline-link-card-title">{item.title || 'External Link'}</div>
+              <div className="timeline-link-card-actions">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="timeline-link-card-btn"
+                >
+                  Open Link →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+  }
+};
+
+// Modal component for expanded media view
+const MediaModal = ({ item, type, onClose }) => {
+  // Close on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEscape);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  const handleBackdropClick = (e) => {
+    if (e.target.classList.contains('media-modal-backdrop')) {
+      onClose();
+    }
+  };
+
+  const renderModalContent = () => {
+    switch (type) {
+      case 'image':
+        return <img src={item.url} alt={item.title || 'Media'} className="modal-media-image" />;
+      
+      case 'youtube':
+        return (
+          <iframe
+            src={toYouTubeEmbed(item.url)}
+            title={item.title || 'YouTube Video'}
+            className="modal-media-iframe"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        );
+      
+      case 'gdrive':
+        return (
+          <iframe
+            src={toGoogleDriveEmbed(item.url)}
+            title={item.title || 'Google Drive'}
+            className="modal-media-iframe"
+            allow="autoplay"
+            allowFullScreen
+          />
+        );
+      
+      case 'onedrive':
+        return (
+          <iframe
+            src={toOneDriveEmbed(item.url)}
+            title={item.title || 'OneDrive'}
+            className="modal-media-iframe"
+            allowFullScreen
+          />
+        );
+      
+      case 'video':
+        return (
+          <video src={item.url} controls autoPlay className="modal-media-video">
+            Your browser does not support the video tag.
+          </video>
+        );
+      
+      case 'linkedin':
+        return (
+          <iframe
+            src={toLinkedInEmbed(item.url)}
+            title={item.title || 'LinkedIn Post'}
+            className="modal-media-iframe linkedin"
+            allowFullScreen
+          />
+        );
+      
+      case 'slides':
+        return (
+          <iframe
+            src={toSlidesEmbed(item.url)}
+            title={item.title || 'Google Slides'}
+            className="modal-media-iframe slides"
+            allowFullScreen
+          />
+        );
+      
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="media-modal-backdrop" onClick={handleBackdropClick}>
+      <div className="media-modal-container">
+        <button className="media-modal-close" onClick={onClose} aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div className="media-modal-content">
+          {renderModalContent()}
+        </div>
+        
+        {item.title && <div className="media-modal-title">{item.title}</div>}
+        
+        <div className="media-modal-actions">
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="media-modal-open-link"
+          >
+            Open Original →
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Timeline = () => {
   const [timelineData, setTimelineData] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState('experience');
   const [filteredData, setFilteredData] = useState([]);
   const [sectionTitle, setSectionTitle] = useState('');
+  const [expanded, setExpanded] = useState({});
+  const [modalMedia, setModalMedia] = useState(null);
+
+  const toggleExpand = (id) => {
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const openModal = useCallback((item, type) => {
+    setModalMedia({ item, type });
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalMedia(null);
+  }, []);
 
   useEffect(() => {
     fetch('/portfolioData.json')
       .then((res) => res.json())
       .then((data) => {
         // Combine education and experience data
-        const educationData = (data.education || []).map(item => ({ ...item, category: 'education' }));
-        const experienceData = (data.experience || []).map(item => ({ ...item, category: 'experience' }));
+        const educationData = (data.education || []).map((item, idx) => ({ ...item, id: `edu-${idx}`, category: 'education' }));
+        const experienceData = (data.experience || []).map((item, idx) => ({ ...item, id: `exp-${idx}`, category: 'experience' }));
         const combined = [...educationData, ...experienceData];
         
         const sorted = combined.sort((a, b) => {
@@ -23,7 +439,8 @@ const Timeline = () => {
         });
         
         setTimelineData(sorted);
-        setFilteredData(sorted);
+        // Default to showing only experience
+        setFilteredData(sorted.filter(item => item.category === 'experience'));
         setSectionTitle(data.sections.timeline.title);
       });
   }, []);
@@ -40,13 +457,15 @@ const Timeline = () => {
     // Map company names to logo files
     const logoMap = {
       // Education
-      'University of Colorado Boulder': '/CU-logo.png',
-      'College of Engineering Guindy, Anna University': '/CEG-logo.png',
+      'University of Illinois at Urbana-Champaign': '/UIUC-logo.png',
+      'Anna University': '/Anna-University-logo.png',
       
       // Experience
-      'Agilysys NV, LLC': '/Agilysys-logo.png',
-      'Citicorp Services India Private Limited': '/Citi-logo.png',
-      'MathWorks India Private Limited': '/Matlab-logo.png'
+      'Zipline': '/Zipline-logo.png',
+      'Skydio': '/Skydio-logo.png',
+      'EarthSense': '/EarthSense-logo.png',
+      'Thoughtworks': '/Thoughtworks-logo.png',
+      'Speedways Electric': '/Speedways-logo.png'
     };
     
     return logoMap[company] || null;
@@ -61,6 +480,11 @@ const Timeline = () => {
       default:
         return 'var(--modern-accent)';
     }
+  };
+
+  const truncate = (text, maxLength = 200) => {
+    if (!text || text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + '...';
   };
 
   return (
@@ -93,100 +517,112 @@ const Timeline = () => {
         </div>
       </div>
 
-      <div className="timeline-wrapper">
-        {/* Animated Timeline Line */}
-        <div className="timeline-line">
-          <div className="timeline-line-glow"></div>
-          <div className="timeline-line-particles"></div>
-        </div>
-
-        {/* Scrollable container */}
-        <div className="timeline-scroll-container">
-          <div className="timeline-cards-wrapper">
-            {filteredData.map((item, idx) => (
-              <div key={idx} className="timeline-card">
-                {/* Connection line from card to main line */}
-                <div className="timeline-connector">
-                  <div className="timeline-connector-glow"></div>
-                </div>
-
-                {/* Floating Icon */}
-                <div className="timeline-floating-icon">
-                  <div className="timeline-icon-placeholder" style={{ background: `linear-gradient(135deg, ${getCategoryColor(item.category)} 0%, var(--accent-secondary) 100%)` }}>
-                    {getCompanyLogo(item.company) ? (
-                      <img 
-                        src={getCompanyLogo(item.company)} 
-                        alt={`${item.company} logo`}
-                        className="timeline-company-logo"
-                      />
-                    ) : (
-                      <span className="timeline-icon-text">{item.icon}</span>
-                    )}
-                  </div>
-                  <div className="timeline-icon-glow"></div>
-                </div>
-
-                {/* Card content */}
-                <div className="timeline-card-content">
-                  {/* Card details */}
-                  <div className="timeline-card-details">
-                    <div className="timeline-year">{item.year}</div>
-                    <div className="timeline-title">{item.title}</div>
-                    <div className="timeline-institution">
-                      <div className="company-name">
-                        {item.company}
-                      </div>
-                      <div className="location">
-                        {item.location}
+      <div className="timeline-wrapper-modern">
+        <div className="timeline-list-modern">
+          {filteredData.map((item, idx) => {
+            const hasGallery = item.gallery && item.gallery.length > 0;
+            const galleryCount = item.gallery?.length || 0;
+            const isExpanded = expanded[item.id];
+            
+            return (
+              <div 
+                key={item.id} 
+                className={`timeline-row-modern ${hasGallery ? '' : 'no-gallery'}`}
+                style={{ '--card-index': idx }}
+              >
+                {/* Content side */}
+                <div className="timeline-content-modern">
+                  {/* Logo and header */}
+                  <div className="timeline-header-row">
+                    <div 
+                      className="timeline-logo-modern"
+                      style={{ background: `linear-gradient(135deg, ${getCategoryColor(item.category)} 0%, var(--accent-secondary) 100%)` }}
+                    >
+                      {getCompanyLogo(item.company) ? (
+                        <img 
+                          src={getCompanyLogo(item.company)} 
+                          alt={`${item.company} logo`}
+                          className="timeline-company-logo"
+                        />
+                      ) : (
+                        <span className="timeline-icon-text">{item.icon}</span>
+                      )}
+                    </div>
+                    <div className="timeline-header-info">
+                      <div className="timeline-year-modern">{item.year}</div>
+                      <h3 className="timeline-title-modern">{item.title}</h3>
+                      <div className="timeline-company-modern">
+                        <span className="company-name">{item.company}</span>
+                        <span className="location">{item.location}</span>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Technologies */}
-                    {item.technologies && item.technologies.length > 0 && (
-                      <div className="timeline-technologies">
-                        <div className="technologies-label">
-                          {item.category === 'education' ? 'Focus:' : 'Technologies:'}
-                        </div>
-                        <div className="technologies-list">
-                          {item.technologies.map((tech, i) => (
-                            <span key={i} className="technology-tag">{tech}</span>
-                          ))}
-                        </div>
+                  {/* Technologies */}
+                  {item.technologies && item.technologies.length > 0 && (
+                    <div className="timeline-technologies-modern">
+                      <span className="tech-label">{item.category === 'education' ? 'Focus:' : 'Technologies:'}</span>
+                      <div className="tech-tags">
+                        {item.technologies.map((tech, i) => (
+                          <span key={i} className="tech-tag">{tech}</span>
+                        ))}
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Achievements */}
-                    {item.achievements && item.achievements.length > 0 && (
-                      <div className="timeline-achievements">
-                        <div className="achievements-label">
-                          {item.category === 'education' ? 'Highlights:' : 'Key Achievements:'}
-                        </div>
-                        <div className="achievements-list">
-                          {item.achievements.map((achievement, i) => (
-                            <span key={i} className="achievement-badge">
-                              <span className="achievement-icon">🏆</span>
-                              {achievement}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Details list - hidden by default, shown on hover */}
-                    {item.details && item.details.length > 0 && (
-                      <ul className="timeline-details">
-                        {item.details.map((detail, i) => (
+                  {/* Details */}
+                  {item.details && item.details.length > 0 && (
+                    <div className="timeline-details-modern">
+                      <ul className={`details-list ${isExpanded ? 'expanded' : ''}`}>
+                        {(isExpanded ? item.details : item.details.slice(0, 2)).map((detail, i) => (
                           <li key={i}>{detail}</li>
                         ))}
                       </ul>
-                    )}
-                  </div>
+                      {item.details.length > 2 && (
+                        <button 
+                          className="view-toggle"
+                          onClick={() => toggleExpand(item.id)}
+                        >
+                          {isExpanded ? 'View less' : `View ${item.details.length - 2} more...`}
+                        </button>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Key Highlights/Keywords */}
+                  {item.highlights && item.highlights.length > 0 && (
+                    <div className="timeline-highlights-modern">
+                      {item.highlights.map((highlight, i) => (
+                        <span key={i} className="highlight-badge-modern">
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
+
+                {/* Gallery side */}
+                {hasGallery && (
+                  <div className={`timeline-gallery-modern ${galleryCount === 1 ? 'single-item' : ''} ${galleryCount === 3 ? 'three-items' : ''} ${galleryCount >= 4 ? 'many-items' : ''}`}>
+                    {item.gallery.map((media, i) => (
+                      <MediaItem key={i} item={media} originalUrl={media.url} onOpenModal={openModal} />
+                    ))}
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
+
+      {/* Media Modal */}
+      {modalMedia && (
+        <MediaModal 
+          item={modalMedia.item} 
+          type={modalMedia.type} 
+          onClose={closeModal} 
+        />
+      )}
     </section>
   );
 };

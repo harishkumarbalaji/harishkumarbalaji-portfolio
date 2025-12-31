@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Darshan Vijayaraghavan - Software Engineer",
-    "description": "Currently expanding my CS knowledge at CU Boulder while drawing from years of building production-grade systems. I thrive at the intersection of full-stack development and cloud infrastructure, where complex problems become elegant solutions. I've discovered that the best engineering happens when solid fundamentals meet relentless curiosity about what's possible.",
-    "author": "Darshan Vijayaraghavan",
+    "title": "Harish Kumar Balaji - Autonomy & Robotics Engineer",
+    "description": "Passionate autonomy and simulation engineer with 3+ years of hands-on experience building and validating robotics software for real vehicles and simulation stacks. I thrive at the intersection of low-level systems programming and high-level autonomy, where complex robotic challenges become elegant solutions.",
+    "author": "Harish Kumar Balaji",
     "version": "1.0.0"
   },
   "sections": {
@@ -32,7 +32,7 @@
     }
   },
   "navigation": {
-    "logo": "DV",
+    "logo": "HKB",
     "menuItems": [
       {
         "id": "home",
@@ -61,17 +61,17 @@
     ]
   },
   "hero": {
-    "name": "Darshan Vijayaraghavan",
+    "name": "Harish Kumar Balaji",
     "greeting": "Hello, I'm",
-    "waveEmoji": "👋",
+    "waveEmoji": "🤖",
     "roles": [
-      "Scalable Systems Architect",
-      "Cloud-Native Solutions Builder",
-      "AI Enthusiast",
-      "Software Developer & Researcher",
-      "Grad Student Solving Big Problems"
+      "Autonomy & Robotics Engineer",
+      "Simulation Systems Developer",
+      "Autonomous Vehicle Specialist",
+      "ROS/ROS2 Expert",
+      "Robotics Software Architect"
     ],
-    "description": "Currently expanding my CS knowledge at CU Boulder while drawing from years of building production-grade systems. I thrive at the intersection of full-stack development and cloud infrastructure, where complex problems become elegant solutions. I've discovered that the best engineering happens when solid fundamentals meet relentless curiosity about what's possible.",
+    "description": "Passionate autonomy and simulation engineer with 3+ years of hands-on experience building and validating robotics software for real vehicles and simulation stacks. I thrive at the intersection of low-level systems programming and high-level autonomy, where complex robotic challenges become elegant solutions.",
     "stats": [
       {
         "number": "3+",
@@ -82,8 +82,8 @@
         "label": "GPA"
       },
       {
-        "number": "3",
-        "label": "Major Companies"
+        "number": "5+",
+        "label": "Major Projects"
       }
     ],
     "buttons": [
@@ -99,9 +99,9 @@
       }
     ],
     "card": {
-      "avatar": "👨‍💻",
+      "avatar": "🤖",
       "status": "Available for opportunities",
-      "techStack": ["React", "Node.js", "Angular", "Python", "AWS"]
+      "techStack": ["C++", "Python", "ROS2", "Gazebo", "Docker"]
     },
     "scrollIndicator": {
       "text": "Scroll to explore"
@@ -110,11 +110,11 @@
   "about": {
     "title": "About Me",
     "content": [
-      "My journey began in Electronics and Communication Engineering, but I was quickly drawn into Computer Science through the sheer joy of problem-solving. What started with frontend development soon expanded into backend systems, databases, system design, and eventually cloud computing. Each step revealed new layers of complexity and possibility.",
-      "Here's what drives me: I'm incredibly self-driven and constantly comparing systems, approaches, and solutions. I'm usually overloaded with questions like <em>'Why is this particular thing built this way?'</em> Turns out, that relentless curiosity is exactly the instinct you need for system design, so I guess I'm doing exactly what I was meant to do.",
-      "But I'm never done learning. Right now, I have my foot deep in AI, constantly exploring new technologies because learning different tech stacks gives me more tools to solve real-world problems. Every new framework, every new approach, every new paradigm expands what's possible. When I'm not coding, you'll find me traveling and drawing portraits, which, funny enough, connects right back to why I love frontend development. Both require the same eye for composition, balance, and making something beautiful that people want to look at.",
-      "Whether it's architecting a complex distributed system or crafting an intuitive user interface, I believe the best solutions emerge when technical excellence meets genuine curiosity about what's possible.",
-      "<strong> Ready to explore what we can build together?</strong>"
+      "My journey began in Electronics and Communication Engineering, but I was quickly drawn into robotics and autonomous systems through the sheer joy of solving complex real-world problems. What started with basic embedded systems soon expanded into full-stack robotics software, simulation frameworks, and eventually autonomous vehicle development. Each step revealed new layers of complexity and possibility in the world of robotics.",
+      "Here's what drives me: I'm incredibly passionate about bridging the gap between simulation and reality. I'm constantly asking questions like <em>'How can we make robots more reliable and efficient?'</em> and <em>'What's the best way to validate autonomous systems before deployment?'</em> This relentless curiosity has led me to work on everything from low-level C++ systems to high-level perception algorithms.",
+      "My day-to-day work blends low-level systems programming (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), plus CI-driven SIL/HIL testing and cloud/dockerized deployment. I enjoy the full feedback loop — designing behaviors and tools in simulation, bringing them to hardware, and iterating quickly from field data.",
+      "Whether it's developing a high-fidelity robot simulation or implementing path planning algorithms for autonomous vehicles, I believe the best robotic solutions emerge when technical excellence meets genuine curiosity about what's possible in the world of autonomy.",
+      "<strong>Ready to explore what we can build together in robotics and autonomy?</strong>"
     ]
   },
   "contact": {
@@ -125,27 +125,27 @@
       {
         "type": "email",
         "label": "Email",
-        "value": "davi1493@colorado.edu",
+        "value": "hkb2@illinois.edu",
         "icon": "email"
       },
       {
         "type": "phone",
         "label": "Phone",
-        "value": "+1 (303) 641-0263",
+        "value": "+1 (447) 902-7306",
         "icon": "phone"
       },
       {
         "type": "linkedin",
         "label": "LinkedIn",
-        "value": "linkedin.com/in/darshan-vijay",
-        "url": "https://linkedin.com/in/darshan-vijay",
+        "value": "linkedin.com/in/harishkumarbalaji",
+        "url": "https://linkedin.com/in/harishkumarbalaji",
         "icon": "linkedin"
       },
       {
         "type": "github",
         "label": "GitHub",
-        "value": "github.com/darshan-vijay",
-        "url": "https://github.com/darshan-vijay",
+        "value": "github.com/harishkumarbalaji",
+        "url": "https://github.com/harishkumarbalaji",
         "icon": "github"
       }
     ],
@@ -179,17 +179,22 @@
     "links": [
       {
         "name": "LinkedIn",
-        "url": "https://linkedin.com/in/darshan-vijay",
+        "url": "https://linkedin.com/in/harishkumarbalaji",
         "icon": "linkedin"
       },
       {
         "name": "GitHub",
-        "url": "https://github.com/darshan-vijay",
+        "url": "https://github.com/harishkumarbalaji",
         "icon": "github"
       },
       {
+        "name": "Portfolio",
+        "url": "https://bit.ly/harishkumarbalaji",
+        "icon": "portfolio"
+      },
+      {
         "name": "Download Resume",
-        "url": "/Darshan_Vijayaraghavan_Resume.pdf",
+        "url": "/Harish_Kumar_Balaji_Resume.pdf",
         "icon": "resume",
         "download": true
       }
@@ -198,197 +203,312 @@
   "projects": [
     {
       "id": 1,
-      "title": "Quiz Generator",
-      "description": "Developed a platform that scrapes web pages, generates quizzes using LLMs, and publishes them via Google Forms API. Features containerized deployment with CI/CD pipelines using GitHub Actions and Argo CD following GitOps principles.",
-      "technologies": ["React.js", "RabbitMQ", "Kubernetes", "Argo CD", "GitHub Actions", "GitLab", "GKE"],
-      "image": "quiz",
-      "github": "https://github.com/darshan-vijay/Quiz_Generator",
-      "live": "https://www.loom.com/share/2025fb5d8bea46679c4feb12bd315b54?sid=33404057-0173-4d53-a53e-4dd19e6a966e",
-      "category": "DevOps & AI"
+      "title": "Optimal Indoor Path Planning",
+      "year": "May 2023 - Aug 2024",
+      "description": "Engineered and steered an indoor robotic navigation project leveraging Nvidia's Isaac ROS dockers on Jetson Xavier NX, integrating Behavior Trees (BT) Navigator for efficient decision-making in food delivery from cafeteria to desk. Improved localization accuracy by integrating ORB Visual SLAM and optimized navigation speed by modifying A* heuristics based on dynamic obstacle detection from CCTVs.",
+      "technologies": ["C++", "Python", "ROS2", "Isaac ROS", "Jetson Xavier NX", "OpenCV", "Behavior Trees"],
+      "highlights": ["Isaac ROS", "Behavior Trees", "ORB Visual SLAM", "A* Heuristics"],
+      "image": "robot",
+      "github": "https://github.com/harishkumarbalaji",
+      "live": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
+      "category": "Robotics & Navigation",
+      "gallery": [
+        {
+          "title": "Conference Talks Playlist",
+          "url": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
+          "type": "youtube"
+        }
+      ]
     },
     {
       "id": 2,
-      "title": "Study Group Manager",
-      "description": "Developed an application enabling students with similar interests to join study groups, build connections, and collaborate effectively. Features online/offline sessions, real-time group/private chats, and automated email notifications.",
-      "technologies": ["React.js", "Node.js", "NoSQL", "Redis", "RabbitMQ", "WebSocket", "Docker", "Kubernetes", "Terraform"],
-      "image": "study",
-      "github": "https://github.com/darshan-vijay/Study-group-manager",
-      "live": "https://youtu.be/hWxHUJqYAns?feature=shared",
-      "category": "Full-Stack & Cloud"
+      "title": "Japan Automotive AI Challenge",
+      "year": "Jun 2023 - Nov 2023",
+      "description": "Led a 3-member team to optimize Autoware's behavior path planner and implemented a custom RRT planner for obstacle avoidance in narrow paths for a driverless golf cart. Secured second position in the simulation round and participated in the finals held at the University of Tokyo.",
+      "technologies": ["C++", "Python", "Autoware", "RRT", "CARLA", "ROS2", "Path Planning"],
+      "highlights": ["Finalist", "2nd in Simulation", "Custom RRT Planner", "Autoware"],
+      "image": "autonomous",
+      "github": "https://github.com/harishkumarbalaji",
+      "live": "https://youtu.be/QRy0JJIan08?si=1_renilhYjiIOriz",
+      "category": "Autonomous Vehicles",
+      "gallery": [
+        {
+          "title": "Autonomous Golf Cart",
+          "url": "https://youtu.be/8ONXMX1tRN4?si=H-i_1Ug6weN2psTb",
+          "type": "youtube"
+        },
+        {
+          "title": "Simulation Submission",
+          "url": "https://youtu.be/V9Yh-gPp8DM?si=AR5lAA09y8lva7ac",
+          "type": "youtube"
+        },
+        {
+          "title": "JSAE Leaderboard",
+          "url": "https://www.jsae.or.jp/jaaic/en/2023ver/result/",
+          "type": "link"
+        }
+      ]
     },
     {
       "id": 3,
-      "title": "Plant-Doc",
-      "description": "Built an intelligent plant disease detection system using computer vision and deep learning. The application analyzes plant images to identify diseases and provides treatment recommendations for farmers and gardeners.",
-      "technologies": ["Python", "TensorFlow", "OpenCV", "Flask", "CNN", "Image Processing"],
-      "image": "plant",
-      "github": "https://github.com/darshan-vijay/Plant-Doc",
-      "live": "https://youtu.be/2WJns_VitCA?feature=shared",
-      "category": "AI & Computer Vision"
+      "title": "AWS Deepracer League",
+      "year": "Jan 2022 - May 2022",
+      "description": "Coordinated a 4-member team to achieve third position in the 'AWS Deepracer League - Nationals' leaderboard, skillfully applying various strategies in creating a Reinforcement Learning model for autonomous racing. Implemented advanced RL algorithms and optimization techniques for high-speed autonomous navigation.",
+      "technologies": ["Python", "TensorFlow", "Reinforcement Learning", "AWS", "Robotics", "Machine Learning"],
+      "highlights": ["3rd Place Nationals", "Reinforcement Learning", "Team Lead"],
+      "image": "racing",
+      "github": "https://github.com/harishkumarbalaji",
+      "live": "#",
+      "category": "AI & Machine Learning",
+      "gallery": [
+        {
+          "title": "AWS DeepRacer League Notes",
+          "url": "https://docs.google.com/document/d/1a2b3c4d5e6f7g8h9i0jklmnopqrstuv",
+          "type": "link"
+        },
+        {
+          "title": "AWS DeepRacer League Slides",
+          "url": "https://docs.google.com/presentation/d/19gd_qdPoetUsXAQhERdMwEtPm0gkof1KgWLoFWkNmpw/edit?usp=sharing",
+          "type": "google_slides"
+        }
+      ]
     },
     {
       "id": 4,
-      "title": "VQA Model",
-      "description": "Implemented a Visual Question Answering system that combines computer vision and natural language processing to answer questions about images. Uses deep learning models to understand visual content and generate accurate text responses.",
-      "technologies": ["Python", "PyTorch", "Transformers", "BERT", "ResNet", "NLP", "Computer Vision"],
-      "image": "ai",
-      "github": "https://github.com/darshan-vijay/VQA-Model",
+      "title": "World Robotics Championship",
+      "year": "Mar 2019 - Sep 2019",
+      "description": "Led a 5-member team to achieve second place in the 'Micromouse - Mazesolver' competition by designing a self-navigating robot that utilized a modified left-wall follower algorithm on resource-constrained hardware like Arduino Mega, enabling efficient navigation and solving of intricate mazes.",
+      "technologies": ["C++", "Arduino", "Embedded Systems", "Path Planning", "Maze Solving", "Algorithms"],
+      "highlights": ["2nd Place", "Team Lead", "Modified Wall Follower", "Arduino Mega"],
+      "image": "maze",
+      "github": "https://github.com/harishkumarbalaji",
       "live": "#",
-      "category": "AI & ML"
+      "category": "Embedded Systems",
+      "gallery": [
+        {
+          "title": "5th World Robotics Championship",
+          "url": "https://youtu.be/vIidGcHZt4c?si=7rIOBDwGHRDdfGCP",
+          "type": "youtube"
+        }
+      ]
     },
     {
       "id": 5,
-      "title": "Wildfire Prediction",
-      "description": "Developed a machine learning model to predict wildfire occurrence and spread using weather data, geographical features, and historical fire patterns. Includes data visualization and risk assessment dashboards.",
-      "technologies": ["Python", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter"],
-      "image": "fire",
-      "github": "https://github.com/darshan-vijay/wildfire-prediction",
+      "title": "Terramax Robot Simulation",
+      "year": "Dec 2024 - May 2025",
+      "description": "Developed a high-fidelity Dual Ackermann steering plugin for Gazebo Harmonic via ROS 2 Control, accurately simulating the 1,000 lb Terramax robot's 4-wheel kinematics, with integrated GPS, IMU, and multi-camera sensors modeled with realistic noise, achieving simulation accuracy within 10 cm of real-world trajectories.",
+      "technologies": ["C++", "Python", "ROS2", "Gazebo", "Docker", "Simulation", "Robotics"],
+      "highlights": ["Dual Ackermann Plugin", "10cm Accuracy", "Digital Twin"],
+      "image": "simulation",
+      "github": "https://github.com/harishkumarbalaji",
       "live": "#",
-      "category": "Data Science & ML"
+      "category": "Simulation & Control",
+      "gallery": [
+        {
+          "title": "Digital Twin Robotics Simulation @ EarthSense",
+          "url": "https://www.linkedin.com/posts/earthsense-inc_gazebo-ros2-gazeboabrharmonic-ugcPost-7335513427777388544-49TS?utm_source=share&utm_medium=member_android&rcm=ACoAAC1ZoOUBNqOsc0xUOI5cYRrmMg17MlaLjeo",
+          "type": "linkedin"
+        }
+      ]
     }
   ],
   "education": [
     {
-      "year": "Aug 2024 - May2026",
-      "title": "Master's in Computer Science",
-      "company": "University of Colorado Boulder",
-      "location": "Boulder, CO",
+      "year": "Aug 2024 - Dec 2025",
+      "title": "M.Eng. Autonomy and Robotics",
+      "company": "University of Illinois at Urbana-Champaign",
+      "location": "IL, USA",
       "icon": "🎓",
-      "technologies": ["Cloud Computing", "Artificial Intelligence"],
+      "technologies": ["Autonomous Systems", "Robotics", "Computer Vision"],
       "details": [
         "GPA: 4.0/4.0",
-        "Relevant Courses: Data Center Scale Computing, Software Engineering, Natural Language Processing, Neural Networks"
+        "Relevant Courses: Autonomous Vehicle Systems, Principles of Safe Autonomy, Real-Time and Cyber-Physical Systems, Computer Graphics, Computer Vision, Deep Learning, Control Systems, Embedded Systems, Computer Architecture & Organization"
       ],
-      "achievements": ["Perfect GPA", "Graduate Student"]
+      "highlights": ["4.0 GPA", "Autonomous Vehicle Systems", "Safe Autonomy", "Deep Learning"],
+      "gallery": [
+        {
+          "title": "Starting UIUC Journey",
+          "url": "https://www.linkedin.com/posts/harishkumarbalaji_career-update-robotics-activity-7234779422145327104-cVmU",
+          "type": "linkedin"
+        }
+      ]
     },
     {
-      "year": "Jul 2017 - Apr 2021",
-      "title": "B.E. Electronics and Communication Engineering",
-      "company": "College of Engineering Guindy, Anna University",
+      "year": "Aug 2017 - May 2021",
+      "title": "B.Eng. Electronics and Communication Engineering",
+      "company": "Anna University",
       "location": "Chennai, India",
       "icon": "🎓",
-      "technologies": ["Web Development", "Data Structures"],
+      "technologies": ["Embedded Systems", "Signal Processing", "Control Systems"],
       "details": [
-        "GPA: 8.77/10",
-        "Relevant Courses: Data Structures & OOPS, Computer Architecture, Operating Systems"
+        "GPA: 8.63/10",
+        "Relevant Courses: Control Systems, Embedded Systems, Computer Architecture & Organization, Signal Processing, Digital Electronics"
       ],
-      "achievements": ["High Academic Performance", "Strong Foundation"]
+      "highlights": ["8.63/10 GPA", "Embedded Systems", "Control Systems"],
+      "gallery": []
     }
   ],
   "experience": [
     {
+      "year": "Aug 2025 - Dec 2025",
+      "title": "Simulation Engineering Intern",
+      "company": "Zipline",
+      "location": "South San Francisco, CA",
+      "icon": "🚁",
+      "technologies": ["Rust", "C++", "Simulation", "GNC", "Physics"],
+      "details": [
+        "Contributing to the development of Zipline's Rust-based physics simulator",
+        "Integrating simulator into Software, Hardware, and Model-in-the-Loop frameworks",
+        "Validating the full autonomy stack across Guidance, Navigation, and Control (GNC) domains",
+        "Working on cutting-edge drone delivery technology and autonomous systems"
+      ],
+      "highlights": ["Rust-based Physics Simulator", "SIL/HIL/MIL Frameworks", "GNC Validation"],
+      "gallery": [
+        {
+          "title": "Internship Wrap-up @ Zipline",
+          "url": "https://www.linkedin.com/posts/harishkumarbalaji_simulationengineering-zipline-robotics-activity-7406012560841510912-g33Y",
+          "type": "linkedin"
+        }
+      ]
+    },
+    {
       "year": "May 2025 - Aug 2025",
-      "title": "Software Engineering Intern",
-      "company": "Agilysys NV, LLC",
-      "location": "Alpharetta, USA",
-      "icon": "💼",
-      "technologies": [".NET", "Angular", "SQL Server"],
+      "title": "Systems Design Engineer Intern",
+      "company": "Skydio",
+      "location": "San Mateo, CA",
+      "icon": "🚁",
+      "technologies": ["C++", "Python", "GPU", "OpenGL", "3D Graphics", "HIL"],
       "details": [
-        "Built full-stack admin dashboard for Loyalty and Promotions product",
-        "Designed SQL schemas and optimized stored procedures",
-        "Implemented secure REST APIs and responsive UI",
-        "Added features like interactive charts, personalization, role-based access control"
+        "Engineered a JSON-based world generation framework for Skydio's in-house simulator with GPU instancing",
+        "Reduced GPU memory usage by 65% per GLTF file and enabled mixed-reality integration",
+        "Built kernel and system-level features for Skydio's next-generation remote controller",
+        "Integrated with Hardware-In-the-Loop (HIL) test bench to validate performance across simulation and real drone platforms"
       ],
-      "achievements": ["Full-Stack Development", "Enterprise Software"]
+      "highlights": ["GPU Instancing", "65% Memory Optimization", "Mixed-Reality Integration", "HIL Testing"],
+      "gallery": [
+        {
+          "title": "Joining Skydio Announcement",
+          "url": "https://www.linkedin.com/posts/harishkumarbalaji_skydio-robotics-newbeginnings-activity-7340864647320825856-mH4B",
+          "type": "linkedin"
+        }
+      ]
     },
     {
-      "year": "Jul 2023 - Aug 2024",
-      "title": "Application Developer 2",
-      "company": "Citicorp Services India Private Limited",
-      "location": "Chennai, India",
-      "icon": "🏦",
-      "technologies": ["Angular", "jQuery", "Nx", "CI/CD"],
+      "year": "Dec 2024 - May 2025",
+      "title": "Robotics Simulation Software Engineer Intern",
+      "company": "EarthSense",
+      "location": "Champaign, IL",
+      "icon": "🚜",
+      "technologies": ["C++", "Python", "ROS2", "Gazebo", "Docker", "GPS", "IMU"],
       "details": [
-        "Migrated monolithic Angular and jQuery apps to micro frontend architecture",
-        "Reduced build time by 95% and accelerated CI/CD processes",
-        "Developed reusable table component adopted across teams",
-        "Reduced development time by 80% with efficient components"
+        "Developed a high-fidelity Dual Ackermann steering plugin for Gazebo Harmonic via ROS 2 Control",
+        "Accurately simulated the 1,000 lb Terramax robot's 4-wheel kinematics with integrated GPS, IMU, and multi-camera sensors",
+        "Achieved simulation accuracy within 10 cm of real-world trajectories",
+        "Built a Dockerized digital twin with custom encoder plugin and CI-integrated deployment, reducing manual testing by 85%"
       ],
-      "achievements": ["Architecture Migration", "Team Impact"]
+      "highlights": ["Dual Ackermann Plugin", "Digital Twin", "10cm Accuracy", "85% Testing Reduced"],
+      "gallery": [
+        {
+          "title": "Joining EarthSense Announcement",
+          "url": "https://www.linkedin.com/posts/harishkumarbalaji_agtech-agriculture-robotics-activity-7277535427119521793-SMrR",
+          "type": "linkedin"
+        },
+        {
+          "title": "Digital Twin Simulation @ EarthSense",
+          "url": "https://www.linkedin.com/posts/earthsense-inc_gazebo-ros2-gazeboabrharmonic-ugcPost-7335513427777388544-49TS",
+          "type": "linkedin"
+        }
+      ]
     },
     {
-      "year": "Jul 2022 - Jul 2023",
-      "title": "Data Analyst",
-      "company": "Citicorp Services India Private Limited",
-      "location": "Chennai, India",
-      "icon": "📊",
-      "technologies": ["Power BI", "Excel", "ServiceNow"],
+      "year": "Mar 2021 - Aug 2024",
+      "title": "Consultant Developer",
+      "company": "Thoughtworks",
+      "location": "India",
+      "icon": "🚛",
+      "technologies": ["C++", "Python", "ROS", "CARLA", "Docker", "Yocto", "V2X"],
       "details": [
-        "Developed comprehensive dashboard for global patching data",
-        "Maintained server patching above 97% for compliance",
-        "Created interactive dashboards from 70,000+ server incident reports",
-        "Reduced aging incidents by 17% and user escalations by 50%"
+        "Developed and integrated perception-based awareness modules with V2X systems for self-driving quarry trucks",
+        "Designed custom Rviz plugins to visualize perception messages, improving debugging efficiency by 60%",
+        "Led the design and development of scenario-based tests for autonomous driving algorithms with CARLA Simulator",
+        "Improved reliability and reduced deployment issues by 40% through CI pipeline using Docker and custom Yocto Linux image"
       ],
-      "achievements": ["Citi Delivers with Pride Gold Award", "Succeed Together Bronze Award"]
+      "highlights": ["V2X Systems", "Custom Rviz Plugins", "CARLA Simulator", "Yocto Linux"],
+      "gallery": [
+        {
+          "title": "Thoughtworks Journey Reflection",
+          "url": "https://www.linkedin.com/posts/harishkumarbalaji_thoughtworks-careerjourney-professionalgrowth-activity-7228377117770575872-m4XC",
+          "type": "linkedin"
+        },
+        {
+          "title": "Autonomous Driving with Pixkit & Autoware",
+          "url": "https://youtu.be/QRy0JJIan08?si=1_renilhYjiIOriz",
+          "type": "youtube"
+        },
+        {
+          "title": "Conference Talks Playlist",
+          "url": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
+          "type": "youtube"
+        }
+      ]
     },
     {
-      "year": "Jul 2021 - Jul 2022",
-      "title": "Application Developer",
-      "company": "Citicorp Services India Private Limited",
-      "location": "Chennai, India",
-      "icon": "💻",
-      "technologies": ["Angular", "JWT", "OAuth 2.0"],
+      "year": "Jun 2020 - Aug 2020",
+      "title": "IoT and Robotics Intern",
+      "company": "Speedways Electric",
+      "location": "India",
+      "icon": "🤖",
+      "technologies": ["Python", "Socket Programming", "Dijkstra's Algorithm", "AGV", "Path Planning"],
       "details": [
-        "Collaborated with 10+ users and design teams to enhance usability",
-        "Improved user satisfaction by 30%",
-        "Achieved 100% cross-platform compatibility",
-        "Implemented JWT authorization and OAuth 2.0 compliance across 3 modules"
+        "Architected a Python-based socket server for real-time data exchange with line-following AGVs in warehouse settings",
+        "Implemented Dijkstra's algorithm for optimal path planning, collision avoidance, and dynamic re-routing",
+        "Reduced delivery time by 30% and enabled successful entry into the warehouse automation market",
+        "Developed efficient algorithms for autonomous vehicle navigation in industrial environments"
       ],
-      "achievements": ["Security Implementation", "User Experience"]
-    },
-    {
-      "year": "May 2020 - Jul 2020",
-      "title": "Engineering Development Group Intern",
-      "company": "MathWorks India Private Limited",
-      "location": "Bangalore, India",
-      "icon": "🔧",
-      "technologies": ["MATLAB", "Simulink", "Wireshark", "Hercules"],
-      "details": [
-        "Developed TCP/IP and UDP test utilities for Simulink communication blocks",
-        "Verified host-to-target communication systems",
-        "Reduced unit test creation time by 40%",
-        "Used MATLAB, Simulink, Wireshark, and Raspberry Pi"
-      ],
-      "achievements": ["Test Automation", "Performance Improvement"]
+      "highlights": ["Socket Server", "Dijkstra's Algorithm", "AGV Navigation", "30% Faster Delivery"],
+      "gallery": []
     }
   ],
   "skills": [
     {
-      "category": "Programming Languages & Databases",
+      "category": "Programming Languages & Systems",
       "skills": [
-        { "name": "JavaScript", "icon": "https://skillicons.dev/icons?i=js" },
-        { "name": "TypeScript", "icon": "https://skillicons.dev/icons?i=ts" },
         { "name": "C++", "icon": "https://skillicons.dev/icons?i=cpp" },
-        { "name": "C", "icon": "https://skillicons.dev/icons?i=c" },
-        { "name": "Java", "icon": "https://skillicons.dev/icons?i=java" },
+        { "name": "Rust", "icon": "https://skillicons.dev/icons?i=rust" },
         { "name": "Python", "icon": "https://skillicons.dev/icons?i=python" },
-        { "name": "HTML5", "icon": "https://skillicons.dev/icons?i=html" },
-        { "name": "CSS3", "icon": "https://skillicons.dev/icons?i=css" },
-        { "name": "MySQL", "icon": "https://skillicons.dev/icons?i=mysql" },
-        { "name": "MongoDB", "icon": "https://skillicons.dev/icons?i=mongodb" },
-        { "name": "Redis", "icon": "https://skillicons.dev/icons?i=redis" }
+        { "name": "C", "icon": "https://skillicons.dev/icons?i=c" },
+        { "name": "Bash", "icon": "https://skillicons.dev/icons?i=bash" },
+        { "name": "Java", "icon": "https://skillicons.dev/icons?i=java" },
+        { "name": "MATLAB", "icon": "https://skillicons.dev/icons?i=matlab" },
+        { "name": "Bitbake", "icon": "https://skillicons.dev/icons?i=bitbake" },
+        { "name": "Linux", "icon": "https://skillicons.dev/icons?i=linux" },
+        { "name": "Arduino", "icon": "https://skillicons.dev/icons?i=arduino" }
       ]
     },
     {
-      "category": "Full-Stack Tools & Frameworks",
+      "category": "Robotics & Autonomy Frameworks",
       "skills": [
-        { "name": "React", "icon": "https://skillicons.dev/icons?i=react" },
-        { "name": "Angular", "icon": "https://skillicons.dev/icons?i=angular" },
-        { "name": "Node.js", "icon": "https://skillicons.dev/icons?i=nodejs" },
-        { "name": "Express", "icon": "https://skillicons.dev/icons?i=express" },
-        { "name": "Figma", "icon": "https://skillicons.dev/icons?i=figma" },
-        { "name": "Bootstrap", "icon": "https://skillicons.dev/icons?i=bootstrap" }
+        { "name": "ROS", "icon": "https://skillicons.dev/icons?i=ros" },
+        { "name": "ROS2", "icon": "https://skillicons.dev/icons?i=ros2" },
+        { "name": "Gazebo", "icon": "https://skillicons.dev/icons?i=gazebo" },
+        { "name": "CARLA", "icon": "https://skillicons.dev/icons?i=carla" },
+        { "name": "OpenCV", "icon": "https://skillicons.dev/icons?i=opencv" },
+        { "name": "SciPy", "icon": "https://skillicons.dev/icons?i=scipy" },
+        { "name": "Autoware", "icon": "https://skillicons.dev/icons?i=autoware" },
+        { "name": "Isaac ROS", "icon": "https://skillicons.dev/icons?i=isaac" }
       ]
     },
     {
       "category": "DevOps & Cloud Platforms",
       "skills": [
         { "name": "Docker", "icon": "https://skillicons.dev/icons?i=docker" },
-        { "name": "Kubernetes", "icon": "https://skillicons.dev/icons?i=kubernetes" },
-        { "name": "Terraform", "icon": "https://skillicons.dev/icons?i=terraform" },
-        { "name": "Jenkins", "icon": "https://skillicons.dev/icons?i=jenkins" },
         { "name": "AWS", "icon": "https://skillicons.dev/icons?i=aws" },
-        { "name": "Google Cloud", "icon": "https://skillicons.dev/icons?i=gcp" }
+        { "name": "Bazel", "icon": "https://skillicons.dev/icons?i=bazel" },
+        { "name": "gRPC", "icon": "https://skillicons.dev/icons?i=grpc" },
+        { "name": "Protobuf", "icon": "https://skillicons.dev/icons?i=protobuf" },
+        { "name": "Git", "icon": "https://skillicons.dev/icons?i=git" },
+        { "name": "Buildkite", "icon": "https://skillicons.dev/icons?i=buildkite" },
+        { "name": "YOCTO", "icon": "https://skillicons.dev/icons?i=yocto" }
       ]
     }
   ]

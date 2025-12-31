@@ -62,7 +62,7 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
           rel={link.download ? "" : "noopener noreferrer"}
           className="social-link"
           aria-label={link.name}
-          download={link.download ? "Darshan_Vijayaraghavan_Resume.pdf" : undefined}
+          download={link.download ? "Harish_Kumar_Balaji_Resume.pdf" : undefined}
           style={{
             '--delay': `${index * 0.1}s`
           }}

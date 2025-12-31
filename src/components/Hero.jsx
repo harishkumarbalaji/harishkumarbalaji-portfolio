@@ -106,8 +106,8 @@ const Hero = () => {
                 className="btn btn-secondary download-resume-btn"
                 onClick={() => {
                   const link = document.createElement('a');
-                  link.href = '/Darshan_Vijayaraghavan_Resume.pdf';
-                  link.download = 'Darshan_Vijayaraghavan_Resume.pdf';
+                  link.href = '/Harish_Kumar_Balaji_Resume.pdf';
+                  link.download = 'Harish_Kumar_Balaji_Resume.pdf';
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);
@@ -122,7 +122,7 @@ const Hero = () => {
             <div className="hero-image-container">
               <img 
                 src={isDark ? "/profile-image-dark.jpg" : "/profile-image.jpg"} 
-                alt="Darshan Vijayaraghavan" 
+                alt="Harish Kumar Balaji" 
                 className="hero-profile-image"
               />
             </div>

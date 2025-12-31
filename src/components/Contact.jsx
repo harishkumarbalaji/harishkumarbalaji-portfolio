@@ -42,7 +42,7 @@ const Contact = () => {
           from_email: formData.email,
           message: formData.message,
           subject: `[PORTFOLIO] New message from ${formData.name}`,
-          to_name: 'Darshan Vijayaraghavan',
+          to_name: 'Harish Kumar Balaji',
         },
         '4O35J-M4xAcLgDqIv'
       );
