@@ -8,13 +8,29 @@ const Projects = () => {
   const [modalMedia, setModalMedia] = useState(null);
   const cardsRef = useRef([]);
 
-  const openModal = useCallback((item, type) => {
-    setModalMedia({ item, type });
+  const openModal = useCallback((item, type, gallery = [], index = 0) => {
+    setModalMedia({ item, type, gallery, index });
   }, []);
 
   const closeModal = useCallback(() => {
     setModalMedia(null);
   }, []);
+
+  const navigateModal = useCallback((direction) => {
+    if (!modalMedia || !modalMedia.gallery || modalMedia.gallery.length <= 1) return;
+    
+    const { gallery, index } = modalMedia;
+    let newIndex = index + direction;
+    
+    // Wrap around
+    if (newIndex < 0) newIndex = gallery.length - 1;
+    if (newIndex >= gallery.length) newIndex = 0;
+    
+    const newItem = gallery[newIndex];
+    const newType = detectMedia(newItem);
+    
+    setModalMedia({ item: newItem, type: newType, gallery, index: newIndex });
+  }, [modalMedia]);
 
   useEffect(() => {
     fetch('/portfolioData.json')
@@ -366,19 +382,25 @@ const Projects = () => {
     );
   };
 
-  // Modal component for expanded media view
-  const MediaModal = ({ item, type, onClose }) => {
+  // Modal component for expanded media view with navigation
+  const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) => {
+    const hasMultiple = gallery && gallery.length > 1;
+    
     useEffect(() => {
-      const handleEscape = (e) => {
+      const handleKeyDown = (e) => {
         if (e.key === 'Escape') onClose();
+        if (hasMultiple) {
+          if (e.key === 'ArrowLeft') onNavigate(-1);
+          if (e.key === 'ArrowRight') onNavigate(1);
+        }
       };
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
       return () => {
-        document.removeEventListener('keydown', handleEscape);
+        document.removeEventListener('keydown', handleKeyDown);
         document.body.style.overflow = '';
       };
-    }, [onClose]);
+    }, [onClose, onNavigate, hasMultiple]);
 
     const handleBackdropClick = (e) => {
       if (e.target.classList.contains('media-modal-backdrop')) {
@@ -465,11 +487,45 @@ const Projects = () => {
             </svg>
           </button>
           
+          {/* Left navigation arrow */}
+          {hasMultiple && (
+            <button 
+              className="media-modal-nav media-modal-nav-left" 
+              onClick={() => onNavigate(-1)}
+              aria-label="Previous media"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+          )}
+          
           <div className="media-modal-content">
             {renderModalContent()}
           </div>
           
-          {item?.title && <div className="media-modal-title">{item.title}</div>}
+          {/* Right navigation arrow */}
+          {hasMultiple && (
+            <button 
+              className="media-modal-nav media-modal-nav-right" 
+              onClick={() => onNavigate(1)}
+              aria-label="Next media"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          )}
+          
+          {/* Title and counter */}
+          <div className="media-modal-footer">
+            {item?.title && <div className="media-modal-title">{item.title}</div>}
+            {hasMultiple && (
+              <div className="media-modal-counter">
+                {currentIndex + 1} / {gallery.length}
+              </div>
+            )}
+          </div>
           
           <div className="media-modal-actions">
             <a
@@ -582,7 +638,11 @@ const Projects = () => {
                 {hasGallery && (
                   <div className={`project-timeline-gallery ${isSingleGallery ? 'single' : ''}`}>
                     {galleryItems.map((item, i) => (
-                      <MediaItem key={i} item={item} onOpenModal={openModal} />
+                      <MediaItem 
+                        key={i} 
+                        item={item} 
+                        onOpenModal={(mediaItem, type) => openModal(mediaItem, type, galleryItems, i)} 
+                      />
                     ))}
                   </div>
                 )}
@@ -596,8 +656,11 @@ const Projects = () => {
       {modalMedia && (
         <MediaModal 
           item={modalMedia.item} 
-          type={modalMedia.type} 
-          onClose={closeModal} 
+          type={modalMedia.type}
+          gallery={modalMedia.gallery}
+          currentIndex={modalMedia.index}
+          onClose={closeModal}
+          onNavigate={navigateModal}
         />
       )}
     </section>
