@@ -291,25 +291,6 @@
           "type": "youtube"
         }
       ]
-    },
-    {
-      "id": 5,
-      "title": "Terramax Robot Simulation",
-      "year": "Dec 2024 - May 2025",
-      "description": "Developed a high-fidelity Dual Ackermann steering plugin for Gazebo Harmonic via ROS 2 Control, accurately simulating the 1,000 lb Terramax robot's 4-wheel kinematics, with integrated GPS, IMU, and multi-camera sensors modeled with realistic noise, achieving simulation accuracy within 10 cm of real-world trajectories.",
-      "technologies": ["C++", "Python", "ROS2", "Gazebo", "Docker", "Simulation", "Robotics"],
-      "highlights": ["Dual Ackermann Plugin", "10cm Accuracy", "Digital Twin"],
-      "image": "simulation",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "#",
-      "category": "Simulation & Control",
-      "gallery": [
-        {
-          "title": "Digital Twin Robotics Simulation @ EarthSense",
-          "url": "https://www.linkedin.com/posts/earthsense-inc_gazebo-ros2-gazeboabrharmonic-ugcPost-7335513427777388544-49TS?utm_source=share&utm_medium=member_android&rcm=ACoAAC1ZoOUBNqOsc0xUOI5cYRrmMg17MlaLjeo",
-          "type": "linkedin"
-        }
-      ]
     }
   ],
   "education": [
@@ -317,6 +298,7 @@
       "year": "Aug 2024 - Dec 2025",
       "title": "M.Eng. Autonomy and Robotics",
       "company": "University of Illinois at Urbana-Champaign",
+      "website": "https://illinois.edu",
       "location": "IL, USA",
       "icon": "🎓",
       "technologies": ["Autonomous Systems", "Robotics", "Computer Vision"],
@@ -337,6 +319,7 @@
       "year": "Aug 2017 - May 2021",
       "title": "B.Eng. Electronics and Communication Engineering",
       "company": "Anna University",
+      "website": "https://www.annauniv.edu",
       "location": "Chennai, India",
       "icon": "🎓",
       "technologies": ["Embedded Systems", "Signal Processing", "Control Systems"],
@@ -353,6 +336,7 @@
       "year": "Aug 2025 - Dec 2025",
       "title": "Simulation Engineering Intern",
       "company": "Zipline",
+      "website": "https://www.flyzipline.com",
       "location": "South San Francisco, CA",
       "icon": "🚁",
       "technologies": ["Rust", "C++", "Simulation", "GNC", "Physics"],
@@ -375,6 +359,7 @@
       "year": "May 2025 - Aug 2025",
       "title": "Systems Design Engineer Intern",
       "company": "Skydio",
+      "website": "https://www.skydio.com",
       "location": "San Mateo, CA",
       "icon": "🚁",
       "technologies": ["C++", "Python", "GPU", "OpenGL", "3D Graphics", "HIL"],
@@ -397,6 +382,7 @@
       "year": "Dec 2024 - May 2025",
       "title": "Robotics Simulation Software Engineer Intern",
       "company": "EarthSense",
+      "website": "https://www.earthsense.co",
       "location": "Champaign, IL",
       "icon": "🚜",
       "technologies": ["C++", "Python", "ROS2", "Gazebo", "Docker", "GPS", "IMU"],
@@ -408,6 +394,11 @@
       ],
       "highlights": ["Dual Ackermann Plugin", "Digital Twin", "10cm Accuracy", "85% Testing Reduced"],
       "gallery": [
+        {
+          "title": "Terramax Robot Simulation",
+          "url": "https://youtu.be/oqYgwP4yfPw",
+          "type": "youtube"
+        },
         {
           "title": "Joining EarthSense Announcement",
           "url": "https://www.linkedin.com/posts/harishkumarbalaji_agtech-agriculture-robotics-activity-7277535427119521793-SMrR",
@@ -424,6 +415,7 @@
       "year": "Mar 2021 - Aug 2024",
       "title": "Consultant Developer",
       "company": "Thoughtworks",
+      "website": "https://www.thoughtworks.com",
       "location": "India",
       "icon": "🚛",
       "technologies": ["C++", "Python", "ROS", "CARLA", "Docker", "Yocto", "V2X"],
@@ -456,6 +448,7 @@
       "year": "Jun 2020 - Aug 2020",
       "title": "IoT and Robotics Intern",
       "company": "Speedways Electric",
+      "website": "https://www.speedwaysev.com",
       "location": "India",
       "icon": "🤖",
       "technologies": ["Python", "Socket Programming", "Dijkstra's Algorithm", "AGV", "Path Planning"],

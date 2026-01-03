@@ -599,17 +599,23 @@ const Projects = () => {
 
                   {/* Technologies */}
                   <div className="project-timeline-technologies">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="project-tech-tag">{tech}</span>
-                    ))}
+                    <span className="tech-label">Technologies:</span>
+                    <div className="tech-tags">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="project-tech-tag">{tech}</span>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Highlights */}
                   {project.highlights && project.highlights.length > 0 && (
                     <div className="project-timeline-highlights">
-                      {project.highlights.map((highlight, i) => (
-                        <span key={i} className="project-highlight-badge">{highlight}</span>
-                      ))}
+                      <span className="highlights-label">Highlights:</span>
+                      <div className="highlights-tags">
+                        {project.highlights.map((highlight, i) => (
+                          <span key={i} className="project-highlight-badge">{highlight}</span>
+                        ))}
+                      </div>
                     </div>
                   )}
 

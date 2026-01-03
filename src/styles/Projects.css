@@ -193,9 +193,23 @@
 /* Technologies */
 .project-timeline-technologies {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.project-timeline-technologies .tech-label {
+  color: var(--modern-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-timeline-technologies .tech-tags {
+  display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
 }
 
 .project-tech-tag {
@@ -216,9 +230,23 @@
 /* Highlights */
 .project-timeline-highlights {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.project-timeline-highlights .highlights-label {
+  color: var(--modern-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-timeline-highlights .highlights-tags {
+  display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
 }
 
 .project-highlight-badge {

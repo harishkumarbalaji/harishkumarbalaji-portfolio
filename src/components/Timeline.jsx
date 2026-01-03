@@ -604,11 +604,28 @@ const Timeline = () => {
                       )}
                     </div>
                     <div className="timeline-header-info">
-                      <div className="timeline-year-modern">{item.year}</div>
                       <h3 className="timeline-title-modern">{item.title}</h3>
                       <div className="timeline-company-modern">
-                        <span className="company-name">{item.company}</span>
-                        <span className="location">{item.location}</span>
+                        {item.website ? (
+                          <a href={item.website} target="_blank" rel="noopener noreferrer" className="company-name">
+                            {item.company}
+                          </a>
+                        ) : (
+                          <span className="company-name">{item.company}</span>
+                        )}
+                        <span className="meta-separator">•</span>
+                        <span className="location">
+                          <svg className="location-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                          </svg>
+                          {item.location}
+                        </span>
+                      </div>
+                      <div className="timeline-year-modern">
+                        <svg className="calendar-icon" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
+                        </svg>
+                        {item.year}
                       </div>
                     </div>
                   </div>
@@ -647,11 +664,14 @@ const Timeline = () => {
                   {/* Key Highlights/Keywords */}
                   {item.highlights && item.highlights.length > 0 && (
                     <div className="timeline-highlights-modern">
-                      {item.highlights.map((highlight, i) => (
-                        <span key={i} className="highlight-badge-modern">
-                          {highlight}
-                        </span>
-                      ))}
+                      <span className="highlights-label">Highlights:</span>
+                      <div className="highlights-tags">
+                        {item.highlights.map((highlight, i) => (
+                          <span key={i} className="highlight-badge-modern">
+                            {highlight}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

@@ -168,15 +168,16 @@
 }
 
 .timeline-logo-modern {
-  width: 70px;
-  height: 70px;
-  min-width: 70px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 24px var(--modern-glow-subtle);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .timeline-logo-modern .timeline-company-logo {
@@ -195,41 +196,85 @@
 
 .timeline-header-info {
   flex: 1;
-}
-
-.timeline-year-modern {
-  color: var(--modern-accent);
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 6px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
 }
 
 .timeline-title-modern {
   color: var(--modern-text-primary);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
 }
 
 .timeline-company-modern {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .timeline-company-modern .company-name {
-  color: var(--modern-text-secondary);
-  font-size: 1.05rem;
+  color: var(--modern-accent);
+  font-size: 1rem;
   font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.timeline-company-modern .company-name:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.timeline-company-modern .meta-separator {
+  color: var(--modern-text-secondary);
+  opacity: 0.4;
+  font-size: 0.7rem;
 }
 
 .timeline-company-modern .location {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   color: var(--modern-text-secondary);
   font-size: 0.9rem;
-  opacity: 0.8;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.timeline-company-modern .location-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.timeline-year-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--modern-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border-radius: 8px;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.timeline-year-modern .calendar-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 /* Technologies */
@@ -321,9 +366,23 @@
 /* Key Highlights/Keywords */
 .timeline-highlights-modern {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.timeline-highlights-modern .highlights-label {
+  color: var(--modern-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timeline-highlights-modern .highlights-tags {
+  display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
 }
 
 .highlight-badge-modern {
@@ -583,18 +642,21 @@
   }
   
   .timeline-header-row {
-    flex-direction: column;
     gap: 16px;
   }
   
   .timeline-logo-modern {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+  }
+  
+  .timeline-header-info {
+    min-height: 65px;
   }
   
   .timeline-title-modern {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
   
   .timeline-gallery-modern {
@@ -635,15 +697,42 @@
     padding: 20px;
   }
   
+  .timeline-header-row {
+    gap: 12px;
+  }
+  
   .timeline-logo-modern {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
     border-radius: 12px;
   }
   
+  .timeline-header-info {
+    min-height: 55px;
+  }
+  
   .timeline-title-modern {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+  }
+  
+  .timeline-company-modern .company-name {
+    font-size: 0.9rem;
+  }
+  
+  .timeline-company-modern .location {
+    font-size: 0.85rem;
+  }
+  
+  .timeline-year-modern {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    gap: 6px;
+  }
+  
+  .timeline-year-modern .calendar-icon {
+    width: 12px;
+    height: 12px;
   }
   
   .timeline-technologies-modern .tech-tag {
