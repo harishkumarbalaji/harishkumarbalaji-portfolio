@@ -12,7 +12,7 @@ const Hero = () => {
   const [texts, setTexts] = useState([]);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         setHeroData(data.hero);
@@ -121,7 +121,7 @@ const Hero = () => {
           <div className="hero-visual">
             <div className="hero-image-container">
               <img 
-                src={isDark ? "/profile-image-dark.jpg" : "/profile-image.jpg"} 
+                src={isDark ? `${import.meta.env.BASE_URL}profile-image-dark.jpg` : `${import.meta.env.BASE_URL}profile-image.jpg`} 
                 alt="Harish Kumar Balaji" 
                 className="hero-profile-image"
               />

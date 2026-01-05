@@ -9,7 +9,7 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         setSocialData(data.social);

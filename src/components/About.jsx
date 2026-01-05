@@ -5,7 +5,7 @@ const About = () => {
   const [aboutData, setAboutData] = useState(null);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         setAboutData(data.about);

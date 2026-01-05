@@ -14,7 +14,7 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         setContactData(data.contact);

@@ -479,8 +479,11 @@ const Timeline = () => {
   }, [modalMedia]);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
-      .then((res) => res.json())
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
         // Combine education and experience data
         const educationData = (data.education || []).map((item, idx) => ({ ...item, id: `edu-${idx}`, category: 'education' }));
@@ -497,7 +500,8 @@ const Timeline = () => {
         // Default to showing only experience
         setFilteredData(sorted.filter(item => item.category === 'experience'));
         setSectionTitle(data.sections.timeline.title);
-      });
+      })
+      .catch((err) => console.error('Fetch error:', err));
   }, []);
 
   useEffect(() => {
@@ -510,17 +514,18 @@ const Timeline = () => {
 
   const getCompanyLogo = (company) => {
     // Map company names to logo files
+    const base = import.meta.env.BASE_URL;
     const logoMap = {
       // Education
-      'University of Illinois at Urbana-Champaign': '/UIUC-logo.png',
-      'Anna University': '/Anna-University-logo.png',
+      'University of Illinois at Urbana-Champaign': `${base}UIUC-logo.png`,
+      'Anna University': `${base}Anna-University-logo.png`,
       
       // Experience
-      'Zipline': '/Zipline-logo.png',
-      'Skydio': '/Skydio-logo.png',
-      'EarthSense': '/EarthSense-logo.png',
-      'Thoughtworks': '/Thoughtworks-logo.png',
-      'Speedways Electric': '/Speedways-logo.png'
+      'Zipline': `${base}Zipline-logo.png`,
+      'Skydio': `${base}Skydio-logo.png`,
+      'EarthSense': `${base}EarthSense-logo.png`,
+      'Thoughtworks': `${base}Thoughtworks-logo.png`,
+      'Speedways Electric': `${base}Speedways-logo.png`
     };
     
     return logoMap[company] || null;

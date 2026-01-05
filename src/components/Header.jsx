@@ -8,7 +8,7 @@ const Header = () => {
   const [navData, setNavData] = useState(null);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         setNavData(data.navigation);

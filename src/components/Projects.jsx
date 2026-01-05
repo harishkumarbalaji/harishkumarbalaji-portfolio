@@ -33,7 +33,7 @@ const Projects = () => {
   }, [modalMedia]);
 
   useEffect(() => {
-    fetch('/portfolioData.json')
+    fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
         // Sort projects by year (newest first)
