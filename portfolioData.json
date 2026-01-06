@@ -193,10 +193,9 @@
         "icon": "portfolio"
       },
       {
-        "name": "Download Resume",
-        "url": "/Harish_Kumar_Balaji_Resume.pdf",
-        "icon": "resume",
-        "download": true
+        "name": "Resume",
+        "url": "https://drive.google.com/file/d/1UUGSC_HuTSMU6wsZ5Er10B9OhGttl3yh/view?usp=drive_link",
+        "icon": "resume"
       }
     ]
   },
