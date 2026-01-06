@@ -512,23 +512,12 @@ const Timeline = () => {
     }
   }, [activeFilter, timelineData]);
 
-  const getCompanyLogo = (company) => {
-    // Map company names to logo files
-    const base = import.meta.env.BASE_URL;
-    const logoMap = {
-      // Education
-      'University of Illinois at Urbana-Champaign': `${base}UIUC-logo.png`,
-      'Anna University': `${base}Anna-University-logo.png`,
-      
-      // Experience
-      'Zipline': `${base}Zipline-logo.png`,
-      'Skydio': `${base}Skydio-logo.png`,
-      'EarthSense': `${base}EarthSense-logo.png`,
-      'Thoughtworks': `${base}Thoughtworks-logo.png`,
-      'Speedways Electric': `${base}Speedways-logo.png`
-    };
-    
-    return logoMap[company] || null;
+  const getCompanyLogo = (item) => {
+    // Use logo from JSON data if available
+    if (item.logo) {
+      return `${import.meta.env.BASE_URL}${item.logo.replace(/^\//, '')}`;
+    }
+    return null;
   };
 
   const getCategoryColor = (category) => {
@@ -598,9 +587,9 @@ const Timeline = () => {
                       className="timeline-logo-modern"
                       style={{ background: `linear-gradient(135deg, ${getCategoryColor(item.category)} 0%, var(--accent-secondary) 100%)` }}
                     >
-                      {getCompanyLogo(item.company) ? (
+                      {getCompanyLogo(item) ? (
                         <img 
-                          src={getCompanyLogo(item.company)} 
+                          src={getCompanyLogo(item)} 
                           alt={`${item.company} logo`}
                           className="timeline-company-logo"
                         />

@@ -205,6 +205,11 @@ src/data/portfolioData.json
   },
   "hero": {
     "name": "Your Name",
+    "profileImage": {
+      "light": "/media/profile/profile-image.jpg",
+      "dark": "/media/profile/profile-image-dark.jpg",
+      "alt": "Your Name"
+    },
     "roles": ["Role 1", "Role 2", "Role 3"],
     "description": "Your intro paragraph...",
     "stats": [
@@ -256,12 +261,16 @@ src/data/portfolioData.json
       "year": "2023 - Present",
       "title": "Job Title",
       "company": "Company Name",
+      "website": "https://company.com",
       "location": "City, Country",
+      "logo": "/media/logos/Company-logo.png",
+      "icon": "🏢",
       "technologies": ["Skill1", "Skill2"],
       "details": ["Achievement 1", "Achievement 2"],
       "highlights": ["Key Metric 1", "Technology Used"],
       "gallery": [
-        { "title": "LinkedIn Post", "url": "https://linkedin.com/...", "type": "linkedin" }
+        { "title": "LinkedIn Post", "url": "https://linkedin.com/...", "type": "linkedin" },
+        { "title": "Demo Video", "url": "/media/experience/company/demo.mp4", "type": "video" }
       ]
     }
   ],
@@ -270,9 +279,13 @@ src/data/portfolioData.json
       "year": "2020 - 2024",
       "title": "Degree Name",
       "company": "University Name",
+      "website": "https://university.edu",
       "location": "City, Country",
+      "logo": "/media/logos/University-logo.png",
+      "icon": "🎓",
       "details": ["GPA: 4.0", "Relevant courses..."],
-      "highlights": ["4.0 GPA", "Key Course"]
+      "highlights": ["4.0 GPA", "Key Course"],
+      "gallery": []
     }
   ]
 }
@@ -351,15 +364,92 @@ The code **automatically extracts** the file ID from your Google Drive link and 
 - Set `"download": true` for local file downloads
 - Both View and Download buttons will work with the local file
 
-### 🖼️ Assets to Replace
+### 🖼️ Assets & Media Organization
 
-| File | Location | Purpose |
-|------|----------|---------|
-| `profile-image.jpg` | `public/` | Profile photo (light theme) |
-| `profile-image-dark.jpg` | `public/` | Profile photo (dark theme) |
-| `Your_Resume.pdf` | `public/` | Local resume (only if not using Google Drive) |
-| `favicon.svg` | `public/` | Browser tab icon |
-| `Company-logo.png` | `public/` | Company logos for timeline |
+The `public/media/` folder is organized for easy management of all your portfolio assets:
+
+```
+public/
+├── media/
+│   ├── profile/                    # Your profile photos
+│   │   ├── profile-image.jpg       # Light theme photo
+│   │   └── profile-image-dark.jpg  # Dark theme photo
+│   │
+│   ├── logos/                      # Company & institution logos
+│   │   ├── Company-logo.png
+│   │   └── University-logo.png
+│   │
+│   ├── experience/                 # Media for work experience
+│   │   ├── zipline/               # Images, videos, gifs for Zipline
+│   │
+│   ├── education/                  # Media for education
+│   │   ├── uiuc/
+│   │   └── anna-university/
+│   │
+│   └── projects/                   # Media for projects
+│       ├── aws-deepracer/
+│
+├── favicon.svg                     # Browser tab icon
+└── Your_Resume.pdf                 # Local resume (optional)
+```
+
+#### Configuring Profile Images
+
+Add your profile photos to `public/media/profile/` and reference them in JSON:
+
+```json
+{
+  "hero": {
+    "profileImage": {
+      "light": "/media/profile/your-photo.jpg",
+      "dark": "/media/profile/your-photo-dark.jpg",
+      "alt": "Your Name"
+    }
+  }
+}
+```
+
+#### Configuring Company/Institution Logos
+
+Add logos to `public/media/logos/` and reference them in each experience/education entry:
+
+```json
+{
+  "experience": [{
+    "company": "Company Name",
+    "logo": "/media/logos/Company-logo.png",
+    ...
+  }]
+}
+```
+
+#### Adding Local Media to Gallery
+
+To add local images, videos, or GIFs to your experience/projects:
+
+1. **Add your files** to the appropriate folder (e.g., `public/media/experience/company-name/demo.mp4`)
+
+2. **Reference in JSON** with the correct type:
+```json
+{
+  "gallery": [
+    { "title": "Demo Video", "url": "/media/experience/company-name/demo.mp4", "type": "video" },
+    { "title": "Screenshot", "url": "/media/experience/company-name/screenshot.png", "type": "image" },
+    { "title": "Animation", "url": "/media/experience/company-name/animation.gif", "type": "image" }
+  ]
+}
+```
+
+#### Supported Media Types
+
+| Type | File Extensions | JSON `type` Value |
+|------|-----------------|-------------------|
+| Images | `.jpg`, `.png`, `.gif`, `.webp` | `"image"` |
+| Videos | `.mp4`, `.webm`, `.mov` | `"video"` |
+| YouTube | YouTube URLs | `"youtube"` |
+| Google Slides | Google Slides URLs | `"google_slides"` |
+| LinkedIn | LinkedIn post URLs | `"linkedin"` |
+| External Links | Any URL | `"link"` |
 
 > 💡 **Tip:** Use Google Drive for your resume - just paste the share link and the code handles the rest! See [Resume Button](#7-resume-button-split-view--download) for details.
 
@@ -384,12 +474,16 @@ emailjs.send(
 
 ```
 ├── public/
-│   ├── portfolioData.json    # Production data file
-│   ├── profile-image.jpg     # Profile images
-│   ├── favicon.svg           # Browser icon
-│   └── *.png                 # Company logos
+│   ├── media/                   # All media assets (see Assets section above)
+│   │   ├── profile/             # Profile photos
+│   │   ├── logos/               # Company & institution logos
+│   │   ├── experience/          # Experience media files
+│   │   ├── education/           # Education media files
+│   │   └── projects/            # Project media files
+│   ├── portfolioData.json       # Production data file
+│   └── favicon.svg              # Browser icon
 ├── src/
-│   ├── components/           # React components
+│   ├── components/              # React components
 │   │   ├── Hero.jsx
 │   │   ├── About.jsx
 │   │   ├── Projects.jsx
@@ -397,17 +491,17 @@ emailjs.send(
 │   │   ├── Timeline.jsx
 │   │   ├── Contact.jsx
 │   │   └── ...
-│   ├── styles/               # Component CSS files
+│   ├── styles/                  # Component CSS files
 │   ├── data/
-│   │   └── portfolioData.json  # Source data file
+│   │   └── portfolioData.json   # Source data file (edit this!)
 │   ├── context/
-│   │   └── ThemeContext.jsx  # Theme management
+│   │   └── ThemeContext.jsx     # Theme management
 │   ├── App.jsx
 │   └── main.jsx
 ├── index.html
-├── vite.config.js            # Vite config (update base path here)
-├── package.json              # Dependencies & scripts (update homepage here)
-└── vercel.json               # Vercel deployment config
+├── vite.config.js               # Vite config (update base path here)
+├── package.json                 # Dependencies & scripts (update homepage here)
+└── vercel.json                  # Vercel deployment config
 ```
 
 ---

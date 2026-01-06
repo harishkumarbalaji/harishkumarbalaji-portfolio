@@ -188,8 +188,11 @@ const Hero = () => {
           <div className="hero-visual">
             <div className="hero-image-container">
               <img 
-                src={isDark ? `${import.meta.env.BASE_URL}profile-image-dark.jpg` : `${import.meta.env.BASE_URL}profile-image.jpg`} 
-                alt="Harish Kumar Balaji" 
+                src={isDark 
+                  ? `${import.meta.env.BASE_URL}${heroData.profileImage?.dark?.replace(/^\//, '') || 'media/profile/profile-image-dark.jpg'}` 
+                  : `${import.meta.env.BASE_URL}${heroData.profileImage?.light?.replace(/^\//, '') || 'media/profile/profile-image.jpg'}`
+                } 
+                alt={heroData.profileImage?.alt || heroData.name} 
                 className="hero-profile-image"
               />
             </div>
