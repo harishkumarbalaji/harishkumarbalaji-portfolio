@@ -64,6 +64,11 @@
     "name": "Harish Kumar Balaji",
     "greeting": "Hello, I'm",
     "waveEmoji": "🤖",
+    "profileImage": {
+      "light": "/media/profile/profile-image.jpg",
+      "dark": "/media/profile/profile-image-dark.jpg",
+      "alt": "Harish Kumar Balaji"
+    },
     "roles": [
       "Autonomy & Robotics Engineer",
       "Simulation Systems Developer",
@@ -299,6 +304,7 @@
       "company": "University of Illinois at Urbana-Champaign",
       "website": "https://illinois.edu",
       "location": "IL, USA",
+      "logo": "/media/logos/UIUC-logo.png",
       "icon": "🎓",
       "technologies": ["Autonomous Systems", "Robotics", "Computer Vision"],
       "details": [
@@ -320,6 +326,7 @@
       "company": "Anna University",
       "website": "https://www.annauniv.edu",
       "location": "Chennai, India",
+      "logo": "/media/logos/Anna-University-logo.png",
       "icon": "🎓",
       "technologies": ["Embedded Systems", "Signal Processing", "Control Systems"],
       "details": [
@@ -337,6 +344,7 @@
       "company": "Zipline",
       "website": "https://www.flyzipline.com",
       "location": "South San Francisco, CA",
+      "logo": "/media/logos/Zipline-logo.png",
       "icon": "🚁",
       "technologies": ["Rust", "C++", "Simulation", "GNC", "Physics"],
       "details": [
@@ -360,6 +368,7 @@
       "company": "Skydio",
       "website": "https://www.skydio.com",
       "location": "San Mateo, CA",
+      "logo": "/media/logos/Skydio-logo.png",
       "icon": "🚁",
       "technologies": ["C++", "Python", "GPU", "OpenGL", "3D Graphics", "HIL"],
       "details": [
@@ -383,6 +392,7 @@
       "company": "EarthSense",
       "website": "https://www.earthsense.co",
       "location": "Champaign, IL",
+      "logo": "/media/logos/EarthSense-logo.png",
       "icon": "🚜",
       "technologies": ["C++", "Python", "ROS2", "Gazebo", "Docker", "GPS", "IMU"],
       "details": [
@@ -416,6 +426,7 @@
       "company": "Thoughtworks",
       "website": "https://www.thoughtworks.com",
       "location": "India",
+      "logo": "/media/logos/Thoughtworks-logo.png",
       "icon": "🚛",
       "technologies": ["C++", "Python", "ROS", "CARLA", "Docker", "Yocto", "V2X"],
       "details": [
@@ -449,6 +460,7 @@
       "company": "Speedways Electric",
       "website": "https://www.speedwaysev.com",
       "location": "India",
+      "logo": "/media/logos/Speedways-logo.png",
       "icon": "🤖",
       "technologies": ["Python", "Socket Programming", "Dijkstra's Algorithm", "AGV", "Path Planning"],
       "details": [
