@@ -215,6 +215,64 @@
   transform: translateY(3px);
 }
 
+/* Resume Split Button */
+.resume-split-btn {
+  display: flex;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  transition: all var(--transition-normal) var(--smooth);
+}
+
+.resume-split-btn:hover {
+  border-color: var(--accent-primary);
+}
+
+.resume-view-btn {
+  flex: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--smooth);
+  white-space: nowrap;
+}
+
+.resume-view-btn:hover {
+  background: var(--bg-secondary);
+}
+
+.resume-download-btn {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0.8rem;
+  background: var(--bg-secondary);
+  border: none;
+  border-left: 2px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--smooth);
+}
+
+.resume-download-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.resume-download-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* Hero Visual */
 .hero-visual {
   animation: slideInRight 1s ease-out 0.3s both;
@@ -242,9 +300,7 @@
   transition: all var(--transition-normal) var(--smooth);
 }
 
-.hero-profile-image:hover {
-  /* No shadow on hover */
-}
+/* No hover effect on profile image - intentionally left minimal */
 
 
 
@@ -468,6 +524,24 @@
     justify-content: center;
   }
   
+  .resume-split-btn {
+    min-width: 160px;
+  }
+  
+  .resume-view-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .resume-download-btn {
+    padding: 0.6rem 0.6rem;
+  }
+  
+  .resume-download-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  
   .hero-image-container {
     height: auto;
     aspect-ratio: 2/3;
@@ -529,6 +603,25 @@
     max-width: 200px;
     padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
+  }
+  
+  .resume-split-btn {
+    min-width: 140px;
+    max-width: 200px;
+  }
+  
+  .resume-view-btn {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .resume-download-btn {
+    padding: 0.5rem 0.5rem;
+  }
+  
+  .resume-download-btn svg {
+    width: 14px;
+    height: 14px;
   }
   
   .hero-image-container {
