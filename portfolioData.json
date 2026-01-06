@@ -356,9 +356,29 @@
       "highlights": ["Rust-based Physics Simulator", "SIL/HIL/MIL Frameworks", "GNC Validation"],
       "gallery": [
         {
+          "title": "Droid hardware and Zip Droid at Test Site",
+          "url": "/media/experience/zipline/hkb_with_droid.jpg",
+          "type": "image"
+        },
+        {
+          "title": "P2 Platform autonomously undocking from the dock and deconflicting with other drones",
+          "url": "/media/experience/zipline/zip_undocking.gif",
+          "type": "image"
+        },
+        {
+          "title": "Simulated Package Delivery using Zipline's P2 Autonomy Platform",
+          "url": "/media/experience/zipline/droid_delivery.gif",
+          "type": "image"
+        },
+        {
           "title": "Internship Wrap-up @ Zipline",
           "url": "https://www.linkedin.com/posts/harishkumarbalaji_simulationengineering-zipline-robotics-activity-7406012560841510912-g33Y",
           "type": "linkedin"
+        },
+        {
+          "title": "Fall 2025 Intern Cohort",
+          "url": "/media/experience/zipline/intern_cohort.jpg",
+          "type": "image"
         }
       ]
     },
@@ -379,6 +399,16 @@
       ],
       "highlights": ["GPU Instancing", "65% Memory Optimization", "Mixed-Reality Integration", "HIL Testing"],
       "gallery": [
+        {
+          "title": "With Skydio X10 Drone and X10 Dock",
+          "url": "/media/experience/skydio/hkb_with_x10.jpg",
+          "type": "image"
+        },
+        {
+          "title": "Autonomy Features in action on Skydio's S2+ Drone",
+          "url": "/media/experience/skydio/hkb_skydio_drone.gif",
+          "type": "image"
+        },
         {
           "title": "Joining Skydio Announcement",
           "url": "https://www.linkedin.com/posts/harishkumarbalaji_skydio-robotics-newbeginnings-activity-7340864647320825856-mH4B",
