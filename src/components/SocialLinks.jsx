@@ -45,6 +45,24 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
             <path d="M12 18V12M9 15H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
           </svg>
         );
+      case 'portfolio':
+      case 'blinq':
+      case 'card':
+        return (
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 18H4V6H20V18Z"/>
+            <circle cx="9" cy="10" r="2"/>
+            <path d="M9 14C7 14 5 15 5 16V17H13V16C13 15 11 14 9 14Z"/>
+            <path d="M15 9H19M15 12H19M15 15H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+          </svg>
+        );
+      case 'link':
+      case 'website':
+        return (
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z"/>
+          </svg>
+        );
       default:
         return null;
     }
@@ -54,24 +72,33 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
 
   return (
     <div className={`social-links ${className} social-links-${size}`}>
-      {socialData.links.map((link, index) => (
-        <a
-          key={link.name}
-          href={link.url}
-          target={link.download ? "_self" : "_blank"}
-          rel={link.download ? "" : "noopener noreferrer"}
-          className="social-link"
-          aria-label={link.name}
-          download={link.download ? "Harish_Kumar_Balaji_Resume.pdf" : undefined}
-          style={{
-            '--delay': `${index * 0.1}s`
-          }}
-        >
-          <div className="social-icon">
-            {getIconSvg(link.icon)}
-          </div>
-        </a>
-      ))}
+      {socialData.links.map((link, index) => {
+        // Handle different link types:
+        // - download: true → Downloads local file (e.g., /resume.pdf)
+        // - external: true → Opens external URL in new tab (e.g., Google Drive)
+        // - neither → Opens in new tab (default behavior)
+        const isDownload = link.download === true;
+        const isExternal = link.external === true || (!isDownload && link.url.startsWith('http'));
+        
+        return (
+          <a
+            key={link.name}
+            href={isDownload ? `${import.meta.env.BASE_URL}${link.url.replace(/^\//, '')}` : link.url}
+            target={isDownload ? "_self" : "_blank"}
+            rel={isDownload ? "" : "noopener noreferrer"}
+            className="social-link"
+            aria-label={link.name}
+            download={isDownload ? link.filename || link.url.split('/').pop() : undefined}
+            style={{
+              '--delay': `${index * 0.1}s`
+            }}
+          >
+            <div className="social-icon">
+              {getIconSvg(link.icon)}
+            </div>
+          </a>
+        );
+      })}
     </div>
   );
 };

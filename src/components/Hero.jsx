@@ -3,6 +3,32 @@ import { useTheme } from '../context/ThemeContext';
 import SocialLinks from './SocialLinks';
 import '../styles/Hero.css';
 
+// Helper function to extract Google Drive file ID and generate download URL
+const getGoogleDriveUrls = (url) => {
+  if (!url) return null;
+  
+  // Match Google Drive file ID from various URL formats
+  const patterns = [
+    /\/file\/d\/([a-zA-Z0-9_-]+)/,           // /file/d/FILE_ID/view
+    /id=([a-zA-Z0-9_-]+)/,                    // ?id=FILE_ID or &id=FILE_ID
+    /\/d\/([a-zA-Z0-9_-]+)/,                  // /d/FILE_ID
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) {
+      const fileId = match[1];
+      return {
+        viewUrl: `https://drive.google.com/file/d/${fileId}/view`,
+        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`,
+        fileId
+      };
+    }
+  }
+  
+  return null;
+};
+
 const Hero = () => {
   const { isDark } = useTheme();
   const [currentText, setCurrentText] = useState(0);
@@ -10,6 +36,7 @@ const Hero = () => {
   const [typing, setTyping] = useState(true);
   const [heroData, setHeroData] = useState(null);
   const [texts, setTexts] = useState([]);
+  const [resumeLink, setResumeLink] = useState(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
@@ -17,6 +44,9 @@ const Hero = () => {
       .then((data) => {
         setHeroData(data.hero);
         setTexts(data.hero.roles);
+        // Find the resume link from social links
+        const resume = data.social?.links?.find(link => link.icon === 'resume');
+        setResumeLink(resume);
       });
   }, []);
 
@@ -101,20 +131,57 @@ const Hero = () => {
                 </button>
               ))}
               
-              {/* Download Resume Button */}
-              <button 
-                className="btn btn-secondary download-resume-btn"
-                onClick={() => {
-                  const link = document.createElement('a');
-                  link.href = '/Harish_Kumar_Balaji_Resume.pdf';
-                  link.download = 'Harish_Kumar_Balaji_Resume.pdf';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
-              >
-                <span>Download Resume</span>
-              </button>
+              {/* Resume Split Button - View (70%) + Download (30%) */}
+              {resumeLink && (() => {
+                const driveUrls = getGoogleDriveUrls(resumeLink.url);
+                const isGoogleDrive = !!driveUrls;
+                
+                return (
+                  <div className="resume-split-btn">
+                    <button 
+                      className="resume-view-btn"
+                      onClick={() => {
+                        if (isGoogleDrive) {
+                          window.open(driveUrls.viewUrl, '_blank', 'noopener,noreferrer');
+                        } else if (resumeLink.download) {
+                          // For local files, open in new tab to view
+                          window.open(`${import.meta.env.BASE_URL}${resumeLink.url.replace(/^\//, '')}`, '_blank');
+                        } else {
+                          window.open(resumeLink.url, '_blank', 'noopener,noreferrer');
+                        }
+                      }}
+                      title="View Resume"
+                    >
+                      <span>View Resume</span>
+                    </button>
+                    <button 
+                      className="resume-download-btn"
+                      onClick={() => {
+                        if (isGoogleDrive) {
+                          window.open(driveUrls.downloadUrl, '_blank', 'noopener,noreferrer');
+                        } else if (resumeLink.download) {
+                          // Download local file
+                          const link = document.createElement('a');
+                          link.href = `${import.meta.env.BASE_URL}${resumeLink.url.replace(/^\//, '')}`;
+                          link.download = resumeLink.filename || resumeLink.url.split('/').pop();
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        } else {
+                          window.open(resumeLink.url, '_blank', 'noopener,noreferrer');
+                        }
+                      }}
+                      title="Download Resume"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    </button>
+                  </div>
+                );
+              })()}
             </div>
           </div>
           
