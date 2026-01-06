@@ -78,8 +78,10 @@ const Projects = () => {
 
   const normalizeUrl = (url) => {
     if (!url) return '';
+    // External URLs (http/https) should be used as-is
     if (/^https?:\/\//i.test(url)) return url;
-    return url.startsWith('/') ? url : `/${url}`;
+    // Local paths need base URL prepended
+    return `${import.meta.env.BASE_URL}${url.replace(/^\//, '')}`;
   };
 
   const mapExplicitType = (type, url) => {

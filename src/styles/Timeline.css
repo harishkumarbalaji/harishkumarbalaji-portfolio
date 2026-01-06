@@ -412,87 +412,195 @@
   box-shadow: 0 6px 20px rgba(251, 191, 36, 0.35);
 }
 
-/* Gallery Side */
+/* Gallery Side - Masonry-style Layout */
 .timeline-gallery-modern {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  align-content: start;
-  align-items: stretch;
+  grid-auto-rows: 10px; /* Small row unit for fine-grained control */
+  gap: 4px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
+/* Single item - full width */
 .timeline-gallery-modern.single-item {
   grid-template-columns: 1fr;
 }
 
-/* When there are 3 items, make the first one span full width */
+.timeline-gallery-modern.single-item > .timeline-media-item-wrapper {
+  grid-row: span 32; /* 320px */
+}
+
+/* Two items - side by side */
+.timeline-gallery-modern.two-items {
+  grid-template-columns: 1fr 1fr;
+}
+
+.timeline-gallery-modern.two-items > .timeline-media-item-wrapper {
+  grid-row: span 24; /* 240px default */
+}
+
+/* Three items - first large, two small on right */
 .timeline-gallery-modern.three-items {
   grid-template-columns: 1fr 1fr;
 }
 
-.timeline-gallery-modern.three-items > .timeline-media-item:first-child {
-  grid-column: 1 / -1;
+.timeline-gallery-modern.three-items > .timeline-media-item-wrapper:first-child {
+  grid-row: span 32; /* spans the height of 2 stacked items */
+  grid-column: 1;
 }
 
-/* When there are 4+ items, use 2 columns */
+.timeline-gallery-modern.three-items > .timeline-media-item-wrapper:not(:first-child) {
+  grid-row: span 16; /* 160px */
+}
+
+/* Four+ items - 2x2 grid */
 .timeline-gallery-modern.many-items {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
+}
+
+.timeline-gallery-modern.many-items > .timeline-media-item-wrapper {
+  grid-row: span 20; /* 200px default */
+}
+
+/* Dynamic aspect ratio classes for masonry */
+.timeline-media-item-wrapper.portrait {
+  grid-row-end: span 28 !important; /* Taller for vertical images */
+}
+
+.timeline-media-item-wrapper.landscape {
+  grid-row-end: span 16 !important; /* Shorter for horizontal images */
+}
+
+.timeline-media-item-wrapper.square {
+  grid-row-end: span 20 !important; /* Medium for square images */
+}
+
+/* Single item overrides - larger */
+.timeline-gallery-modern.single-item > .timeline-media-item-wrapper.portrait {
+  grid-row-end: span 40 !important; /* 400px */
+}
+
+.timeline-gallery-modern.single-item > .timeline-media-item-wrapper.landscape {
+  grid-row-end: span 28 !important; /* 280px */
+}
+
+/* Two items layout adjustments */
+.timeline-gallery-modern.two-items > .timeline-media-item-wrapper.portrait {
+  grid-row-end: span 32 !important; /* 320px */
+}
+
+.timeline-gallery-modern.two-items > .timeline-media-item-wrapper.landscape {
+  grid-row-end: span 20 !important; /* 200px */
+}
+
+/* Media Item Wrapper for positioning +N badge and masonry layout */
+.timeline-media-item-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-media-item-wrapper > .timeline-media-item {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
 /* Media Item */
 .timeline-media-item {
   position: relative;
-  border-radius: 12px;
   overflow: hidden;
   background: var(--modern-card-hover);
-  box-shadow: 0 4px 16px var(--modern-shadow);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
 }
 
 .timeline-media-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--modern-shadow);
+  filter: brightness(0.9);
+}
+
+/* LinkedIn-style "+N more" badge overlay */
+.timeline-more-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.2s ease;
+}
+
+.timeline-more-badge:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Media content wrapper */
+.timeline-media-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
 }
 
 .timeline-media-iframe {
   width: 100%;
-  height: 140px;
+  height: 100%;
   border: none;
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .timeline-media-iframe.linkedin {
-  height: 240px;
-  min-height: 240px;
+  height: 100%;
 }
 
 .timeline-media-iframe.slides {
-  height: 180px;
+  height: 100%;
 }
 
-/* Full width items get taller iframes */
-.timeline-gallery-modern.three-items > .timeline-media-item:first-child .timeline-media-iframe {
-  height: 200px;
+/* LinkedIn items need more height in single view */
+.timeline-gallery-modern.single-item > .timeline-media-item-wrapper:has(.linkedin-item) {
+  grid-row-end: span 38 !important; /* 380px */
 }
 
-.timeline-gallery-modern.three-items > .timeline-media-item:first-child .timeline-media-iframe.linkedin {
-  height: 300px;
+/* Fallback for browsers without :has() support */
+.timeline-gallery-modern.single-item > .timeline-media-item-wrapper .timeline-media-item.linkedin-item {
+  grid-row-end: span 38 !important;
+}
+
+/* LinkedIn and embedded content default to landscape aspect */
+.timeline-media-item-wrapper:has(.linkedin-item),
+.timeline-media-item-wrapper:has(.timeline-media-iframe) {
+  grid-row-end: span 16 !important; /* Treat as landscape by default */
 }
 
 .timeline-media-thumb {
   width: 100%;
-  height: 140px;
+  height: 100%;
   object-fit: cover;
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .timeline-media-video {
   width: 100%;
-  height: 140px;
+  height: 100%;
   object-fit: cover;
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .timeline-media-title {
@@ -614,7 +722,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .timeline-gallery-modern.three-items > .timeline-media-item:first-child {
+  .timeline-gallery-modern.three-items > .timeline-media-item-wrapper:first-child {
     grid-column: 1 / -1;
   }
 }
@@ -661,18 +769,31 @@
   
   .timeline-gallery-modern {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .timeline-gallery-modern.three-items > .timeline-media-item-wrapper:first-child {
+    grid-row: auto;
+  }
+  
+  .timeline-gallery-modern > .timeline-media-item-wrapper {
+    height: 180px !important;
+  }
+  
+  .timeline-gallery-modern.single-item > .timeline-media-item-wrapper {
+    height: 250px !important;
   }
   
   .timeline-media-iframe {
-    height: 200px;
+    height: 100%;
   }
   
   .timeline-media-iframe.linkedin {
-    height: 280px;
+    height: 100%;
   }
   
   .timeline-media-iframe.slides {
-    height: 200px;
+    height: 100%;
   }
 }
 

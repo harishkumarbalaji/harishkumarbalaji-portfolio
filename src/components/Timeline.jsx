@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import '../styles/Timeline.css';
 
 // Media type detection helpers (same as Projects)
@@ -98,9 +98,21 @@ const toSlidesEmbed = (url) => {
   return url.replace('/edit', '/embed').replace(/\?.*$/, '') + '?start=true&loop=true&delayms=4000';
 };
 
+// Helper to resolve media URLs with base path
+const resolveMediaUrl = (url) => {
+  if (!url) return '';
+  // External URLs (http/https) should be used as-is
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  // Local paths need base URL prepended
+  return `${import.meta.env.BASE_URL}${url.replace(/^\//, '')}`;
+};
+
 // MediaItem component for gallery
-const MediaItem = ({ item, originalUrl, onOpenModal }) => {
+const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
   const type = item.type || getMediaType(item.url);
+  const resolvedUrl = resolveMediaUrl(item.url);
   
   const handleClick = (e) => {
     // Don't trigger modal for external link clicks
@@ -108,12 +120,35 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     if (onOpenModal) onOpenModal(item, type);
   };
   
+  const handleImageLoad = (e) => {
+    if (onAspectRatio) {
+      const img = e.target;
+      const aspectRatio = img.naturalHeight / img.naturalWidth;
+      onAspectRatio(aspectRatio);
+    }
+  };
+  
+  const handleVideoLoad = (e) => {
+    if (onAspectRatio) {
+      const video = e.target;
+      const aspectRatio = video.videoHeight / video.videoWidth;
+      onAspectRatio(aspectRatio);
+    }
+  };
+  
   switch (type) {
     case 'image':
       return (
         <div className="timeline-media-item clickable" onClick={handleClick}>
-          <div className="media-expand-hint">Click to expand</div>
-          <img src={item.url} alt={item.title || 'Media'} className="timeline-media-thumb" />
+          <div className="timeline-media-content">
+            <div className="media-expand-hint">Click to expand</div>
+            <img 
+              src={resolvedUrl} 
+              alt={item.title || 'Media'} 
+              className="timeline-media-thumb"
+              onLoad={handleImageLoad}
+            />
+          </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -121,16 +156,18 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     case 'youtube':
       return (
         <div className="timeline-media-item clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toYouTubeEmbed(item.url)}
+              title={item.title || 'YouTube Video'}
+              className="timeline-media-iframe"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
-          <iframe
-            src={toYouTubeEmbed(item.url)}
-            title={item.title || 'YouTube Video'}
-            className="timeline-media-iframe"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -138,16 +175,18 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     case 'gdrive':
       return (
         <div className="timeline-media-item clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toGoogleDriveEmbed(item.url)}
+              title={item.title || 'Google Drive'}
+              className="timeline-media-iframe"
+              allow="autoplay"
+              allowFullScreen
+            />
           </div>
-          <iframe
-            src={toGoogleDriveEmbed(item.url)}
-            title={item.title || 'Google Drive'}
-            className="timeline-media-iframe"
-            allow="autoplay"
-            allowFullScreen
-          />
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -155,15 +194,17 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     case 'onedrive':
       return (
         <div className="timeline-media-item clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toOneDriveEmbed(item.url)}
+              title={item.title || 'OneDrive'}
+              className="timeline-media-iframe"
+              allowFullScreen
+            />
           </div>
-          <iframe
-            src={toOneDriveEmbed(item.url)}
-            title={item.title || 'OneDrive'}
-            className="timeline-media-iframe"
-            allowFullScreen
-          />
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -171,37 +212,46 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     case 'video':
       return (
         <div className="timeline-media-item clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <video 
+              src={resolvedUrl} 
+              controls 
+              className="timeline-media-video"
+              onLoadedMetadata={handleVideoLoad}
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
-          <video src={item.url} controls className="timeline-media-video">
-            Your browser does not support the video tag.
-          </video>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
     
     case 'linkedin':
       return (
-        <div className="timeline-media-item timeline-media-linkedin clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+        <div className="timeline-media-item timeline-media-linkedin linkedin-item clickable">
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toLinkedInEmbed(item.url)}
+              title={item.title || 'LinkedIn Post'}
+              className="timeline-media-iframe linkedin"
+              allowFullScreen
+            />
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="timeline-media-open-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Open in LinkedIn
+            </a>
           </div>
-          <iframe
-            src={toLinkedInEmbed(item.url)}
-            title={item.title || 'LinkedIn Post'}
-            className="timeline-media-iframe linkedin"
-            allowFullScreen
-          />
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="timeline-media-open-overlay"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Open in LinkedIn
-          </a>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -209,24 +259,26 @@ const MediaItem = ({ item, originalUrl, onOpenModal }) => {
     case 'slides':
       return (
         <div className="timeline-media-item timeline-media-slides clickable">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+          <div className="timeline-media-content">
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toSlidesEmbed(item.url)}
+              title={item.title || 'Google Slides'}
+              className="timeline-media-iframe slides"
+              allowFullScreen
+            />
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="timeline-media-open-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Open in Slides
+            </a>
           </div>
-          <iframe
-            src={toSlidesEmbed(item.url)}
-            title={item.title || 'Google Slides'}
-            className="timeline-media-iframe slides"
-            allowFullScreen
-          />
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="timeline-media-open-overlay"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Open in Slides
-          </a>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
@@ -310,9 +362,11 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
   };
 
   const renderModalContent = () => {
+    const resolvedUrl = resolveMediaUrl(item.url);
+    
     switch (type) {
       case 'image':
-        return <img src={item.url} alt={item.title || 'Media'} className="modal-media-image" />;
+        return <img src={resolvedUrl} alt={item.title || 'Media'} className="modal-media-image" />;
       
       case 'youtube':
         return (
@@ -348,7 +402,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
       
       case 'video':
         return (
-          <video src={item.url} controls autoPlay className="modal-media-video">
+          <video src={resolvedUrl} controls autoPlay className="modal-media-video">
             Your browser does not support the video tag.
           </video>
         );
@@ -670,19 +724,68 @@ const Timeline = () => {
                   )}
                 </div>
 
-                {/* Gallery side */}
-                {hasGallery && (
-                  <div className={`timeline-gallery-modern ${galleryCount === 1 ? 'single-item' : ''} ${galleryCount === 3 ? 'three-items' : ''} ${galleryCount >= 4 ? 'many-items' : ''}`}>
-                    {item.gallery.map((media, i) => (
-                      <MediaItem 
-                        key={i} 
-                        item={media} 
-                        originalUrl={media.url} 
-                        onOpenModal={(mediaItem, type) => openModal(mediaItem, type, item.gallery, i)} 
-                      />
-                    ))}
-                  </div>
-                )}
+                {/* Gallery side - LinkedIn-style with max 4 visible items */}
+                {hasGallery && (() => {
+                  const MAX_VISIBLE = 4;
+                  const visibleItems = item.gallery.slice(0, MAX_VISIBLE);
+                  const extraCount = Math.max(0, galleryCount - MAX_VISIBLE);
+                  const visibleCount = visibleItems.length;
+                  
+                  // Determine layout class based on visible items
+                  const layoutClass = visibleCount === 1 ? 'single-item' 
+                    : visibleCount === 2 ? 'two-items'
+                    : visibleCount === 3 ? 'three-items' 
+                    : 'many-items';
+                  
+                  return (
+                    <div className={`timeline-gallery-modern ${layoutClass}`}>
+                      {visibleItems.map((media, i) => {
+                        const mediaType = getMediaType(media.url);
+                        const wrapperRef = React.createRef();
+                        
+                        return (
+                          <div 
+                            key={i} 
+                            ref={wrapperRef}
+                            className="timeline-media-item-wrapper" 
+                            style={{ position: 'relative' }}
+                          >
+                            <MediaItem 
+                              item={media} 
+                              originalUrl={media.url} 
+                              onOpenModal={(mediaItem, type) => openModal(mediaItem, type, item.gallery, i)}
+                              onAspectRatio={(aspectRatio) => {
+                                // Add aspect ratio class to wrapper after image loads
+                                if (wrapperRef.current) {
+                                  wrapperRef.current.classList.remove('portrait', 'landscape', 'square');
+                                  if (aspectRatio < 0.85) {
+                                    wrapperRef.current.classList.add('landscape');
+                                  } else if (aspectRatio > 1.2) {
+                                    wrapperRef.current.classList.add('portrait');
+                                  } else {
+                                    wrapperRef.current.classList.add('square');
+                                  }
+                                }
+                              }}
+                            />
+                            {/* Show +N badge on last visible item if there are more */}
+                            {extraCount > 0 && i === MAX_VISIBLE - 1 && (
+                              <div 
+                                className="timeline-more-badge"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openModal(media, getMediaType(media.url), item.gallery, i);
+                                }}
+                              >
+                                +{extraCount}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
               </div>
             );
           })}

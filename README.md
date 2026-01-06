@@ -393,6 +393,30 @@ public/
 └── Your_Resume.pdf                 # Local resume (optional)
 ```
 
+#### How to Reference Media in JSON
+
+When adding media paths in `portfolioData.json`, use paths relative to the `public/` folder:
+
+```json
+{
+  "gallery": [
+    {
+      "title": "Project Demo",
+      "url": "/media/experience/zipline/demo.gif",
+      "type": "image"
+    }
+  ]
+}
+```
+
+**Path Guidelines:**
+- ✅ Start with `/media/` (recommended): `/media/experience/zipline/demo.gif`
+- ✅ Or without leading slash: `media/experience/zipline/demo.gif`
+- ✅ External URLs work too: `https://example.com/image.jpg`
+- ❌ Don't include `public/` in the path
+
+> 💡 **Tip:** The app automatically handles path resolution for both local development and GitHub Pages deployment. Just make sure your files are in the `public/media/` folder!
+
 #### Configuring Profile Images
 
 Add your profile photos to `public/media/profile/` and reference them in JSON:
@@ -561,8 +585,22 @@ Each component has its own CSS file in `src/styles/`:
 |---------|----------|
 | 404 error on page load | Ensure `base` in `vite.config.js` matches your repo name exactly |
 | Blank page | Check browser console for errors; verify `homepage` in `package.json` |
-| Assets not loading | Make sure asset paths start with `./` or use the `base` path |
-| Changes not reflecting | Clear browser cache or wait a few minutes for GitHub Pages to update |
+| Images/media not loading after deploy | The app automatically handles media paths - ensure your `vite.config.js` has the correct `base` path and media files are in `public/media/` folder |
+| Changes not reflecting | Clear browser cache, run `npm run deploy` again, or wait a few minutes for GitHub Pages to update |
+
+### Media Path Configuration
+
+**How it works:**
+- Media files in `public/media/` are automatically served with the correct base path
+- The app uses `import.meta.env.BASE_URL` to resolve local media paths for GitHub Pages
+- External URLs (starting with `http://` or `https://`) are used as-is
+- In development (`npm run dev`), paths work without the base URL
+- In production (after `npm run deploy`), paths automatically include `/YOUR_REPO_NAME/`
+
+**Important:**
+- Always use paths relative to `public/` in your JSON files, e.g., `/media/profile/profile-image.jpg`
+- The leading `/` is optional - the app will handle it correctly
+- If media works locally but not after deploy, verify the `base` path in `vite.config.js` matches your repository name exactly
 
 ### Common Mistakes
 
