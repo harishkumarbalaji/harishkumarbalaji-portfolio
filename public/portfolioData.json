@@ -434,14 +434,29 @@
       "highlights": ["Dual Ackermann Plugin", "Digital Twin", "10cm Accuracy", "85% Testing Reduced"],
       "gallery": [
         {
-          "title": "Terramax Robot Simulation",
+          "title": "Simulation Capabilities @ EarthSense",
           "url": "https://youtu.be/oqYgwP4yfPw",
           "type": "youtube"
         },
         {
-          "title": "Digital Twin Simulation @ EarthSense",
+          "title": "Company Recognition for my work",
           "url": "https://www.linkedin.com/posts/earthsense-inc_gazebo-ros2-gazeboabrharmonic-ugcPost-7335513427777388544-49TS",
           "type": "linkedin"
+        },
+        {
+          "title": "Closed Loop Autonomy with Terramax Robot in Gazebo Simulator",
+          "url": "/media/experience/earthsense/tmax_full_run.mp4",
+          "type": "video"
+        },
+        {
+          "title": "With EarthSense's TerraSentia+ Robot",
+          "url": "/media/experience/earthsense/hkb_with_terrasentia.jpg",
+          "type": "image"
+        },
+        {
+          "title": "At EarthSense office @ Champaign, IL",
+          "url": "/media/experience/earthsense/hkb_at_earthsense.jpg",
+          "type": "image"
         },
         {
           "title": "Joining EarthSense Announcement",
