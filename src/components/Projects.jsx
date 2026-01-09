@@ -531,7 +531,7 @@ const Projects = () => {
           
           <div className="media-modal-actions">
             <a
-              href={item?.url}
+              href={normalizeUrl(item?.url || '')}
               target="_blank"
               rel="noopener noreferrer"
               className="media-modal-open-link"

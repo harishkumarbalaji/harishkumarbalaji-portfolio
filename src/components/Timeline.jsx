@@ -483,7 +483,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
         
         <div className="media-modal-actions">
           <a
-            href={item.url}
+            href={resolveMediaUrl(item.url)}
             target="_blank"
             rel="noopener noreferrer"
             className="media-modal-open-link"
