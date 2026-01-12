@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import ResumeModal from './ResumeModal';
 import '../styles/SocialLinks.css';
 
 const SocialLinks = ({ className = '', size = 'medium' }) => {
@@ -7,6 +8,8 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
   const [socialData, setSocialData] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [resumeUrl, setResumeUrl] = useState(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
@@ -70,36 +73,59 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
 
   if (!socialData) return null;
 
+  const handleLinkClick = (e, link) => {
+    // If it's a resume link, open modal instead
+    if (link.icon === 'resume') {
+      e.preventDefault();
+      e.stopPropagation();
+      setResumeUrl(link.url);
+      setShowResumeModal(true);
+    }
+  };
+
   return (
-    <div className={`social-links ${className} social-links-${size}`}>
-      {socialData.links.map((link, index) => {
-        // Handle different link types:
-        // - download: true → Downloads local file (e.g., /resume.pdf)
-        // - external: true → Opens external URL in new tab (e.g., Google Drive)
-        // - neither → Opens in new tab (default behavior)
-        const isDownload = link.download === true;
-        const isExternal = link.external === true || (!isDownload && link.url.startsWith('http'));
-        
-        return (
-          <a
-            key={link.name}
-            href={isDownload ? `${import.meta.env.BASE_URL}${link.url.replace(/^\//, '')}` : link.url}
-            target={isDownload ? "_self" : "_blank"}
-            rel={isDownload ? "" : "noopener noreferrer"}
-            className="social-link"
-            aria-label={link.name}
-            download={isDownload ? link.filename || link.url.split('/').pop() : undefined}
-            style={{
-              '--delay': `${index * 0.1}s`
-            }}
-          >
-            <div className="social-icon">
-              {getIconSvg(link.icon)}
-            </div>
-          </a>
-        );
-      })}
-    </div>
+    <>
+      <div className={`social-links ${className} social-links-${size}`}>
+        {socialData.links.map((link, index) => {
+          // Handle different link types:
+          // - resume → Opens modal for viewing
+          // - download: true → Downloads local file (e.g., /resume.pdf)
+          // - external: true → Opens external URL in new tab (e.g., Google Drive)
+          // - neither → Opens in new tab (default behavior)
+          const isResume = link.icon === 'resume';
+          const isDownload = link.download === true;
+          const isExternal = link.external === true || (!isDownload && link.url.startsWith('http'));
+          
+          return (
+            <a
+              key={link.name}
+              href={isResume ? "#" : (isDownload ? `${import.meta.env.BASE_URL}${link.url.replace(/^\//, '')}` : link.url)}
+              target={isResume ? undefined : (isDownload ? "_self" : "_blank")}
+              rel={isResume ? undefined : (isDownload ? "" : "noopener noreferrer")}
+              className="social-link"
+              aria-label={link.name}
+              download={isDownload ? link.filename || link.url.split('/').pop() : undefined}
+              onClick={(e) => handleLinkClick(e, link)}
+              style={{
+                '--delay': `${index * 0.1}s`
+              }}
+            >
+              <div className="social-icon">
+                {getIconSvg(link.icon)}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      
+      {/* Resume Modal */}
+      {showResumeModal && resumeUrl && (
+        <ResumeModal 
+          resumeUrl={resumeUrl} 
+          onClose={() => setShowResumeModal(false)} 
+        />
+      )}
+    </>
   );
 };
 

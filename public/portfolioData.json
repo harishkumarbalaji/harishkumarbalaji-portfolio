@@ -65,10 +65,12 @@
     "greeting": "Hello, I'm",
     "waveEmoji": "🤖",
     "profileImage": {
-      "light": "/media/profile/profile-image.jpg",
-      "dark": "/media/profile/profile-image-dark.jpg",
+      "light": "/media/profile/profile-image.png",
+      "dark": "/media/profile/profile-image-dark.png",
       "alt": "Harish Kumar Balaji"
     },
+    "backgroundGif": "/media/profile/hkb_driving_pixkit.gif",
+    "backgroundOpacity": 0.25,
     "roles": [
       "Autonomy & Robotics Engineer",
       "Simulation Systems Developer",

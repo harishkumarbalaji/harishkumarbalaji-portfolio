@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import SocialLinks from './SocialLinks';
+import ResumeModal from './ResumeModal';
 import '../styles/Hero.css';
 
 // Helper function to extract Google Drive file ID and generate download URL
@@ -37,6 +38,7 @@ const Hero = () => {
   const [heroData, setHeroData] = useState(null);
   const [texts, setTexts] = useState([]);
   const [resumeLink, setResumeLink] = useState(null);
+  const [showResumeModal, setShowResumeModal] = useState(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
@@ -86,8 +88,15 @@ const Hero = () => {
 
   if (!heroData) return null;
 
+  const backgroundStyle = heroData.backgroundGif 
+    ? { 
+        '--hero-bg-image': `url('${import.meta.env.BASE_URL}${heroData.backgroundGif.replace(/^\//, '')}')`,
+        '--hero-bg-opacity': heroData.backgroundOpacity || 0.25
+      }
+    : {};
+
   return (
-    <section id="home" className="hero">
+    <section id="home" className="hero" style={backgroundStyle}>
       
       <div className="hero-container">
         <div className="hero-content">
@@ -140,16 +149,7 @@ const Hero = () => {
                   <div className="resume-split-btn">
                     <button 
                       className="resume-view-btn"
-                      onClick={() => {
-                        if (isGoogleDrive) {
-                          window.open(driveUrls.viewUrl, '_blank', 'noopener,noreferrer');
-                        } else if (resumeLink.download) {
-                          // For local files, open in new tab to view
-                          window.open(`${import.meta.env.BASE_URL}${resumeLink.url.replace(/^\//, '')}`, '_blank');
-                        } else {
-                          window.open(resumeLink.url, '_blank', 'noopener,noreferrer');
-                        }
-                      }}
+                      onClick={() => setShowResumeModal(true)}
                       title="View Resume"
                     >
                       <span>View Resume</span>
@@ -189,8 +189,8 @@ const Hero = () => {
             <div className="hero-image-container">
               <img 
                 src={isDark 
-                  ? `${import.meta.env.BASE_URL}${heroData.profileImage?.dark?.replace(/^\//, '') || 'media/profile/profile-image-dark.jpg'}` 
-                  : `${import.meta.env.BASE_URL}${heroData.profileImage?.light?.replace(/^\//, '') || 'media/profile/profile-image.jpg'}`
+                  ? `${import.meta.env.BASE_URL}${heroData.profileImage?.dark?.replace(/^\//, '') || 'media/profile/profile-image-dark.png'}` 
+                  : `${import.meta.env.BASE_URL}${heroData.profileImage?.light?.replace(/^\//, '') || 'media/profile/profile-image.png'}`
                 } 
                 alt={heroData.profileImage?.alt || heroData.name} 
                 className="hero-profile-image"
@@ -204,6 +204,14 @@ const Hero = () => {
           <div className="scroll-arrow"></div>
         </div>
       </div>
+      
+      {/* Resume Modal */}
+      {showResumeModal && resumeLink && (
+        <ResumeModal 
+          resumeUrl={resumeLink.url} 
+          onClose={() => setShowResumeModal(false)} 
+        />
+      )}
     </section>
   );
 };
