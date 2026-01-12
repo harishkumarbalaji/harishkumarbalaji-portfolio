@@ -122,7 +122,19 @@
       "My day-to-day work blends low-level systems programming (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), plus CI-driven SIL/HIL testing and cloud/dockerized deployment. I enjoy the full feedback loop — designing behaviors and tools in simulation, bringing them to hardware, and iterating quickly from field data.",
       "Whether it's developing a high-fidelity robot simulation or implementing path planning algorithms for autonomous vehicles, I believe the best robotic solutions emerge when technical excellence meets genuine curiosity about what's possible in the world of autonomy.",
       "<strong>Ready to explore what we can build together in robotics and autonomy?</strong>"
-    ]
+    ],
+    "carousel": {
+      "images": [
+        "/media/profile/slider/hkb_workshop.jpeg",
+        "/media/profile/slider/hkb_pixkit.jpeg",
+        "/media/profile/slider/hkb_turtlebot.jpg",
+        "/media/profile/slider/hkb_japan_ai_challenge.jpg",
+        "/media/profile/slider/hkb_sih_hackathon.jpg",
+        "/media/profile/slider/hkb_yocto_presentation.jpg",
+        "/media/profile/slider/hkb_vision_pro.jpg"
+      ],
+      "autoPlayInterval": 2000
+    }
   },
   "contact": {
     "title": "Get In Touch",
