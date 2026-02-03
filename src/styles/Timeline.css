@@ -116,7 +116,7 @@
 .timeline-list-modern {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 
 /* Individual Timeline Row - Horizontal */
@@ -157,7 +157,7 @@
 .timeline-content-modern {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* Header Row with Logo */
@@ -168,9 +168,9 @@
 }
 
 .timeline-logo-modern {
-  width: 80px;
-  height: 80px;
-  min-width: 80px;
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -199,15 +199,15 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 80px;
+  justify-content: space-between;
+  min-height: 100px;
 }
 
 .timeline-title-modern {
   color: var(--modern-text-primary);
   font-size: 1.4rem;
   font-weight: 800;
-  margin: 0 0 6px 0;
+  margin: 0;
   line-height: 1.25;
 }
 
@@ -216,7 +216,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  margin: 0;
 }
 
 .timeline-company-modern .company-name {
@@ -267,7 +267,7 @@
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
   border-radius: 8px;
   width: fit-content;
-  margin-top: 8px;
+  margin: 0;
 }
 
 .timeline-year-modern .calendar-icon {
@@ -281,7 +281,7 @@
 .timeline-technologies-modern {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .timeline-technologies-modern .tech-label {
@@ -295,7 +295,7 @@
 .timeline-technologies-modern .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .timeline-technologies-modern .tech-tag {
@@ -318,7 +318,7 @@
 .timeline-details-modern {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .timeline-details-modern .details-list {
@@ -327,7 +327,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .timeline-details-modern .details-list li {
@@ -367,8 +367,8 @@
 .timeline-highlights-modern {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .timeline-highlights-modern .highlights-label {
@@ -382,7 +382,7 @@
 .timeline-highlights-modern .highlights-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .highlight-badge-modern {
@@ -417,7 +417,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 10px; /* Small row unit for fine-grained control */
-  gap: 4px;
+  gap: 6px;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -550,15 +550,16 @@
   overflow: hidden;
   position: relative;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .timeline-media-iframe {
   width: 100%;
   height: 100%;
   border: none;
-  position: absolute;
-  top: 0;
-  left: 0;
+  flex: 1;
+  min-height: inherit;
 }
 
 .timeline-media-iframe.linkedin {
@@ -589,18 +590,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
 }
 
 .timeline-media-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
 }
 
 .timeline-media-title {
@@ -732,56 +729,174 @@
     padding: 60px 0;
   }
   
-  .timeline-wrapper-modern {
-    padding: 0 20px;
-  }
-  
-  .timeline-header h2 {
-    font-size: 2.2rem;
-  }
-  
-  .timeline-header p {
-    font-size: 1.1rem;
-  }
-  
-  .timeline-row-modern {
-    padding: 24px;
+  .timeline-list-modern {
     gap: 24px;
   }
   
+  .timeline-wrapper-modern {
+    padding: 0 16px;
+  }
+  
+  .timeline-header {
+    padding: 0 8px;
+  }
+  
+  .timeline-header h2 {
+    font-size: 2rem;
+  }
+  
+  .timeline-header p {
+    font-size: 1rem;
+  }
+  
+  .timeline-row-modern {
+    padding: 16px 14px;
+    gap: 14px;
+  }
+  
+  .timeline-content-modern {
+    gap: 12px;
+  }
+  
   .timeline-header-row {
-    gap: 16px;
+    gap: 8px;
+    flex-direction: row;
+    align-items: flex-start;
   }
   
   .timeline-logo-modern {
-    width: 65px;
-    height: 65px;
-    min-width: 65px;
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
   }
   
   .timeline-header-info {
-    min-height: 65px;
+    min-height: auto;
+    gap: 2px;
+    justify-content: flex-start;
   }
   
   .timeline-title-modern {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
   }
   
+  .timeline-company-modern {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    margin-bottom: 2px;
+  }
+  
+  .timeline-company-modern .meta-separator {
+    display: none;
+  }
+  
+  .timeline-company-modern .company-name {
+    font-size: 0.92rem;
+  }
+  
+  .timeline-company-modern .location {
+    font-size: 0.85rem;
+  }
+  
+  .timeline-year-modern {
+    margin-top: 2px;
+    font-size: 0.78rem;
+    padding: 3px 8px;
+  }
+  
+  .timeline-technologies-modern {
+    gap: 6px;
+  }
+  
+  .timeline-technologies-modern .tech-label {
+    font-size: 0.8rem;
+  }
+  
+  .timeline-technologies-modern .tech-tags {
+    gap: 5px;
+  }
+  
+  .timeline-technologies-modern .tech-tag {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+  }
+  
+  .timeline-details-modern {
+    gap: 8px;
+  }
+  
+  .timeline-details-modern .details-list {
+    gap: 6px;
+  }
+  
+  .timeline-details-modern .details-list li {
+    font-size: 0.87rem;
+    line-height: 1.5;
+    padding-left: 16px;
+  }
+  
+  .timeline-highlights-modern {
+    gap: 6px;
+    margin-top: 4px;
+  }
+  
+  .timeline-highlights-modern .highlights-label {
+    font-size: 0.8rem;
+  }
+  
+  .timeline-highlights-modern .highlights-tags {
+    gap: 5px;
+  }
+  
+  .highlight-badge-modern {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+  }
+  
+  /* Make media more prominent on mobile */
   .timeline-gallery-modern {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    gap: 6px;
   }
   
   .timeline-gallery-modern.three-items > .timeline-media-item-wrapper:first-child {
     grid-row: auto;
   }
   
+  /* Use aspect ratio for consistent sizing */
   .timeline-gallery-modern > .timeline-media-item-wrapper {
-    height: 180px !important;
+    height: auto !important;
+    grid-row: auto !important;
   }
   
-  .timeline-gallery-modern.single-item > .timeline-media-item-wrapper {
-    height: 250px !important;
+  .timeline-media-item-wrapper > .timeline-media-item {
+    height: auto;
+    min-height: 200px;
+  }
+  
+  .timeline-gallery-modern.single-item .timeline-media-item {
+    min-height: 250px;
+  }
+  
+  /* Ensure media content fills properly */
+  .timeline-media-content {
+    min-height: 200px;
+    height: auto;
+  }
+  
+  .timeline-gallery-modern.single-item .timeline-media-content {
+    min-height: 250px;
+  }
+  
+  /* Ensure media titles don't take too much space */
+  .timeline-media-title {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
   
   .timeline-media-iframe {
@@ -802,67 +917,149 @@
     padding: 40px 0;
   }
   
+  .timeline-list-modern {
+    gap: 20px;
+  }
+  
   .timeline-header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    padding: 0 4px;
   }
   
   .timeline-header h2 {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
   }
   
   .timeline-wrapper-modern {
-    padding: 0 16px;
+    padding: 0 12px;
   }
   
   .timeline-row-modern {
-    padding: 20px;
-  }
-  
-  .timeline-header-row {
+    padding: 14px 10px;
     gap: 12px;
   }
   
+  .timeline-content-modern {
+    gap: 10px;
+  }
+  
+  .timeline-header-row {
+    gap: 6px;
+    flex-direction: row;
+  }
+  
   .timeline-logo-modern {
-    width: 55px;
-    height: 55px;
-    min-width: 55px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 10px;
   }
   
   .timeline-header-info {
-    min-height: 55px;
+    min-height: auto;
+    justify-content: flex-start;
+    gap: 1px;
   }
   
   .timeline-title-modern {
-    font-size: 1.15rem;
+    font-size: 1.02rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  
+  .timeline-company-modern {
+    gap: 1px;
+    margin-bottom: 2px;
   }
   
   .timeline-company-modern .company-name {
-    font-size: 0.9rem;
+    font-size: 0.86rem;
   }
   
   .timeline-company-modern .location {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   
   .timeline-year-modern {
-    font-size: 0.75rem;
-    padding: 5px 10px;
-    gap: 6px;
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    gap: 3px;
+    margin-top: 0;
   }
   
   .timeline-year-modern .calendar-icon {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .timeline-technologies-modern {
+    gap: 5px;
+  }
+  
+  .timeline-technologies-modern .tech-label {
+    font-size: 0.76rem;
+  }
+  
+  .timeline-technologies-modern .tech-tags {
+    gap: 4px;
   }
   
   .timeline-technologies-modern .tech-tag {
-    font-size: 0.75rem;
-    padding: 4px 10px;
+    font-size: 0.7rem;
+    padding: 3px 7px;
+  }
+  
+  .timeline-details-modern {
+    gap: 6px;
+  }
+  
+  .timeline-details-modern .details-list {
+    gap: 5px;
   }
   
   .timeline-details-modern .details-list li {
-    font-size: 0.9rem;
+    font-size: 0.83rem;
+    line-height: 1.45;
+    padding-left: 14px;
+  }
+  
+  .timeline-highlights-modern {
+    gap: 5px;
+    margin-top: 2px;
+  }
+  
+  .timeline-highlights-modern .highlights-label {
+    font-size: 0.76rem;
+  }
+  
+  .timeline-highlights-modern .highlights-tags {
+    gap: 4px;
+  }
+  
+  .highlight-badge-modern {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+  
+  .timeline-gallery-modern {
+    gap: 4px;
+  }
+  
+  /* Smaller min heights for small mobile */
+  .timeline-media-item-wrapper > .timeline-media-item {
+    min-height: 180px;
+  }
+  
+  .timeline-gallery-modern.single-item .timeline-media-item {
+    min-height: 220px;
+  }
+  
+  .timeline-media-content {
+    min-height: 180px;
+  }
+  
+  .timeline-gallery-modern.single-item .timeline-media-content {
+    min-height: 220px;
   }
 }
 

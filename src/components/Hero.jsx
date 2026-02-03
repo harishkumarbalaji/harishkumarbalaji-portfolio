@@ -154,23 +154,23 @@ const Hero = () => {
                     >
                       <span>View Resume</span>
                     </button>
-                    <button 
+              <button 
                       className="resume-download-btn"
-                      onClick={() => {
+                onClick={() => {
                         if (isGoogleDrive) {
                           window.open(driveUrls.downloadUrl, '_blank', 'noopener,noreferrer');
                         } else if (resumeLink.download) {
                           // Download local file
-                          const link = document.createElement('a');
+                  const link = document.createElement('a');
                           link.href = `${import.meta.env.BASE_URL}${resumeLink.url.replace(/^\//, '')}`;
                           link.download = resumeLink.filename || resumeLink.url.split('/').pop();
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
                         } else {
                           window.open(resumeLink.url, '_blank', 'noopener,noreferrer');
                         }
-                      }}
+                }}
                       title="Download Resume"
                     >
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -178,7 +178,7 @@ const Hero = () => {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                    </button>
+              </button>
                   </div>
                 );
               })()}

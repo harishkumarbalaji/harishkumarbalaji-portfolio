@@ -171,11 +171,11 @@ const About = () => {
           )}
 
           {/* Content - Right */}
-          <div className="about-content">
-            <div className="about-text">
-              {aboutData.content.map((paragraph, index) => (
-                <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
-              ))}
+        <div className="about-content">
+          <div className="about-text">
+            {aboutData.content.map((paragraph, index) => (
+              <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+            ))}
             </div>
           </div>
         </div>

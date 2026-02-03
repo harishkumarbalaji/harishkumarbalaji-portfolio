@@ -85,7 +85,7 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
 
   return (
     <>
-      <div className={`social-links ${className} social-links-${size}`}>
+    <div className={`social-links ${className} social-links-${size}`}>
         {socialData.links.map((link, index) => {
           // Handle different link types:
           // - resume → Opens modal for viewing
@@ -97,26 +97,26 @@ const SocialLinks = ({ className = '', size = 'medium' }) => {
           const isExternal = link.external === true || (!isDownload && link.url.startsWith('http'));
           
           return (
-            <a
-              key={link.name}
+        <a
+          key={link.name}
               href={isResume ? "#" : (isDownload ? `${import.meta.env.BASE_URL}${link.url.replace(/^\//, '')}` : link.url)}
               target={isResume ? undefined : (isDownload ? "_self" : "_blank")}
               rel={isResume ? undefined : (isDownload ? "" : "noopener noreferrer")}
-              className="social-link"
-              aria-label={link.name}
+          className="social-link"
+          aria-label={link.name}
               download={isDownload ? link.filename || link.url.split('/').pop() : undefined}
               onClick={(e) => handleLinkClick(e, link)}
-              style={{
-                '--delay': `${index * 0.1}s`
-              }}
-            >
-              <div className="social-icon">
-                {getIconSvg(link.icon)}
-              </div>
-            </a>
+          style={{
+            '--delay': `${index * 0.1}s`
+          }}
+        >
+          <div className="social-icon">
+            {getIconSvg(link.icon)}
+          </div>
+        </a>
           );
         })}
-      </div>
+    </div>
       
       {/* Resume Modal */}
       {showResumeModal && resumeUrl && (

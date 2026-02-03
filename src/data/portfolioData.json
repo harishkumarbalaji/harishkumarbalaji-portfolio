@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Harish Kumar Balaji - Autonomy & Robotics Engineer",
-    "description": "Passionate autonomy and simulation engineer with 3+ years of hands-on experience building and validating robotics software for real vehicles and simulation stacks. I thrive at the intersection of low-level systems programming and high-level autonomy, where complex robotic challenges become elegant solutions.",
+    "description": "Hi! I am Harish! An enthusiastic autonomy and simulation engineer. Over the past few years, I've enjoyed bringing robots to life—whether that's writing software for real vehicles or building realistic simulations. I love taking on complex challenges and finding practical, creative solutions that work both on the metal and in code.",
     "author": "Harish Kumar Balaji",
     "version": "1.0.0"
   },
@@ -73,12 +73,11 @@
     "backgroundOpacity": 0.25,
     "roles": [
       "Autonomy & Robotics Engineer",
-      "Simulation Systems Developer",
-      "Autonomous Vehicle Specialist",
-      "ROS/ROS2 Expert",
-      "Robotics Software Architect"
+      "Simulation Tooling Developer",
+      "Robotics Software Integration Engineer",
+      "ROS/ROS2 Expert"
     ],
-    "description": "Passionate autonomy and simulation engineer with 3+ years of hands-on experience building and validating robotics software for real vehicles and simulation stacks. I thrive at the intersection of low-level systems programming and high-level autonomy, where complex robotic challenges become elegant solutions.",
+    "description": "Passionate autonomy and robotics simulation engineer with over 3 years of experience working on robotics software, sometimes on real vehicles, sometimes in virtual worlds. I love connecting the nuts and bolts of low-level systems with the big picture of autonomy, and helping turn tough robotics problems into smooth, working solutions.",
     "stats": [
       {
         "number": "3+",
@@ -105,24 +104,19 @@
         "action": "projects"
       }
     ],
-    "card": {
-      "avatar": "🤖",
-      "status": "Available for opportunities",
-      "techStack": ["C++", "Python", "ROS2", "Gazebo", "Docker"]
-    },
     "scrollIndicator": {
       "text": "Scroll to explore"
     }
   },
   "about": {
     "title": "About Me",
-    "content": [
-      "My journey began in Electronics and Communication Engineering, but I was quickly drawn into robotics and autonomous systems through the sheer joy of solving complex real-world problems. What started with basic embedded systems soon expanded into full-stack robotics software, simulation frameworks, and eventually autonomous vehicle development. Each step revealed new layers of complexity and possibility in the world of robotics.",
-      "Here's what drives me: I'm incredibly passionate about bridging the gap between simulation and reality. I'm constantly asking questions like <em>'How can we make robots more reliable and efficient?'</em> and <em>'What's the best way to validate autonomous systems before deployment?'</em> This relentless curiosity has led me to work on everything from low-level C++ systems to high-level perception algorithms.",
-      "My day-to-day work blends low-level systems programming (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), plus CI-driven SIL/HIL testing and cloud/dockerized deployment. I enjoy the full feedback loop — designing behaviors and tools in simulation, bringing them to hardware, and iterating quickly from field data.",
-      "Whether it's developing a high-fidelity robot simulation or implementing path planning algorithms for autonomous vehicles, I believe the best robotic solutions emerge when technical excellence meets genuine curiosity about what's possible in the world of autonomy.",
-      "<strong>Ready to explore what we can build together in robotics and autonomy?</strong>"
-    ],
+      "content": [
+        "My journey began in Electronics and Communication Engineering, where hands-on embedded projects and robotics competitions sparked a deep interest in building intelligent systems. Leading a team in a world robotics championship and working on real robots showed me the thrill of solving real-world problems through automation. That early exposure gradually evolved into a strong focus on robotics software, simulation, and autonomous systems.",
+        "What truly drives me is the challenge of making autonomy work reliably outside the lab. I'm constantly thinking about questions like <em>\"How do we trust an autonomous system before it's deployed?\"</em> and <em>\"How can simulation reduce risk while accelerating development?\"</em> This curiosity has pushed me to explore the full autonomy stack, from embedded systems to large-scale validation frameworks.",
+        "My work today blends low-level systems engineering (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), supported by CI-driven SIL/HIL testing and containerized deployments. I enjoy closing the gap between sim to real translation, validating them rigorously, and iterating using real-world data.",
+        "Across industry roles and research-driven environments, I've worked on digital twins, scenario generation, simulation tooling, and autonomy validation pipelines. Whether I'm building a high-fidelity simulator or supporting autonomous navigation on real vehicles, I aim to create systems that are robust, testable, and scalable.",
+        "<strong>I'm excited by opportunities where robotics software, simulation, and autonomy validation come together to build dependable real-world systems.</strong>"
+      ],    
     "carousel": {
       "images": [
         "/media/profile/slider/hkb_workshop.jpeg",
@@ -280,11 +274,6 @@
       "category": "AI & Machine Learning",
       "gallery": [
         {
-          "title": "AWS DeepRacer League Notes",
-          "url": "https://docs.google.com/document/d/1a2b3c4d5e6f7g8h9i0jklmnopqrstuv",
-          "type": "link"
-        },
-        {
           "title": "AWS DeepRacer League Slides",
           "url": "https://docs.google.com/presentation/d/19gd_qdPoetUsXAQhERdMwEtPm0gkof1KgWLoFWkNmpw/edit?usp=sharing",
           "type": "google_slides"
@@ -432,7 +421,7 @@
     },
     {
       "year": "Dec 2024 - May 2025",
-      "title": "Robotics Simulation Software Engineer Intern",
+      "title": "Robotics Software Engineer Intern",
       "company": "EarthSense",
       "website": "https://www.earthsense.co",
       "location": "Champaign, IL",
@@ -481,7 +470,7 @@
     },
     {
       "year": "Mar 2021 - Aug 2024",
-      "title": "Consultant Developer",
+      "title": "Application Developer",
       "company": "Thoughtworks",
       "website": "https://www.thoughtworks.com",
       "location": "India",
@@ -543,7 +532,6 @@
         { "name": "Bash", "icon": "https://skillicons.dev/icons?i=bash" },
         { "name": "Java", "icon": "https://skillicons.dev/icons?i=java" },
         { "name": "MATLAB", "icon": "https://skillicons.dev/icons?i=matlab" },
-        { "name": "Bitbake", "icon": "https://skillicons.dev/icons?i=bitbake" },
         { "name": "Linux", "icon": "https://skillicons.dev/icons?i=linux" },
         { "name": "Arduino", "icon": "https://skillicons.dev/icons?i=arduino" }
       ]
@@ -552,13 +540,11 @@
       "category": "Robotics & Autonomy Frameworks",
       "skills": [
         { "name": "ROS", "icon": "https://skillicons.dev/icons?i=ros" },
-        { "name": "ROS2", "icon": "https://skillicons.dev/icons?i=ros2" },
-        { "name": "Gazebo", "icon": "https://skillicons.dev/icons?i=gazebo" },
-        { "name": "CARLA", "icon": "https://skillicons.dev/icons?i=carla" },
+        { "name": "Gazebo", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gazebo/gazebo-original.svg" },
         { "name": "OpenCV", "icon": "https://skillicons.dev/icons?i=opencv" },
-        { "name": "SciPy", "icon": "https://skillicons.dev/icons?i=scipy" },
-        { "name": "Autoware", "icon": "https://skillicons.dev/icons?i=autoware" },
-        { "name": "Isaac ROS", "icon": "https://skillicons.dev/icons?i=isaac" }
+        { "name": "PyTorch", "icon": "https://skillicons.dev/icons?i=pytorch" },
+        { "name": "TensorFlow", "icon": "https://skillicons.dev/icons?i=tensorflow" },
+        { "name": "NumPy", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" }
       ]
     },
     {
@@ -566,12 +552,10 @@
       "skills": [
         { "name": "Docker", "icon": "https://skillicons.dev/icons?i=docker" },
         { "name": "AWS", "icon": "https://skillicons.dev/icons?i=aws" },
-        { "name": "Bazel", "icon": "https://skillicons.dev/icons?i=bazel" },
-        { "name": "gRPC", "icon": "https://skillicons.dev/icons?i=grpc" },
-        { "name": "Protobuf", "icon": "https://skillicons.dev/icons?i=protobuf" },
+        { "name": "Jenkins", "icon": "https://skillicons.dev/icons?i=jenkins" },
+        { "name": "GitHub Actions", "icon": "https://skillicons.dev/icons?i=githubactions" },
         { "name": "Git", "icon": "https://skillicons.dev/icons?i=git" },
-        { "name": "Buildkite", "icon": "https://skillicons.dev/icons?i=buildkite" },
-        { "name": "YOCTO", "icon": "https://skillicons.dev/icons?i=yocto" }
+        { "name": "CMake", "icon": "https://skillicons.dev/icons?i=cmake" }
       ]
     }
   ]

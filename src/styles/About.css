@@ -42,6 +42,8 @@
   justify-content: center;
   perspective: 1800px;
   padding: 2rem 0;
+  margin: 0 auto;
+  overflow: visible;
 }
 
 /* Carousel Track - Horizontal Stack */
@@ -52,6 +54,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* Individual Card */
@@ -90,8 +94,8 @@
   --opacity: 0.35;
   --z-index: 1;
   --blur: 3px;
-  --max-width: 715px;
-  --max-height: 792px;
+  --max-width: 640px;
+  --max-height: 710px;
   
   transform: 
     translateX(calc(var(--offset) * 450px))
@@ -122,8 +126,8 @@
   --opacity: 1;
   --z-index: 10;
   --blur: 0px;
-  --max-width: 810px;
-  --max-height: 650px;
+  --max-width: 730px;
+  --max-height: 600px;
   
   filter: blur(var(--blur)) brightness(1);
 }
@@ -187,12 +191,14 @@
 .carousel-indicators {
   position: absolute;
   bottom: -60px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   z-index: 100;
+  margin: 0 auto;
 }
 
 /* Position arrows at start and end of indicators */
@@ -311,34 +317,37 @@
   .carousel-container {
     order: 2;
     min-height: 550px;
+    padding: 1.75rem 0;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
-  .about-content {
+.about-content {
     order: 1;
     max-width: 100%;
     height: auto;
-  }
+}
 
   .about-text {
     max-height: 400px;
   }
 
   .carousel-card {
-    --max-width: 660px;
-    --max-height: 743px;
+    --max-width: 590px;
+    --max-height: 665px;
     --opacity: 0.35;
     --blur: 3px;
   }
   
   /* Portrait images - 25% smaller for tablet */
   .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
-    max-width: 450px;
-    max-height: 506px;
+    max-width: 400px;
+    max-height: 450px;
   }
 
   .carousel-card.active {
-    --max-width: 630px;
-    --max-height: 550px;
+    --max-width: 560px;
+    --max-height: 490px;
   }
 
   .carousel-card {
@@ -351,6 +360,11 @@
   .carousel-indicators {
     bottom: -50px;
     gap: 10px;
+    left: 0;
+    right: 0;
+    transform: none;
+    justify-content: center;
+    width: 100%;
   }
   
   .carousel-nav svg {
@@ -364,7 +378,7 @@
 
   .carousel-indicators .carousel-nav-next {
     margin-left: 6px;
-  }
+}
 }
 
 @media (max-width: 768px) {
@@ -373,7 +387,7 @@
   }
 
   .about-container {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
 
   .section-title {
@@ -383,16 +397,21 @@
 
   .about-layout {
     gap: 2rem;
+    padding: 0 0.5rem;
   }
 
   .carousel-container {
     min-height: 450px;
+    padding: 1.5rem 0;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .about-content {
     height: auto;
+    margin: 0 0.5rem;
   }
-
+  
   .about-text {
     max-height: 350px;
     padding: 2rem;
@@ -400,21 +419,21 @@
   }
 
   .carousel-card {
-    --max-width: 528px;
-    --max-height: 627px;
+    --max-width: 470px;
+    --max-height: 560px;
     --opacity: 0.35;
     --blur: 3px;
   }
   
   /* Portrait images - 25% smaller for mobile */
   .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
-    max-width: 360px;
-    max-height: 428px;
+    max-width: 320px;
+    max-height: 380px;
   }
 
   .carousel-card.active {
-    --max-width: 495px;
-    --max-height: 450px;
+    --max-width: 440px;
+    --max-height: 400px;
   }
 
   .carousel-card {
@@ -427,6 +446,11 @@
   .carousel-indicators {
     bottom: -45px;
     gap: 9px;
+    left: 0;
+    right: 0;
+    transform: none;
+    justify-content: center;
+    width: 100%;
   }
   
   .carousel-nav svg {
@@ -451,12 +475,27 @@
 }
 
 @media (max-width: 480px) {
+  .about-container {
+    padding: 0 1rem;
+  }
+
   .section-title {
     font-size: 1.75rem;
   }
 
+  .about-layout {
+    padding: 0 0.25rem;
+  }
+
   .carousel-container {
     min-height: 380px;
+    padding: 1.25rem 0;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-content {
+    margin: 0 0.25rem;
   }
 
   .about-text {
@@ -471,21 +510,21 @@
   }
 
   .carousel-card {
-    --max-width: 451px;
-    --max-height: 528px;
+    --max-width: 400px;
+    --max-height: 470px;
     --opacity: 0.35;
     --blur: 3px;
   }
   
   /* Portrait images - 25% smaller for small mobile */
   .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
-    max-width: 308px;
-    max-height: 360px;
+    max-width: 270px;
+    max-height: 320px;
   }
 
   .carousel-card.active {
-    --max-width: 405px;
-    --max-height: 380px;
+    --max-width: 360px;
+    --max-height: 340px;
   }
 
   .carousel-card {
@@ -498,6 +537,11 @@
   .carousel-indicators {
     bottom: -40px;
     gap: 8px;
+    left: 0;
+    right: 0;
+    transform: none;
+    justify-content: center;
+    width: 100%;
   }
   
   .carousel-dot {
