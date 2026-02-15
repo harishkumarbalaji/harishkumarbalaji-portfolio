@@ -40,26 +40,23 @@ const Header = () => {
         <div className="logo" onClick={scrollToTop}>
           <h2>{navData.logo}</h2>
         </div>
-        
+
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
           <ul className="nav-list">
             {navData.menuItems.map((item) => (
               <li key={item.id}>
-                <button onClick={() => scrollToSection(item.id)}>
-                  {item.label}
-                </button>
+                <button onClick={() => scrollToSection(item.id)}>{item.label}</button>
               </li>
             ))}
             <li className="social-links-container">
               <SocialLinks size="medium" />
             </li>
-
           </ul>
         </nav>
 
         <div className="header-controls">
           <ThemeToggle />
-          <button 
+          <button
             className={`hamburger ${isMenuOpen ? 'active' : ''}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
@@ -74,4 +71,4 @@ const Header = () => {
   );
 };
 
-export default Header; 
+export default Header;

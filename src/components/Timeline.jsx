@@ -5,28 +5,28 @@ import '../styles/Timeline.css';
 const getMediaType = (url) => {
   if (!url) return 'unknown';
   const lower = url.toLowerCase();
-  
+
   // Image extensions
   if (lower.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) return 'image';
-  
+
   // YouTube
   if (lower.includes('youtube.com') || lower.includes('youtu.be')) return 'youtube';
-  
+
   // Google Drive
   if (lower.includes('drive.google.com')) return 'gdrive';
-  
+
   // OneDrive
   if (lower.includes('onedrive.live.com') || lower.includes('1drv.ms')) return 'onedrive';
-  
+
   // Direct video
   if (lower.match(/\.(mp4|webm|ogg|mov)$/)) return 'video';
-  
+
   // LinkedIn
   if (lower.includes('linkedin.com')) return 'linkedin';
-  
+
   // Google Slides
   if (lower.includes('docs.google.com/presentation')) return 'slides';
-  
+
   return 'link';
 };
 
@@ -58,7 +58,7 @@ const toOneDriveEmbed = (url) => {
 
 const toLinkedInEmbed = (url) => {
   // Extract post/activity ID from LinkedIn URL
-  
+
   // Handle ugcPost format
   if (url.includes('ugcPost-')) {
     const match = url.match(/ugcPost-(\d+)/);
@@ -66,7 +66,7 @@ const toLinkedInEmbed = (url) => {
       return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${match[1]}`;
     }
   }
-  
+
   // Handle activity format (activity-XXXXX)
   if (url.includes('activity-')) {
     const match = url.match(/activity-(\d+)/);
@@ -74,7 +74,7 @@ const toLinkedInEmbed = (url) => {
       return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${match[1]}`;
     }
   }
-  
+
   // Handle /posts/ format - try to find activity or ugcPost ID in the slug
   if (url.includes('/posts/')) {
     const lastSeg = url.split('/posts/').pop()?.split('?')[0] || '';
@@ -89,7 +89,7 @@ const toLinkedInEmbed = (url) => {
       return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${ugcMatch[1]}`;
     }
   }
-  
+
   return null;
 };
 
@@ -110,16 +110,16 @@ const resolveMediaUrl = (url) => {
 };
 
 // MediaItem component for gallery
-const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
+const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
   const type = item.type || getMediaType(item.url);
   const resolvedUrl = resolveMediaUrl(item.url);
-  
+
   const handleClick = (e) => {
     // Don't trigger modal for external link clicks
     if (e.target.tagName === 'A') return;
     if (onOpenModal) onOpenModal(item, type);
   };
-  
+
   const handleImageLoad = (e) => {
     if (onAspectRatio) {
       const img = e.target;
@@ -127,7 +127,7 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
       onAspectRatio(aspectRatio);
     }
   };
-  
+
   const handleVideoLoad = (e) => {
     if (onAspectRatio) {
       const video = e.target;
@@ -135,16 +135,16 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
       onAspectRatio(aspectRatio);
     }
   };
-  
+
   switch (type) {
     case 'image':
       return (
         <div className="timeline-media-item clickable" onClick={handleClick}>
           <div className="timeline-media-content">
-          <div className="media-expand-hint">Click to expand</div>
-            <img 
-              src={resolvedUrl} 
-              alt={item.title || 'Media'} 
+            <div className="media-expand-hint">Click to expand</div>
+            <img
+              src={resolvedUrl}
+              alt={item.title || 'Media'}
               className="timeline-media-thumb"
               onLoad={handleImageLoad}
             />
@@ -152,139 +152,139 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'youtube':
       return (
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-          <iframe
-            src={toYouTubeEmbed(item.url)}
-            title={item.title || 'YouTube Video'}
-            className="timeline-media-iframe"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toYouTubeEmbed(item.url)}
+              title={item.title || 'YouTube Video'}
+              className="timeline-media-iframe"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'gdrive':
       return (
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-          <iframe
-            src={toGoogleDriveEmbed(item.url)}
-            title={item.title || 'Google Drive'}
-            className="timeline-media-iframe"
-            allow="autoplay"
-            allowFullScreen
-          />
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toGoogleDriveEmbed(item.url)}
+              title={item.title || 'Google Drive'}
+              className="timeline-media-iframe"
+              allow="autoplay"
+              allowFullScreen
+            />
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'onedrive':
       return (
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-          <iframe
-            src={toOneDriveEmbed(item.url)}
-            title={item.title || 'OneDrive'}
-            className="timeline-media-iframe"
-            allowFullScreen
-          />
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toOneDriveEmbed(item.url)}
+              title={item.title || 'OneDrive'}
+              className="timeline-media-iframe"
+              allowFullScreen
+            />
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'video':
       return (
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-            <video 
-              src={resolvedUrl} 
-              controls 
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <video
+              src={resolvedUrl}
+              controls
               className="timeline-media-video"
               onLoadedMetadata={handleVideoLoad}
             >
-            Your browser does not support the video tag.
-          </video>
+              Your browser does not support the video tag.
+            </video>
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'linkedin':
       return (
         <div className="timeline-media-item timeline-media-linkedin linkedin-item clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-          <iframe
-            src={toLinkedInEmbed(item.url)}
-            title={item.title || 'LinkedIn Post'}
-            className="timeline-media-iframe linkedin"
-            allowFullScreen
-          />
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="timeline-media-open-overlay"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Open in LinkedIn
-          </a>
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toLinkedInEmbed(item.url)}
+              title={item.title || 'LinkedIn Post'}
+              className="timeline-media-iframe linkedin"
+              allowFullScreen
+            />
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="timeline-media-open-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Open in LinkedIn
+            </a>
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'slides':
       return (
         <div className="timeline-media-item timeline-media-slides clickable">
           <div className="timeline-media-content">
-          <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
-          </div>
-          <iframe
-            src={toSlidesEmbed(item.url)}
-            title={item.title || 'Google Slides'}
-            className="timeline-media-iframe slides"
-            allowFullScreen
-          />
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="timeline-media-open-overlay"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Open in Slides
-          </a>
+            <div className="media-click-overlay" onClick={handleClick}>
+              <div className="media-expand-hint">Click to expand</div>
+            </div>
+            <iframe
+              src={toSlidesEmbed(item.url)}
+              title={item.title || 'Google Slides'}
+              className="timeline-media-iframe slides"
+              allowFullScreen
+            />
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="timeline-media-open-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Open in Slides
+            </a>
           </div>
           {item.title && <div className="timeline-media-title">{item.title}</div>}
         </div>
       );
-    
+
     case 'link':
-    default:
+    default: {
       // Render a styled link card instead of iframe preview
       const getDomain = (url) => {
         try {
@@ -293,7 +293,7 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
           return 'External Link';
         }
       };
-      
+
       const getFavicon = (url) => {
         try {
           const domain = new URL(url).hostname;
@@ -302,18 +302,14 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
           return null;
         }
       };
-      
+
       return (
         <div className="timeline-media-item">
           <div className="timeline-link-card">
             <div className="timeline-link-card-content">
               <div className="timeline-link-card-header">
                 {getFavicon(item.url) && (
-                  <img 
-                    src={getFavicon(item.url)} 
-                    alt="" 
-                    className="timeline-link-card-favicon"
-                  />
+                  <img src={getFavicon(item.url)} alt="" className="timeline-link-card-favicon" />
                 )}
                 <span className="timeline-link-card-domain">{getDomain(item.url)}</span>
               </div>
@@ -332,13 +328,14 @@ const MediaItem = ({ item, originalUrl, onOpenModal, onAspectRatio }) => {
           </div>
         </div>
       );
+    }
   }
 };
 
 // Modal component for expanded media view with navigation
 const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) => {
   const hasMultiple = gallery && gallery.length > 1;
-  
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -363,11 +360,11 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
 
   const renderModalContent = () => {
     const resolvedUrl = resolveMediaUrl(item.url);
-    
+
     switch (type) {
       case 'image':
         return <img src={resolvedUrl} alt={item.title || 'Media'} className="modal-media-image" />;
-      
+
       case 'youtube':
         return (
           <iframe
@@ -378,7 +375,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             allowFullScreen
           />
         );
-      
+
       case 'gdrive':
         return (
           <iframe
@@ -389,7 +386,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             allowFullScreen
           />
         );
-      
+
       case 'onedrive':
         return (
           <iframe
@@ -399,14 +396,14 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             allowFullScreen
           />
         );
-      
+
       case 'video':
         return (
           <video src={resolvedUrl} controls autoPlay className="modal-media-video">
             Your browser does not support the video tag.
           </video>
         );
-      
+
       case 'linkedin':
         return (
           <iframe
@@ -416,7 +413,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             allowFullScreen
           />
         );
-      
+
       case 'slides':
         return (
           <iframe
@@ -426,7 +423,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             allowFullScreen
           />
         );
-      
+
       default:
         return null;
     }
@@ -440,11 +437,11 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
-        
+
         {/* Left navigation arrow */}
         {hasMultiple && (
-          <button 
-            className="media-modal-nav media-modal-nav-left" 
+          <button
+            className="media-modal-nav media-modal-nav-left"
             onClick={() => onNavigate(-1)}
             aria-label="Previous media"
           >
@@ -453,15 +450,13 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             </svg>
           </button>
         )}
-        
-        <div className="media-modal-content">
-          {renderModalContent()}
-        </div>
-        
+
+        <div className="media-modal-content">{renderModalContent()}</div>
+
         {/* Right navigation arrow */}
         {hasMultiple && (
-          <button 
-            className="media-modal-nav media-modal-nav-right" 
+          <button
+            className="media-modal-nav media-modal-nav-right"
             onClick={() => onNavigate(1)}
             aria-label="Next media"
           >
@@ -470,7 +465,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             </svg>
           </button>
         )}
-        
+
         {/* Title and counter */}
         <div className="media-modal-footer">
           {item.title && <div className="media-modal-title">{item.title}</div>}
@@ -480,7 +475,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
             </div>
           )}
         </div>
-        
+
         <div className="media-modal-actions">
           <a
             href={resolveMediaUrl(item.url)}
@@ -505,7 +500,7 @@ const Timeline = () => {
   const [modalMedia, setModalMedia] = useState(null);
 
   const toggleExpand = (id) => {
-    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const openModal = useCallback((item, type, gallery = [], index = 0) => {
@@ -516,21 +511,24 @@ const Timeline = () => {
     setModalMedia(null);
   }, []);
 
-  const navigateModal = useCallback((direction) => {
-    if (!modalMedia || !modalMedia.gallery || modalMedia.gallery.length <= 1) return;
-    
-    const { gallery, index } = modalMedia;
-    let newIndex = index + direction;
-    
-    // Wrap around
-    if (newIndex < 0) newIndex = gallery.length - 1;
-    if (newIndex >= gallery.length) newIndex = 0;
-    
-    const newItem = gallery[newIndex];
-    const newType = getMediaType(newItem.url);
-    
-    setModalMedia({ item: newItem, type: newType, gallery, index: newIndex });
-  }, [modalMedia]);
+  const navigateModal = useCallback(
+    (direction) => {
+      if (!modalMedia || !modalMedia.gallery || modalMedia.gallery.length <= 1) return;
+
+      const { gallery, index } = modalMedia;
+      let newIndex = index + direction;
+
+      // Wrap around
+      if (newIndex < 0) newIndex = gallery.length - 1;
+      if (newIndex >= gallery.length) newIndex = 0;
+
+      const newItem = gallery[newIndex];
+      const newType = getMediaType(newItem.url);
+
+      setModalMedia({ item: newItem, type: newType, gallery, index: newIndex });
+    },
+    [modalMedia]
+  );
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
@@ -540,19 +538,31 @@ const Timeline = () => {
       })
       .then((data) => {
         // Combine education and experience data
-        const educationData = (data.education || []).map((item, idx) => ({ ...item, id: `edu-${idx}`, category: 'education' }));
-        const experienceData = (data.experience || []).map((item, idx) => ({ ...item, id: `exp-${idx}`, category: 'experience' }));
+        const educationData = (data.education || []).map((item, idx) => ({
+          ...item,
+          id: `edu-${idx}`,
+          category: 'education',
+        }));
+        const experienceData = (data.experience || []).map((item, idx) => ({
+          ...item,
+          id: `exp-${idx}`,
+          category: 'experience',
+        }));
         const combined = [...educationData, ...experienceData];
-        
+
         const sorted = combined.sort((a, b) => {
-          const yearA = a.year.includes('Present') ? 9999 : parseInt(a.year.match(/\d{4}/g)?.[0] || '0');
-          const yearB = b.year.includes('Present') ? 9999 : parseInt(b.year.match(/\d{4}/g)?.[0] || '0');
+          const yearA = a.year.includes('Present')
+            ? 9999
+            : parseInt(a.year.match(/\d{4}/g)?.[0] || '0');
+          const yearB = b.year.includes('Present')
+            ? 9999
+            : parseInt(b.year.match(/\d{4}/g)?.[0] || '0');
           return yearB - yearA;
         });
-        
+
         setTimelineData(sorted);
         // Default to showing only experience
-        setFilteredData(sorted.filter(item => item.category === 'experience'));
+        setFilteredData(sorted.filter((item) => item.category === 'experience'));
         setSectionTitle(data.sections.timeline.title);
       })
       .catch((err) => console.error('Fetch error:', err));
@@ -562,7 +572,7 @@ const Timeline = () => {
     if (activeFilter === 'all') {
       setFilteredData(timelineData);
     } else {
-      setFilteredData(timelineData.filter(item => item.category === activeFilter));
+      setFilteredData(timelineData.filter((item) => item.category === activeFilter));
     }
   }, [activeFilter, timelineData]);
 
@@ -585,11 +595,6 @@ const Timeline = () => {
     }
   };
 
-  const truncate = (text, maxLength = 200) => {
-    if (!text || text.length <= maxLength) return text;
-    return text.slice(0, maxLength).trim() + '...';
-  };
-
   return (
     <section id="timeline" className="timeline-container">
       <div className="timeline-header">
@@ -606,7 +611,7 @@ const Timeline = () => {
           <button
             className={`filter-btn ${activeFilter === 'experience' ? 'active' : ''}`}
             onClick={() => setActiveFilter('experience')}
-            >
+          >
             <span className="filter-icon"></span>
             Experience
           </button>
@@ -626,10 +631,10 @@ const Timeline = () => {
             const hasGallery = item.gallery && item.gallery.length > 0;
             const galleryCount = item.gallery?.length || 0;
             const isExpanded = expanded[item.id];
-            
+
             return (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className={`timeline-row-modern ${hasGallery ? '' : 'no-gallery'}`}
                 style={{ '--card-index': idx }}
               >
@@ -637,13 +642,15 @@ const Timeline = () => {
                 <div className="timeline-content-modern">
                   {/* Logo and header */}
                   <div className="timeline-header-row">
-                    <div 
+                    <div
                       className="timeline-logo-modern"
-                      style={{ background: `linear-gradient(135deg, ${getCategoryColor(item.category)} 0%, var(--accent-secondary) 100%)` }}
+                      style={{
+                        background: `linear-gradient(135deg, ${getCategoryColor(item.category)} 0%, var(--accent-secondary) 100%)`,
+                      }}
                     >
                       {getCompanyLogo(item) ? (
-                        <img 
-                          src={getCompanyLogo(item)} 
+                        <img
+                          src={getCompanyLogo(item)}
                           alt={`${item.company} logo`}
                           className="timeline-company-logo"
                         />
@@ -655,7 +662,12 @@ const Timeline = () => {
                       <h3 className="timeline-title-modern">{item.title}</h3>
                       <div className="timeline-company-modern">
                         {item.website ? (
-                          <a href={item.website} target="_blank" rel="noopener noreferrer" className="company-name">
+                          <a
+                            href={item.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="company-name"
+                          >
                             {item.company}
                           </a>
                         ) : (
@@ -664,14 +676,14 @@ const Timeline = () => {
                         <span className="meta-separator">•</span>
                         <span className="location">
                           <svg className="location-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                           </svg>
                           {item.location}
                         </span>
                       </div>
                       <div className="timeline-year-modern">
                         <svg className="calendar-icon" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
+                          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" />
                         </svg>
                         {item.year}
                       </div>
@@ -681,10 +693,14 @@ const Timeline = () => {
                   {/* Technologies */}
                   {item.technologies && item.technologies.length > 0 && (
                     <div className="timeline-technologies-modern">
-                      <span className="tech-label">{item.category === 'education' ? 'Focus:' : 'Technologies:'}</span>
+                      <span className="tech-label">
+                        {item.category === 'education' ? 'Focus:' : 'Technologies:'}
+                      </span>
                       <div className="tech-tags">
                         {item.technologies.map((tech, i) => (
-                          <span key={i} className="tech-tag">{tech}</span>
+                          <span key={i} className="tech-tag">
+                            {tech}
+                          </span>
                         ))}
                       </div>
                     </div>
@@ -699,10 +715,7 @@ const Timeline = () => {
                         ))}
                       </ul>
                       {item.details.length > 2 && (
-                        <button 
-                          className="view-toggle"
-                          onClick={() => toggleExpand(item.id)}
-                        >
+                        <button className="view-toggle" onClick={() => toggleExpand(item.id)}>
                           {isExpanded ? 'View less' : `View ${item.details.length - 2} more...`}
                         </button>
                       )}
@@ -725,67 +738,77 @@ const Timeline = () => {
                 </div>
 
                 {/* Gallery side - LinkedIn-style with max 4 visible items */}
-                {hasGallery && (() => {
-                  const MAX_VISIBLE = 4;
-                  const visibleItems = item.gallery.slice(0, MAX_VISIBLE);
-                  const extraCount = Math.max(0, galleryCount - MAX_VISIBLE);
-                  const visibleCount = visibleItems.length;
-                  
-                  // Determine layout class based on visible items
-                  const layoutClass = visibleCount === 1 ? 'single-item' 
-                    : visibleCount === 2 ? 'two-items'
-                    : visibleCount === 3 ? 'three-items' 
-                    : 'many-items';
-                  
-                  return (
-                    <div className={`timeline-gallery-modern ${layoutClass}`}>
-                      {visibleItems.map((media, i) => {
-                        const mediaType = getMediaType(media.url);
-                        const wrapperRef = React.createRef();
-                        
-                        return (
-                          <div 
-                            key={i} 
-                            ref={wrapperRef}
-                            className="timeline-media-item-wrapper" 
-                            style={{ position: 'relative' }}
-                          >
-                      <MediaItem 
-                        item={media} 
-                        originalUrl={media.url} 
-                        onOpenModal={(mediaItem, type) => openModal(mediaItem, type, item.gallery, i)} 
-                              onAspectRatio={(aspectRatio) => {
-                                // Add aspect ratio class to wrapper after image loads
-                                if (wrapperRef.current) {
-                                  wrapperRef.current.classList.remove('portrait', 'landscape', 'square');
-                                  if (aspectRatio < 0.85) {
-                                    wrapperRef.current.classList.add('landscape');
-                                  } else if (aspectRatio > 1.2) {
-                                    wrapperRef.current.classList.add('portrait');
-                                  } else {
-                                    wrapperRef.current.classList.add('square');
-                                  }
+                {hasGallery &&
+                  (() => {
+                    const MAX_VISIBLE = 4;
+                    const visibleItems = item.gallery.slice(0, MAX_VISIBLE);
+                    const extraCount = Math.max(0, galleryCount - MAX_VISIBLE);
+                    const visibleCount = visibleItems.length;
+
+                    // Determine layout class based on visible items
+                    const layoutClass =
+                      visibleCount === 1
+                        ? 'single-item'
+                        : visibleCount === 2
+                          ? 'two-items'
+                          : visibleCount === 3
+                            ? 'three-items'
+                            : 'many-items';
+
+                    return (
+                      <div className={`timeline-gallery-modern ${layoutClass}`}>
+                        {visibleItems.map((media, i) => {
+                          const wrapperRef = React.createRef();
+
+                          return (
+                            <div
+                              key={i}
+                              ref={wrapperRef}
+                              className="timeline-media-item-wrapper"
+                              style={{ position: 'relative' }}
+                            >
+                              <MediaItem
+                                item={media}
+                                originalUrl={media.url}
+                                onOpenModal={(mediaItem, type) =>
+                                  openModal(mediaItem, type, item.gallery, i)
                                 }
-                              }}
-                            />
-                            {/* Show +N badge on last visible item if there are more */}
-                            {extraCount > 0 && i === MAX_VISIBLE - 1 && (
-                              <div 
-                                className="timeline-more-badge"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  openModal(media, getMediaType(media.url), item.gallery, i);
+                                onAspectRatio={(aspectRatio) => {
+                                  // Add aspect ratio class to wrapper after image loads
+                                  if (wrapperRef.current) {
+                                    wrapperRef.current.classList.remove(
+                                      'portrait',
+                                      'landscape',
+                                      'square'
+                                    );
+                                    if (aspectRatio < 0.85) {
+                                      wrapperRef.current.classList.add('landscape');
+                                    } else if (aspectRatio > 1.2) {
+                                      wrapperRef.current.classList.add('portrait');
+                                    } else {
+                                      wrapperRef.current.classList.add('square');
+                                    }
+                                  }
                                 }}
-                              >
-                                +{extraCount}
-                  </div>
-                )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  );
-                })()}
+                              />
+                              {/* Show +N badge on last visible item if there are more */}
+                              {extraCount > 0 && i === MAX_VISIBLE - 1 && (
+                                <div
+                                  className="timeline-more-badge"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    openModal(media, getMediaType(media.url), item.gallery, i);
+                                  }}
+                                >
+                                  +{extraCount}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
               </div>
             );
           })}
@@ -794,8 +817,8 @@ const Timeline = () => {
 
       {/* Media Modal */}
       {modalMedia && (
-        <MediaModal 
-          item={modalMedia.item} 
+        <MediaModal
+          item={modalMedia.item}
           type={modalMedia.type}
           gallery={modalMedia.gallery}
           currentIndex={modalMedia.index}

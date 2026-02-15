@@ -36,7 +36,9 @@
   position: absolute;
   top: 1px;
   left: 1px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,11 +46,12 @@
 }
 
 /* Dark theme - move thumb to the right */
-[data-theme="dark"] .toggle-thumb {
+[data-theme='dark'] .toggle-thumb {
   transform: translateX(24px);
 }
 
-.sun-icon, .moon-icon {
+.sun-icon,
+.moon-icon {
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
@@ -64,20 +67,20 @@
     min-width: 44px;
     min-height: 44px;
   }
-  
+
   .toggle-track {
     width: 45px;
     height: 24px;
   }
-  
+
   .toggle-thumb {
     width: 18px;
     height: 18px;
     font-size: 11px;
   }
-  
+
   /* Dark theme - move thumb to the right */
-  [data-theme="dark"] .toggle-thumb {
+  [data-theme='dark'] .toggle-thumb {
     transform: translateX(21px);
   }
 }
@@ -87,20 +90,20 @@
     min-width: 40px;
     min-height: 40px;
   }
-  
+
   .toggle-track {
     width: 40px;
     height: 22px;
   }
-  
+
   .toggle-thumb {
     width: 16px;
     height: 16px;
     font-size: 10px;
   }
-  
+
   /* Dark theme - move thumb to the right */
-  [data-theme="dark"] .toggle-thumb {
+  [data-theme='dark'] .toggle-thumb {
     transform: translateX(18px);
   }
-} 
+}

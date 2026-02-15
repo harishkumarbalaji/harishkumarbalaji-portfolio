@@ -35,8 +35,12 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .scroll-progress-text {
@@ -103,7 +107,7 @@
     bottom: 1.5rem;
     right: 1.5rem;
   }
-  
+
   .back-to-top-button svg {
     width: 20px;
     height: 20px;
@@ -118,7 +122,7 @@
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   .back-to-top-button svg {
     width: 18px;
     height: 18px;
@@ -309,57 +313,72 @@
 }
 
 @keyframes marioRun {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 @keyframes armSwing {
-  0%, 100% { transform: rotate(-15deg); }
-  50% { transform: rotate(15deg); }
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
 }
 
 @keyframes legRun {
-  0%, 100% { transform: rotate(-10deg); }
-  50% { transform: rotate(10deg); }
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
 }
 
 @media (max-width: 768px) {
   .scroll-progress-bar {
     height: 3px;
   }
-  
+
   .mario-sprite {
     width: 24px;
     height: 30px;
   }
-  
+
   .mario-head {
     width: 12px;
     height: 12px;
     left: 6px;
   }
-  
+
   .mario-hat {
     width: 14px;
     height: 6px;
     top: -3px;
   }
-  
+
   .mario-torso {
     width: 12px;
     height: 9px;
     top: 10px;
     left: 6px;
   }
-  
+
   .mario-arms {
     top: 12px;
   }
-  
+
   .mario-legs {
     height: 6px;
   }
-  
+
   .back-to-top-fab {
     width: 50px;
     height: 50px;
@@ -367,7 +386,7 @@
     right: 1.5rem;
     bottom: 1.5rem;
   }
-  
+
   .scroll-progress-fab {
     width: 50px;
     height: 50px;
@@ -377,7 +396,7 @@
     right: 1.5rem;
     bottom: 1.5rem;
   }
-  
+
   .scroll-progress-svg {
     width: 50px;
     height: 50px;
@@ -388,12 +407,12 @@
   .scroll-progress-bar {
     height: 2px;
   }
-  
+
   .mario-sprite {
     width: 20px;
     height: 25px;
   }
-  
+
   .back-to-top-fab {
     width: 48px;
     height: 48px;
@@ -401,7 +420,7 @@
     right: 1rem;
     bottom: 1rem;
   }
-  
+
   .scroll-progress-fab {
     width: 48px;
     height: 48px;
@@ -411,7 +430,7 @@
     right: 1rem;
     bottom: 1rem;
   }
-  
+
   .scroll-progress-svg {
     width: 48px;
     height: 48px;
@@ -436,14 +455,19 @@
   background: var(--scroll-progress-bg, #181828);
   color: var(--scroll-progress-fg, #fff);
   border: none;
-  box-shadow: 0 6px 32px 0 rgba(60,60,120,0.22), 0 0 0 4px var(--scroll-progress-glow, #6c63ff33);
+  box-shadow:
+    0 6px 32px 0 rgba(60, 60, 120, 0.22),
+    0 0 0 4px var(--scroll-progress-glow, #6c63ff33);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.15rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
   outline: none;
   overflow: hidden;
   touch-action: manipulation;
@@ -451,12 +475,17 @@
 }
 
 .scroll-progress-fab.popout {
-  box-shadow: 0 8px 36px 0 rgba(60,60,120,0.28), 0 0 0 6px var(--scroll-progress-glow, #6c63ff44);
+  box-shadow:
+    0 8px 36px 0 rgba(60, 60, 120, 0.28),
+    0 0 0 6px var(--scroll-progress-glow, #6c63ff44);
 }
 
-.scroll-progress-fab:hover, .scroll-progress-fab:focus {
+.scroll-progress-fab:hover,
+.scroll-progress-fab:focus {
   background: var(--accent-secondary, #4834d4);
-  box-shadow: 0 12px 40px 0 rgba(60,60,120,0.32), 0 0 0 10px var(--accent-primary, #6c63ff55);
+  box-shadow:
+    0 12px 40px 0 rgba(60, 60, 120, 0.32),
+    0 0 0 10px var(--accent-primary, #6c63ff55);
   transform: scale(1.09) translateY(-2px);
 }
 
@@ -477,7 +506,7 @@
 
 .scroll-progress-ring {
   stroke: var(--accent-primary, #6c63ff);
-  transition: stroke-dashoffset 0.3s cubic-bezier(.4,2,.6,1);
+  transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 2, 0.6, 1);
   stroke-linecap: round;
   filter: drop-shadow(0 0 6px var(--accent-primary, #6c63ff55));
 }
@@ -490,7 +519,7 @@
   margin-bottom: 0.1rem;
   margin-top: 0.2rem;
   letter-spacing: 0.05em;
-  transition: transform 0.18s cubic-bezier(.4,2,.6,1);
+  transition: transform 0.18s cubic-bezier(0.4, 2, 0.6, 1);
 }
 
 .scroll-progress-fab:hover .scroll-progress-arrow {
@@ -506,7 +535,9 @@
   user-select: none;
   text-align: center;
   color: var(--scroll-progress-fg, #fff);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 0 2px var(--scroll-progress-glow, #6c63ff44);
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18),
+    0 0 2px var(--scroll-progress-glow, #6c63ff44);
 }
 
 @media (max-width: 600px) {
@@ -549,4 +580,4 @@
     --scroll-progress-track: #2222;
     --scroll-progress-glow: #6c63ff22;
   }
-} 
+}

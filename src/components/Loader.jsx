@@ -12,7 +12,7 @@ const Loader = ({ onComplete }) => {
       { phase: 'developers', duration: 1000 },
       { phase: 'developers-big', duration: 600 },
       { phase: 'all-text', duration: 1800 },
-      { phase: 'complete', duration: 400 }
+      { phase: 'complete', duration: 400 },
     ];
 
     let currentIndex = 0;
@@ -21,7 +21,7 @@ const Loader = ({ onComplete }) => {
       if (currentIndex < phases.length) {
         const { phase, duration } = phases[currentIndex];
         setCurrentPhase(phase);
-        
+
         setTimeout(() => {
           currentIndex++;
           if (currentIndex < phases.length) {
@@ -50,21 +50,21 @@ const Loader = ({ onComplete }) => {
           ))}
         </div>
       </div>
-      
+
       <div className="loader-content">
         {currentPhase === 'initial' && (
           <div className="initial-loader">
             <div className="loader-logo">DV</div>
           </div>
         )}
-        
+
         {currentPhase === 'hi' && (
           <div className="hi-loader">
             <div className="hi-text">Hello</div>
             <div className="hi-subtitle">Welcome to my world</div>
           </div>
         )}
-        
+
         {currentPhase === 'developers' && (
           <div className="developers-loader">
             <div className="developers-text">Developers</div>
@@ -76,7 +76,7 @@ const Loader = ({ onComplete }) => {
             <div className="developers-big-text">Developers</div>
           </div>
         )}
-        
+
         {currentPhase === 'all-text' && (
           <div className="all-text-loader">
             <div className="text-line">
@@ -94,13 +94,13 @@ const Loader = ({ onComplete }) => {
           </div>
         )}
       </div>
-      
+
       <div className="loader-progress">
         <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ 
-              width: `${(phases.findIndex(p => p.phase === currentPhase) + 1) * (100 / 6)}%` 
+          <div
+            className="progress-fill"
+            style={{
+              width: `${(phases.findIndex((p) => p.phase === currentPhase) + 1) * (100 / 6)}%`,
             }}
           ></div>
         </div>
@@ -115,7 +115,7 @@ const phases = [
   { phase: 'developers', duration: 1000 },
   { phase: 'developers-big', duration: 600 },
   { phase: 'all-text', duration: 1800 },
-  { phase: 'complete', duration: 400 }
+  { phase: 'complete', duration: 400 },
 ];
 
-export default Loader; 
+export default Loader;

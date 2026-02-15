@@ -3,7 +3,14 @@
     "title": "Harish Kumar Balaji - Autonomy & Robotics Engineer",
     "description": "Hi! I am Harish! An enthusiastic autonomy and simulation engineer. Over the past few years, I've enjoyed bringing robots to life—whether that's writing software for real vehicles or building realistic simulations. I love taking on complex challenges and finding practical, creative solutions that work both on the metal and in code.",
     "author": "Harish Kumar Balaji",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "preview": {
+      "title": "Harish Kumar Balaji - Autonomy & Robotics Engineer",
+      "description": "Experienced autonomy engineer specializing in robotics, autonomous systems, and simulation. Check out my projects and experience!",
+      "image": "/media/profile/slider/hkb_workshop.jpeg",
+      "url": "https://harishkumarbalaji.github.io/portfolio",
+      "type": "website"
+    }
   },
   "sections": {
     "hero": {
@@ -110,13 +117,13 @@
   },
   "about": {
     "title": "About Me",
-      "content": [
-        "My journey began in Electronics and Communication Engineering, where hands-on embedded projects and robotics competitions sparked a deep interest in building intelligent systems. Leading a team in a world robotics championship and working on real robots showed me the thrill of solving real-world problems through automation. That early exposure gradually evolved into a strong focus on robotics software, simulation, and autonomous systems.",
-        "What truly drives me is the challenge of making autonomy work reliably outside the lab. I'm constantly thinking about questions like <em>\"How do we trust an autonomous system before it's deployed?\"</em> and <em>\"How can simulation reduce risk while accelerating development?\"</em> This curiosity has pushed me to explore the full autonomy stack, from embedded systems to large-scale validation frameworks.",
-        "My work today blends low-level systems engineering (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), supported by CI-driven SIL/HIL testing and containerized deployments. I enjoy closing the gap between sim to real translation, validating them rigorously, and iterating using real-world data.",
-        "Across industry roles and research-driven environments, I've worked on digital twins, scenario generation, simulation tooling, and autonomy validation pipelines. Whether I'm building a high-fidelity simulator or supporting autonomous navigation on real vehicles, I aim to create systems that are robust, testable, and scalable.",
-        "<strong>I'm excited by opportunities where robotics software, simulation, and autonomy validation come together to build dependable real-world systems.</strong>"
-      ],    
+    "content": [
+      "My journey began in Electronics and Communication Engineering, where hands-on embedded projects and robotics competitions sparked a deep interest in building intelligent systems. Leading a team in a world robotics championship and working on real robots showed me the thrill of solving real-world problems through automation. That early exposure gradually evolved into a strong focus on robotics software, simulation, and autonomous systems.",
+      "What truly drives me is the challenge of making autonomy work reliably outside the lab. I'm constantly thinking about questions like <em>\"How do we trust an autonomous system before it's deployed?\"</em> and <em>\"How can simulation reduce risk while accelerating development?\"</em> This curiosity has pushed me to explore the full autonomy stack, from embedded systems to large-scale validation frameworks.",
+      "My work today blends low-level systems engineering (C++, ROS/ROS2, Yocto) with higher-level autonomy and perception (Gazebo/CARLA simulation, Autoware, YOLO, NVBlox/ZED pipelines), supported by CI-driven SIL/HIL testing and containerized deployments. I enjoy closing the gap between sim to real translation, validating them rigorously, and iterating using real-world data.",
+      "Across industry roles and research-driven environments, I've worked on digital twins, scenario generation, simulation tooling, and autonomy validation pipelines. Whether I'm building a high-fidelity simulator or supporting autonomous navigation on real vehicles, I aim to create systems that are robust, testable, and scalable.",
+      "<strong>I'm excited by opportunities where robotics software, simulation, and autonomy validation come together to build dependable real-world systems.</strong>"
+    ],
     "carousel": {
       "images": [
         "/media/profile/slider/hkb_workshop.jpeg",
@@ -218,7 +225,15 @@
       "title": "Optimal Indoor Path Planning",
       "year": "May 2023 - Aug 2024",
       "description": "Engineered and steered an indoor robotic navigation project leveraging Nvidia's Isaac ROS dockers on Jetson Xavier NX, integrating Behavior Trees (BT) Navigator for efficient decision-making in food delivery from cafeteria to desk. Improved localization accuracy by integrating ORB Visual SLAM and optimized navigation speed by modifying A* heuristics based on dynamic obstacle detection from CCTVs.",
-      "technologies": ["C++", "Python", "ROS2", "Isaac ROS", "Jetson Xavier NX", "OpenCV", "Behavior Trees"],
+      "technologies": [
+        "C++",
+        "Python",
+        "ROS2",
+        "Isaac ROS",
+        "Jetson Xavier NX",
+        "OpenCV",
+        "Behavior Trees"
+      ],
       "highlights": ["Isaac ROS", "Behavior Trees", "ORB Visual SLAM", "A* Heuristics"],
       "image": "robot",
       "github": "https://github.com/harishkumarbalaji",
@@ -266,7 +281,14 @@
       "title": "AWS Deepracer League",
       "year": "Jan 2022 - May 2022",
       "description": "Coordinated a 4-member team to achieve third position in the 'AWS Deepracer League - Nationals' leaderboard, skillfully applying various strategies in creating a Reinforcement Learning model for autonomous racing. Implemented advanced RL algorithms and optimization techniques for high-speed autonomous navigation.",
-      "technologies": ["Python", "TensorFlow", "Reinforcement Learning", "AWS", "Robotics", "Machine Learning"],
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "Reinforcement Learning",
+        "AWS",
+        "Robotics",
+        "Machine Learning"
+      ],
       "highlights": ["3rd Place Nationals", "Reinforcement Learning", "Team Lead"],
       "image": "racing",
       "github": "https://github.com/harishkumarbalaji",
@@ -285,7 +307,14 @@
       "title": "World Robotics Championship",
       "year": "Mar 2019 - Sep 2019",
       "description": "Led a 5-member team to achieve second place in the 'Micromouse - Mazesolver' competition by designing a self-navigating robot that utilized a modified left-wall follower algorithm on resource-constrained hardware like Arduino Mega, enabling efficient navigation and solving of intricate mazes.",
-      "technologies": ["C++", "Arduino", "Embedded Systems", "Path Planning", "Maze Solving", "Algorithms"],
+      "technologies": [
+        "C++",
+        "Arduino",
+        "Embedded Systems",
+        "Path Planning",
+        "Maze Solving",
+        "Algorithms"
+      ],
       "highlights": ["2nd Place", "Team Lead", "Modified Wall Follower", "Arduino Mega"],
       "image": "maze",
       "github": "https://github.com/harishkumarbalaji",
@@ -400,7 +429,12 @@
         "Built kernel and system-level features for Skydio's next-generation remote controller",
         "Integrated with Hardware-In-the-Loop (HIL) test bench to validate performance across simulation and real drone platforms"
       ],
-      "highlights": ["GPU Instancing", "65% Memory Optimization", "Mixed-Reality Integration", "HIL Testing"],
+      "highlights": [
+        "GPU Instancing",
+        "65% Memory Optimization",
+        "Mixed-Reality Integration",
+        "HIL Testing"
+      ],
       "gallery": [
         {
           "title": "With Skydio X10 Drone and X10 Dock",
@@ -434,7 +468,12 @@
         "Achieved simulation accuracy within 10 cm of real-world trajectories",
         "Built a Dockerized digital twin with custom encoder plugin and CI-integrated deployment, reducing manual testing by 85%"
       ],
-      "highlights": ["Dual Ackermann Plugin", "Digital Twin", "10cm Accuracy", "85% Testing Reduced"],
+      "highlights": [
+        "Dual Ackermann Plugin",
+        "Digital Twin",
+        "10cm Accuracy",
+        "85% Testing Reduced"
+      ],
       "gallery": [
         {
           "title": "Simulation Capabilities @ EarthSense",
@@ -510,14 +549,25 @@
       "location": "India",
       "logo": "/media/logos/Speedways-logo.png",
       "icon": "🤖",
-      "technologies": ["Python", "Socket Programming", "Dijkstra's Algorithm", "AGV", "Path Planning"],
+      "technologies": [
+        "Python",
+        "Socket Programming",
+        "Dijkstra's Algorithm",
+        "AGV",
+        "Path Planning"
+      ],
       "details": [
         "Architected a Python-based socket server for real-time data exchange with line-following AGVs in warehouse settings",
         "Implemented Dijkstra's algorithm for optimal path planning, collision avoidance, and dynamic re-routing",
         "Reduced delivery time by 30% and enabled successful entry into the warehouse automation market",
         "Developed efficient algorithms for autonomous vehicle navigation in industrial environments"
       ],
-      "highlights": ["Socket Server", "Dijkstra's Algorithm", "AGV Navigation", "30% Faster Delivery"],
+      "highlights": [
+        "Socket Server",
+        "Dijkstra's Algorithm",
+        "AGV Navigation",
+        "30% Faster Delivery"
+      ],
       "gallery": []
     }
   ],
@@ -525,37 +575,100 @@
     {
       "category": "Programming Languages & Systems",
       "skills": [
-        { "name": "C++", "icon": "https://skillicons.dev/icons?i=cpp" },
-        { "name": "Rust", "icon": "https://skillicons.dev/icons?i=rust" },
-        { "name": "Python", "icon": "https://skillicons.dev/icons?i=python" },
-        { "name": "C", "icon": "https://skillicons.dev/icons?i=c" },
-        { "name": "Bash", "icon": "https://skillicons.dev/icons?i=bash" },
-        { "name": "Java", "icon": "https://skillicons.dev/icons?i=java" },
-        { "name": "MATLAB", "icon": "https://skillicons.dev/icons?i=matlab" },
-        { "name": "Linux", "icon": "https://skillicons.dev/icons?i=linux" },
-        { "name": "Arduino", "icon": "https://skillicons.dev/icons?i=arduino" }
+        {
+          "name": "C++",
+          "icon": "https://skillicons.dev/icons?i=cpp"
+        },
+        {
+          "name": "Rust",
+          "icon": "https://skillicons.dev/icons?i=rust"
+        },
+        {
+          "name": "Python",
+          "icon": "https://skillicons.dev/icons?i=python"
+        },
+        {
+          "name": "C",
+          "icon": "https://skillicons.dev/icons?i=c"
+        },
+        {
+          "name": "Bash",
+          "icon": "https://skillicons.dev/icons?i=bash"
+        },
+        {
+          "name": "Java",
+          "icon": "https://skillicons.dev/icons?i=java"
+        },
+        {
+          "name": "MATLAB",
+          "icon": "https://skillicons.dev/icons?i=matlab"
+        },
+        {
+          "name": "Linux",
+          "icon": "https://skillicons.dev/icons?i=linux"
+        },
+        {
+          "name": "Arduino",
+          "icon": "https://skillicons.dev/icons?i=arduino"
+        }
       ]
     },
     {
       "category": "Robotics & Autonomy Frameworks",
       "skills": [
-        { "name": "ROS", "icon": "https://skillicons.dev/icons?i=ros" },
-        { "name": "Gazebo", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gazebo/gazebo-original.svg" },
-        { "name": "OpenCV", "icon": "https://skillicons.dev/icons?i=opencv" },
-        { "name": "PyTorch", "icon": "https://skillicons.dev/icons?i=pytorch" },
-        { "name": "TensorFlow", "icon": "https://skillicons.dev/icons?i=tensorflow" },
-        { "name": "NumPy", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" }
+        {
+          "name": "ROS",
+          "icon": "https://skillicons.dev/icons?i=ros"
+        },
+        {
+          "name": "Gazebo",
+          "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gazebo/gazebo-original.svg"
+        },
+        {
+          "name": "OpenCV",
+          "icon": "https://skillicons.dev/icons?i=opencv"
+        },
+        {
+          "name": "PyTorch",
+          "icon": "https://skillicons.dev/icons?i=pytorch"
+        },
+        {
+          "name": "TensorFlow",
+          "icon": "https://skillicons.dev/icons?i=tensorflow"
+        },
+        {
+          "name": "NumPy",
+          "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
+        }
       ]
     },
     {
       "category": "DevOps & Cloud Platforms",
       "skills": [
-        { "name": "Docker", "icon": "https://skillicons.dev/icons?i=docker" },
-        { "name": "AWS", "icon": "https://skillicons.dev/icons?i=aws" },
-        { "name": "Jenkins", "icon": "https://skillicons.dev/icons?i=jenkins" },
-        { "name": "GitHub Actions", "icon": "https://skillicons.dev/icons?i=githubactions" },
-        { "name": "Git", "icon": "https://skillicons.dev/icons?i=git" },
-        { "name": "CMake", "icon": "https://skillicons.dev/icons?i=cmake" }
+        {
+          "name": "Docker",
+          "icon": "https://skillicons.dev/icons?i=docker"
+        },
+        {
+          "name": "AWS",
+          "icon": "https://skillicons.dev/icons?i=aws"
+        },
+        {
+          "name": "Jenkins",
+          "icon": "https://skillicons.dev/icons?i=jenkins"
+        },
+        {
+          "name": "GitHub Actions",
+          "icon": "https://skillicons.dev/icons?i=githubactions"
+        },
+        {
+          "name": "Git",
+          "icon": "https://skillicons.dev/icons?i=git"
+        },
+        {
+          "name": "CMake",
+          "icon": "https://skillicons.dev/icons?i=cmake"
+        }
       ]
     }
   ]

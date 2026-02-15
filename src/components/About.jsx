@@ -22,11 +22,11 @@ const About = () => {
 
     const loadImageOrientations = async () => {
       const orientations = {};
-      
+
       for (const imagePath of aboutData.carousel.images) {
         const img = new Image();
         const fullPath = `${import.meta.env.BASE_URL}${imagePath.replace(/^\//, '')}`;
-        
+
         await new Promise((resolve) => {
           img.onload = () => {
             // Determine if portrait (height > width)
@@ -41,7 +41,7 @@ const About = () => {
           img.src = fullPath;
         });
       }
-      
+
       setImageOrientations(orientations);
     };
 
@@ -53,9 +53,7 @@ const About = () => {
     if (!aboutData?.carousel || isHovered) return;
 
     autoPlayRef.current = setInterval(() => {
-      setActiveIndex((prev) => 
-        prev === aboutData.carousel.images.length - 1 ? 0 : prev + 1
-      );
+      setActiveIndex((prev) => (prev === aboutData.carousel.images.length - 1 ? 0 : prev + 1));
     }, aboutData.carousel.autoPlayInterval || 4000);
 
     return () => {
@@ -70,15 +68,11 @@ const About = () => {
   };
 
   const handlePrev = () => {
-    setActiveIndex((prev) => 
-      prev === 0 ? aboutData.carousel.images.length - 1 : prev - 1
-    );
+    setActiveIndex((prev) => (prev === 0 ? aboutData.carousel.images.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => 
-      prev === aboutData.carousel.images.length - 1 ? 0 : prev + 1
-    );
+    setActiveIndex((prev) => (prev === aboutData.carousel.images.length - 1 ? 0 : prev + 1));
   };
 
   if (!aboutData) return null;
@@ -89,11 +83,11 @@ const About = () => {
     <section id="about" className="about">
       <div className="about-container">
         <h2 className="section-title">{aboutData.title}</h2>
-        
+
         <div className="about-layout">
           {/* Horizontal Card Carousel - Left */}
           {images.length > 0 && (
-            <div 
+            <div
               className="carousel-container"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -103,18 +97,18 @@ const About = () => {
                   // Calculate circular offset for continuous carousel
                   let offset = index - activeIndex;
                   const total = images.length;
-                  
+
                   // Wrap around for continuous effect
                   if (offset > total / 2) {
                     offset -= total;
                   } else if (offset < -total / 2) {
                     offset += total;
                   }
-                  
+
                   const isActive = index === activeIndex;
-                  
+
                   const orientation = imageOrientations[image] || 'landscape';
-                  
+
                   return (
                     <div
                       key={index}
@@ -138,8 +132,8 @@ const About = () => {
 
               {/* Dot Indicators with Navigation Arrows */}
               <div className="carousel-indicators">
-                <button 
-                  className="carousel-nav carousel-nav-prev" 
+                <button
+                  className="carousel-nav carousel-nav-prev"
                   onClick={handlePrev}
                   aria-label="Previous image"
                 >
@@ -147,7 +141,7 @@ const About = () => {
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
-                
+
                 {images.map((_, index) => (
                   <button
                     key={index}
@@ -156,9 +150,9 @@ const About = () => {
                     aria-label={`Go to image ${index + 1}`}
                   />
                 ))}
-                
-                <button 
-                  className="carousel-nav carousel-nav-next" 
+
+                <button
+                  className="carousel-nav carousel-nav-next"
                   onClick={handleNext}
                   aria-label="Next image"
                 >
@@ -171,11 +165,11 @@ const About = () => {
           )}
 
           {/* Content - Right */}
-        <div className="about-content">
-          <div className="about-text">
-            {aboutData.content.map((paragraph, index) => (
-              <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
-            ))}
+          <div className="about-content">
+            <div className="about-text">
+              {aboutData.content.map((paragraph, index) => (
+                <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+              ))}
             </div>
           </div>
         </div>
@@ -184,4 +178,4 @@ const About = () => {
   );
 };
 
-export default About; 
+export default About;

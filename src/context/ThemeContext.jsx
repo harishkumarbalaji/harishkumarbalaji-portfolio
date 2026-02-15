@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
@@ -24,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     // Save theme preference to localStorage
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    
+
     // Apply theme to document
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
@@ -35,12 +36,8 @@ export const ThemeProvider = ({ children }) => {
 
   const value = {
     isDark,
-    toggleTheme
+    toggleTheme,
   };
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}; 
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+};

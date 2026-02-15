@@ -40,8 +40,6 @@
   transform: scale(1.2) rotate(5deg);
 }
 
-
-
 /* Size variants */
 .social-links-small .social-icon {
   width: 18px;
@@ -58,8 +56,6 @@
   height: 32px;
 }
 
-
-
 /* Animation keyframes */
 @keyframes fadeInUp {
   to {
@@ -74,18 +70,18 @@
     gap: 0.75rem;
     justify-content: center;
   }
-  
+
   .social-link {
     padding: 0.4rem;
     min-width: 44px;
     min-height: 44px;
   }
-  
+
   .social-links-large .social-icon {
     width: 28px;
     height: 28px;
   }
-  
+
   .social-links-medium .social-icon {
     width: 22px;
     height: 22px;
@@ -97,18 +93,18 @@
     gap: 0.5rem;
     justify-content: center;
   }
-  
+
   .social-link {
     padding: 0.35rem;
     min-width: 40px;
     min-height: 40px;
   }
-  
+
   .social-links-large .social-icon {
     width: 24px;
     height: 24px;
   }
-  
+
   .social-links-medium .social-icon {
     width: 20px;
     height: 20px;
@@ -116,21 +112,21 @@
 }
 
 /* Dark theme specific adjustments */
-[data-theme="dark"] .social-link {
+[data-theme='dark'] .social-link {
   color: #ffffff;
 }
 
-[data-theme="dark"] .social-link:hover {
+[data-theme='dark'] .social-link:hover {
   color: #ffffff;
   background: var(--bg-tertiary);
 }
 
 /* Light theme specific adjustments */
-[data-theme="light"] .social-link {
+[data-theme='light'] .social-link {
   color: #333333;
 }
 
-[data-theme="light"] .social-link:hover {
+[data-theme='light'] .social-link:hover {
   color: #333333;
   background: var(--bg-secondary);
-} 
+}

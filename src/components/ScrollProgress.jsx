@@ -21,7 +21,7 @@ const BackToTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -34,17 +34,14 @@ const BackToTop = () => {
           aria-label="Back to top"
           title="Back to top"
         >
-          <svg 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path 
-              d="M12 4L4 12H9V20H15V12H20L12 4Z" 
-              fill="currentColor"
-            />
+            <path d="M12 4L4 12H9V20H15V12H20L12 4Z" fill="currentColor" />
           </svg>
         </button>
       )}
@@ -52,4 +49,4 @@ const BackToTop = () => {
   );
 };
 
-export default BackToTop; 
+export default BackToTop;

@@ -2,7 +2,7 @@
 
 A stunning, fully customizable portfolio template built with React + Vite. Features a beautiful dark/light theme, animated sections, interactive timeline, media galleries, and contact form integration.
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-4CAF50?style=for-the-badge)](https://harishkumarbalaji.github.io/harishkumarbalaji-portfolio)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-4CAF50?style=for-the-badge)](https://harishkumarbalaji.github.io/portfolio)
 
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=flat-square&logo=vite)
@@ -13,6 +13,7 @@ A stunning, fully customizable portfolio template built with React + Vite. Featu
 ## ✨ Features
 
 ### 🎨 **Design & UI**
+
 - **Dark/Light Theme Toggle** - Seamless theme switching with system preference detection
 - **Smooth Animations** - Scroll-triggered animations and micro-interactions
 - **Responsive Design** - Looks great on desktop, tablet, and mobile
@@ -20,30 +21,33 @@ A stunning, fully customizable portfolio template built with React + Vite. Featu
 - **Modern Typography** - Clean, professional fonts with proper hierarchy
 
 ### 📄 **Sections**
-| Section | Description |
-|---------|-------------|
-| **Hero** | Eye-catching intro with animated role typing, stats, and profile image |
-| **About** | Personal story with formatted paragraphs and emphasis |
-| **Projects** | Horizontal timeline with expandable descriptions and media gallery |
-| **Skills** | Categorized skill badges with icons |
-| **Timeline** | Experience & Education with company logos and media attachments |
-| **Contact** | Working contact form with EmailJS integration |
+
+| Section      | Description                                                            |
+| ------------ | ---------------------------------------------------------------------- |
+| **Hero**     | Eye-catching intro with animated role typing, stats, and profile image |
+| **About**    | Personal story with formatted paragraphs and emphasis                  |
+| **Projects** | Horizontal timeline with expandable descriptions and media gallery     |
+| **Skills**   | Categorized skill badges with icons                                    |
+| **Timeline** | Experience & Education with company logos and media attachments        |
+| **Contact**  | Working contact form with EmailJS integration                          |
 
 ### 🎬 **Media Gallery Support**
+
 The portfolio supports embedding various media types in Projects and Timeline:
 
-| Media Type | Support |
-|------------|---------|
-| 🎥 YouTube Videos | Embedded player with auto-detect |
-| 📊 Google Slides | Live preview with auto-loop slideshow |
-| 💼 LinkedIn Posts | Embedded post preview |
-| 📁 Google Drive | Video/Image embedding |
-| 📁 OneDrive | Video/Image embedding |
-| 🖼️ Local Images | Direct image display |
-| 🎬 Local Videos | Video player with controls |
-| 🔗 External Links | Styled link cards with favicon |
+| Media Type        | Support                               |
+| ----------------- | ------------------------------------- |
+| 🎥 YouTube Videos | Embedded player with auto-detect      |
+| 📊 Google Slides  | Live preview with auto-loop slideshow |
+| 💼 LinkedIn Posts | Embedded post preview                 |
+| 📁 Google Drive   | Video/Image embedding                 |
+| 📁 OneDrive       | Video/Image embedding                 |
+| 🖼️ Local Images   | Direct image display                  |
+| 🎬 Local Videos   | Video player with controls            |
+| 🔗 External Links | Styled link cards with favicon        |
 
 ### 📬 **Contact Form**
+
 - Integrated with [EmailJS](https://www.emailjs.com/) for serverless email delivery
 - Form validation and success/error notifications
 - No backend required!
@@ -64,6 +68,7 @@ The portfolio supports embedding various media types in Projects and Timeline:
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - npm or yarn package manager
 
@@ -132,7 +137,7 @@ Change the `base` path to match your repository name:
 export default defineConfig({
   plugins: [react()],
   base: process.env.NODE_ENV === 'production' ? '/YOUR_REPO_NAME/' : '/',
-})
+});
 ```
 
 > ⚠️ **Important:** The repository name in both files must match exactly, including case sensitivity!
@@ -151,6 +156,7 @@ npm run deploy
 ```
 
 This command will:
+
 1. Run `npm run build` (creates production build in `dist/` folder)
 2. Push the `dist/` folder to a `gh-pages` branch in your repository
 
@@ -185,6 +191,7 @@ npm run deploy
 ## 📝 Customization Guide
 
 ### 📍 Main Data File
+
 All portfolio content is controlled by a single JSON file:
 
 ```
@@ -196,6 +203,7 @@ src/data/portfolioData.json
 ### 🔧 What to Edit
 
 #### 1. **Personal Information**
+
 ```json
 {
   "metadata": {
@@ -212,26 +220,60 @@ src/data/portfolioData.json
     },
     "roles": ["Role 1", "Role 2", "Role 3"],
     "description": "Your intro paragraph...",
-    "stats": [
-      { "number": "5+", "label": "Years Experience" }
-    ]
+    "stats": [{ "number": "5+", "label": "Years Experience" }]
   }
 }
 ```
 
-#### 2. **About Section**
+#### 2. **Link Preview Configuration (Universal)**
+
+When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging apps, etc.), this controls what preview image and text appears. Uses the Open Graph Protocol standard which is supported by virtually all platforms.
+
+```json
+{
+  "metadata": {
+    "preview": {
+      "title": "Your Name - Your Title",
+      "description": "Short compelling description for social media previews (155 characters recommended)",
+      "image": "/media/profile/profile-image.jpg",
+      "url": "https://yourusername.github.io/your-repo-name",
+      "type": "website"
+    }
+  }
+}
+```
+
+**Configuration Options:**
+
+- **`title`**: The title shown in link previews (appears in bold)
+- **`description`**: A short description (keep it under 155 characters for best results)
+- **`image`**: Path to your preview image (recommended size: 1200×630px for best quality)
+  - Use an absolute path starting with `/media/` for local images
+  - Or use a full URL: `https://example.com/image.jpg`
+- **`url`**: Your full portfolio URL (must match your deployed site)
+- **`type`**: Usually `"website"` (or `"profile"` for personal sites)
+
+**Best Practices:**
+
+- **Image Size**: 1200×630px (2:1 ratio) works universally across all platforms
+- **Image Format**: JPG or PNG (under 5MB)
+- **Description Length**: 50-155 characters optimal for most platforms
+- **Test Your Preview**: Simply share your link in any messaging app (WhatsApp, Slack, etc.) to see how it looks
+
+> 💡 **Tip:** Some platforms cache previews for 24-48 hours. If you update your settings, you may need to wait or use Open Graph debugging tools to force a refresh.
+
+#### 3. **About Section**
+
 ```json
 {
   "about": {
-    "content": [
-      "Paragraph 1 with <em>emphasis</em> and <strong>bold</strong>...",
-      "Paragraph 2..."
-    ]
+    "content": ["Paragraph 1 with <em>emphasis</em> and <strong>bold</strong>...", "Paragraph 2..."]
   }
 }
 ```
 
-#### 3. **Projects**
+#### 4. **Projects**
+
 ```json
 {
   "projects": [
@@ -246,14 +288,19 @@ src/data/portfolioData.json
       "live": "https://...",
       "gallery": [
         { "title": "Demo Video", "url": "https://youtube.com/...", "type": "youtube" },
-        { "title": "Presentation", "url": "https://docs.google.com/presentation/...", "type": "google_slides" }
+        {
+          "title": "Presentation",
+          "url": "https://docs.google.com/presentation/...",
+          "type": "google_slides"
+        }
       ]
     }
   ]
 }
 ```
 
-#### 4. **Experience & Education**
+#### 5. **Experience & Education**
+
 ```json
 {
   "experience": [
@@ -291,15 +338,14 @@ src/data/portfolioData.json
 }
 ```
 
-#### 5. **Skills**
+#### 6. **Skills**
+
 ```json
 {
   "skills": [
     {
       "category": "Category Name",
-      "skills": [
-        { "name": "Skill Name", "icon": "https://skillicons.dev/icons?i=react" }
-      ]
+      "skills": [{ "name": "Skill Name", "icon": "https://skillicons.dev/icons?i=react" }]
     }
   ]
 }
@@ -307,7 +353,8 @@ src/data/portfolioData.json
 
 > 💡 **Tip:** Find icons at [skillicons.dev](https://skillicons.dev/)
 
-#### 6. **Contact & Social Links**
+#### 7. **Contact & Social Links**
+
 ```json
 {
   "contact": {
@@ -320,21 +367,27 @@ src/data/portfolioData.json
   "social": {
     "links": [
       { "name": "GitHub", "url": "https://github.com/you", "icon": "github" },
-      { "name": "Resume", "url": "https://drive.google.com/file/d/YOUR_FILE_ID/view", "icon": "resume" }
+      {
+        "name": "Resume",
+        "url": "https://drive.google.com/file/d/YOUR_FILE_ID/view",
+        "icon": "resume"
+      }
     ]
   }
 }
 ```
 
-#### 7. **Resume Button (Split View + Download)**
+#### 8. **Resume Button (Split View + Download)**
 
 The resume button is a **split button** with two actions:
+
 - **View Resume** (left side, 70%) - Opens the resume in a new tab
 - **Download** (right side, 30%) - Directly downloads the resume
 
 The code **automatically extracts** the file ID from your Google Drive link and generates both view and download URLs!
 
 **Option A: Google Drive (Recommended)**
+
 ```json
 {
   "name": "Resume",
@@ -342,16 +395,19 @@ The code **automatically extracts** the file ID from your Google Drive link and 
   "icon": "resume"
 }
 ```
+
 - Just paste your Google Drive share link - **no need to manually create download URLs!**
 - The code automatically computes the download URL from the file ID
 - Make sure your file is publicly accessible ("Anyone with the link can view")
 
 > 💡 **How to get your Google Drive link:**
+>
 > 1. Upload your resume to Google Drive
 > 2. Right-click → Share → "Anyone with the link"
 > 3. Copy the link and paste it in the JSON
 
 **Option B: Local PDF File**
+
 ```json
 {
   "name": "Resume",
@@ -360,6 +416,7 @@ The code **automatically extracts** the file ID from your Google Drive link and 
   "download": true
 }
 ```
+
 - Place your PDF file in the `public/` folder
 - Set `"download": true` for local file downloads
 - Both View and Download buttons will work with the local file
@@ -410,6 +467,7 @@ When adding media paths in `portfolioData.json`, use paths relative to the `publ
 ```
 
 **Path Guidelines:**
+
 - ✅ Start with `/media/` (recommended): `/media/experience/zipline/demo.gif`
 - ✅ Or without leading slash: `media/experience/zipline/demo.gif`
 - ✅ External URLs work too: `https://example.com/image.jpg`
@@ -454,11 +512,16 @@ To add local images, videos, or GIFs to your experience/projects:
 1. **Add your files** to the appropriate folder (e.g., `public/media/experience/company-name/demo.mp4`)
 
 2. **Reference in JSON** with the correct type:
+
 ```json
 {
   "gallery": [
     { "title": "Demo Video", "url": "/media/experience/company-name/demo.mp4", "type": "video" },
-    { "title": "Screenshot", "url": "/media/experience/company-name/screenshot.png", "type": "image" },
+    {
+      "title": "Screenshot",
+      "url": "/media/experience/company-name/screenshot.png",
+      "type": "image"
+    },
     { "title": "Animation", "url": "/media/experience/company-name/animation.gif", "type": "image" }
   ]
 }
@@ -466,14 +529,14 @@ To add local images, videos, or GIFs to your experience/projects:
 
 #### Supported Media Types
 
-| Type | File Extensions | JSON `type` Value |
-|------|-----------------|-------------------|
-| Images | `.jpg`, `.png`, `.gif`, `.webp` | `"image"` |
-| Videos | `.mp4`, `.webm`, `.mov` | `"video"` |
-| YouTube | YouTube URLs | `"youtube"` |
-| Google Slides | Google Slides URLs | `"google_slides"` |
-| LinkedIn | LinkedIn post URLs | `"linkedin"` |
-| External Links | Any URL | `"link"` |
+| Type           | File Extensions                 | JSON `type` Value |
+| -------------- | ------------------------------- | ----------------- |
+| Images         | `.jpg`, `.png`, `.gif`, `.webp` | `"image"`         |
+| Videos         | `.mp4`, `.webm`, `.mov`         | `"video"`         |
+| YouTube        | YouTube URLs                    | `"youtube"`       |
+| Google Slides  | Google Slides URLs              | `"google_slides"` |
+| LinkedIn       | LinkedIn post URLs              | `"linkedin"`      |
+| External Links | Any URL                         | `"link"`          |
 
 > 💡 **Tip:** Use Google Drive for your resume - just paste the share link and the code handles the rest! See [Resume Button](#7-resume-button-split-view--download) for details.
 
@@ -484,12 +547,7 @@ To add local images, videos, or GIFs to your experience/projects:
 3. Update `src/components/Contact.jsx`:
 
 ```javascript
-emailjs.send(
-  'YOUR_SERVICE_ID',
-  'YOUR_TEMPLATE_ID',
-  templateParams,
-  'YOUR_PUBLIC_KEY'
-);
+emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY');
 ```
 
 ---
@@ -556,6 +614,7 @@ npm run build
 ## 🎨 Customizing Styles
 
 ### Theme Colors
+
 Edit CSS variables in `src/styles/theme.css`:
 
 ```css
@@ -565,14 +624,16 @@ Edit CSS variables in `src/styles/theme.css`:
   --background-color: #your-bg;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --primary-color: #dark-theme-color;
   /* ... */
 }
 ```
 
 ### Component Styles
+
 Each component has its own CSS file in `src/styles/`:
+
 - `Hero.css`, `About.css`, `Projects.css`, `Skills.css`, `Timeline.css`, `Contact.css`
 
 ---
@@ -581,16 +642,17 @@ Each component has its own CSS file in `src/styles/`:
 
 ### GitHub Pages Issues
 
-| Problem | Solution |
-|---------|----------|
-| 404 error on page load | Ensure `base` in `vite.config.js` matches your repo name exactly |
-| Blank page | Check browser console for errors; verify `homepage` in `package.json` |
+| Problem                               | Solution                                                                                                                                           |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 404 error on page load                | Ensure `base` in `vite.config.js` matches your repo name exactly                                                                                   |
+| Blank page                            | Check browser console for errors; verify `homepage` in `package.json`                                                                              |
 | Images/media not loading after deploy | The app automatically handles media paths - ensure your `vite.config.js` has the correct `base` path and media files are in `public/media/` folder |
-| Changes not reflecting | Clear browser cache, run `npm run deploy` again, or wait a few minutes for GitHub Pages to update |
+| Changes not reflecting                | Clear browser cache, run `npm run deploy` again, or wait a few minutes for GitHub Pages to update                                                  |
 
 ### Media Path Configuration
 
 **How it works:**
+
 - Media files in `public/media/` are automatically served with the correct base path
 - The app uses `import.meta.env.BASE_URL` to resolve local media paths for GitHub Pages
 - External URLs (starting with `http://` or `https://`) are used as-is
@@ -598,6 +660,7 @@ Each component has its own CSS file in `src/styles/`:
 - In production (after `npm run deploy`), paths automatically include `/YOUR_REPO_NAME/`
 
 **Important:**
+
 - Always use paths relative to `public/` in your JSON files, e.g., `/media/profile/profile-image.jpg`
 - The leading `/` is optional - the app will handle it correctly
 - If media works locally but not after deploy, verify the `base` path in `vite.config.js` matches your repository name exactly

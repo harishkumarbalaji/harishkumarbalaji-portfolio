@@ -96,12 +96,10 @@
   --blur: 3px;
   --max-width: 640px;
   --max-height: 710px;
-  
-  transform: 
-    translateX(calc(var(--offset) * 450px))
-    scale(var(--scale))
+
+  transform: translateX(calc(var(--offset) * 450px)) scale(var(--scale))
     translateZ(calc(var(--offset) * -180px));
-  
+
   opacity: var(--opacity);
   z-index: var(--z-index);
   filter: blur(var(--blur)) brightness(0.75);
@@ -115,7 +113,7 @@
 }
 
 /* Portrait images - 25% smaller (auto-detected) */
-.carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
+.carousel-card:not(.active)[data-orientation='portrait'] .carousel-image {
   max-width: 488px;
   max-height: 540px;
 }
@@ -128,13 +126,13 @@
   --blur: 0px;
   --max-width: 730px;
   --max-height: 600px;
-  
+
   filter: blur(var(--blur)) brightness(1);
 }
 
 .carousel-card.active .carousel-image {
   border-color: var(--accent-primary, #6366f1);
-  box-shadow: 
+  box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.6),
     0 0 40px var(--accent-primary, #6366f1);
 }
@@ -146,8 +144,8 @@
 
 /* Cards are always visible in circular layout */
 /* Only hide cards that are too far (more than 3 positions away) */
-.carousel-card[style*="--offset: 4"],
-.carousel-card[style*="--offset: -4"] {
+.carousel-card[style*='--offset: 4'],
+.carousel-card[style*='--offset: -4'] {
   opacity: 0;
   pointer-events: none;
 }
@@ -322,11 +320,11 @@
     margin: 0 auto;
   }
 
-.about-content {
+  .about-content {
     order: 1;
     max-width: 100%;
     height: auto;
-}
+  }
 
   .about-text {
     max-height: 400px;
@@ -338,9 +336,9 @@
     --opacity: 0.35;
     --blur: 3px;
   }
-  
+
   /* Portrait images - 25% smaller for tablet */
-  .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
+  .carousel-card:not(.active)[data-orientation='portrait'] .carousel-image {
     max-width: 400px;
     max-height: 450px;
   }
@@ -351,12 +349,10 @@
   }
 
   .carousel-card {
-    transform: 
-      translateX(calc(var(--offset) * 380px))
-      scale(var(--scale))
+    transform: translateX(calc(var(--offset) * 380px)) scale(var(--scale))
       translateZ(calc(var(--offset) * -140px));
   }
-  
+
   .carousel-indicators {
     bottom: -50px;
     gap: 10px;
@@ -366,19 +362,19 @@
     justify-content: center;
     width: 100%;
   }
-  
+
   .carousel-nav svg {
     width: 18px;
     height: 18px;
   }
-  
+
   .carousel-indicators .carousel-nav-prev {
     margin-right: 6px;
   }
 
   .carousel-indicators .carousel-nav-next {
     margin-left: 6px;
-}
+  }
 }
 
 @media (max-width: 768px) {
@@ -411,7 +407,7 @@
     height: auto;
     margin: 0 0.5rem;
   }
-  
+
   .about-text {
     max-height: 350px;
     padding: 2rem;
@@ -424,9 +420,9 @@
     --opacity: 0.35;
     --blur: 3px;
   }
-  
+
   /* Portrait images - 25% smaller for mobile */
-  .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
+  .carousel-card:not(.active)[data-orientation='portrait'] .carousel-image {
     max-width: 320px;
     max-height: 380px;
   }
@@ -437,12 +433,10 @@
   }
 
   .carousel-card {
-    transform: 
-      translateX(calc(var(--offset) * 300px))
-      scale(var(--scale))
+    transform: translateX(calc(var(--offset) * 300px)) scale(var(--scale))
       translateZ(calc(var(--offset) * -120px));
   }
-  
+
   .carousel-indicators {
     bottom: -45px;
     gap: 9px;
@@ -452,19 +446,19 @@
     justify-content: center;
     width: 100%;
   }
-  
+
   .carousel-nav svg {
     width: 16px;
     height: 16px;
   }
-  
+
   .carousel-dot {
     width: 11px;
     height: 11px;
     min-width: 11px;
     min-height: 11px;
   }
-  
+
   .carousel-indicators .carousel-nav-prev {
     margin-right: 5px;
   }
@@ -515,9 +509,9 @@
     --opacity: 0.35;
     --blur: 3px;
   }
-  
+
   /* Portrait images - 25% smaller for small mobile */
-  .carousel-card:not(.active)[data-orientation="portrait"] .carousel-image {
+  .carousel-card:not(.active)[data-orientation='portrait'] .carousel-image {
     max-width: 270px;
     max-height: 320px;
   }
@@ -528,12 +522,10 @@
   }
 
   .carousel-card {
-    transform: 
-      translateX(calc(var(--offset) * 240px))
-      scale(var(--scale))
+    transform: translateX(calc(var(--offset) * 240px)) scale(var(--scale))
       translateZ(calc(var(--offset) * -100px));
   }
-  
+
   .carousel-indicators {
     bottom: -40px;
     gap: 8px;
@@ -543,19 +535,19 @@
     justify-content: center;
     width: 100%;
   }
-  
+
   .carousel-dot {
     width: 10px;
     height: 10px;
     min-width: 10px;
     min-height: 10px;
   }
-  
+
   .carousel-nav svg {
     width: 14px;
     height: 14px;
   }
-  
+
   .carousel-indicators .carousel-nav-prev {
     margin-right: 4px;
   }

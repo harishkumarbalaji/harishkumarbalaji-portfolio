@@ -42,8 +42,6 @@
   pointer-events: none;
 }
 
-
-
 .hero-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -337,8 +335,6 @@
 
 /* No hover effect on profile image - intentionally left minimal */
 
-
-
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
@@ -415,7 +411,8 @@
 }
 
 @keyframes wave {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {
@@ -427,18 +424,19 @@
 }
 
 @keyframes blink {
-  0%, 50% {
+  0%,
+  50% {
     opacity: 1;
   }
-  51%, 100% {
+  51%,
+  100% {
     opacity: 0;
   }
 }
 
-
-
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -447,7 +445,8 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -462,15 +461,15 @@
     gap: 3rem;
     text-align: center;
   }
-  
+
   .hero-stats {
     justify-content: center;
   }
-  
+
   .hero-description {
     max-width: 100%;
   }
-  
+
   .hero-image-container {
     width: 400px;
     height: 400px;
@@ -485,7 +484,7 @@
     aspect-ratio: 3/4;
     margin: 0 auto;
   }
-  
+
   .hero-profile-image {
     width: 100%;
     height: 100%;
@@ -497,52 +496,52 @@
   .hero-container {
     padding: 0 1rem;
   }
-  
+
   .hero-content {
     grid-template-columns: 1fr;
     gap: 2rem;
     min-height: 70vh;
     padding: 1rem 0;
   }
-  
+
   .hero-text {
     text-align: center;
   }
-  
+
   .hero-greeting {
     justify-content: center;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
     text-align: center;
   }
-  
+
   .hero-role {
     font-size: 1.2rem;
     justify-content: center;
     text-align: center;
   }
-  
+
   .greeting-text {
     text-align: center;
   }
-  
+
   .role-text {
     text-align: center;
   }
-  
+
   .hero-description {
     font-size: 1rem;
     max-width: 100%;
     text-align: center;
   }
-  
+
   .hero-stats {
     display: none;
   }
-  
+
   .hero-buttons {
     justify-content: center;
     flex-direction: row;
@@ -550,7 +549,7 @@
     align-items: center;
     flex-wrap: wrap;
   }
-  
+
   .btn {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
@@ -558,43 +557,43 @@
     min-width: 160px;
     justify-content: center;
   }
-  
+
   .resume-split-btn {
     min-width: 160px;
   }
-  
+
   .resume-view-btn {
     padding: 0.6rem 0.8rem;
     font-size: 0.85rem;
   }
-  
+
   .resume-download-btn {
     padding: 0.6rem 0.6rem;
   }
-  
+
   .resume-download-btn svg {
     width: 16px;
     height: 16px;
   }
-  
+
   .hero-image-container {
     height: auto;
     aspect-ratio: 2/3;
     margin: 0 auto;
     padding: 20px;
   }
-  
+
   .hero-profile-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
     border-radius: 15px;
   }
-  
+
   .hero-social-links {
     justify-content: center;
   }
-  
+
   .scroll-indicator {
     display: none;
   }
@@ -604,26 +603,26 @@
   .hero-container {
     padding: 0 0.5rem;
   }
-  
+
   .hero-content {
     padding: 0.5rem 0;
   }
-  
+
   .hero-title {
     font-size: 2rem;
     text-align: center;
   }
-  
+
   .hero-role {
     font-size: 1rem;
     justify-content: center;
   }
-  
+
   .hero-stats {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .hero-buttons {
     flex-direction: row;
     align-items: center;
@@ -631,7 +630,7 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .btn {
     width: auto;
     min-width: 140px;
@@ -639,37 +638,37 @@
     padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
   }
-  
+
   .resume-split-btn {
     min-width: 140px;
     max-width: 200px;
   }
-  
+
   .resume-view-btn {
     padding: 0.5rem 0.6rem;
     font-size: 0.8rem;
   }
-  
+
   .resume-download-btn {
     padding: 0.5rem 0.5rem;
   }
-  
+
   .resume-download-btn svg {
     width: 14px;
     height: 14px;
   }
-  
+
   .hero-image-container {
     height: auto;
     aspect-ratio: 2/3;
     margin: 0 auto;
     padding: 15px;
   }
-  
+
   .hero-profile-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
     border-radius: 12px;
   }
-} 
+}

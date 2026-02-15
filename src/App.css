@@ -16,9 +16,11 @@ main {
   main {
     padding-top: 60px; /* Account for smaller mobile header */
   }
-  
+
   /* Improve touch targets and prevent zoom on input focus */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-size: 16px;
   }
 }

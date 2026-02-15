@@ -39,8 +39,15 @@
 }
 
 @keyframes cellPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 /* Main Content */
@@ -266,7 +273,8 @@
 }
 
 @keyframes textGlow {
-  0%, 100% {
+  0%,
+  100% {
     filter: drop-shadow(0 0 20px rgba(170, 81, 73, 0.3));
   }
   50% {
@@ -290,8 +298,12 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Fade out animation */
@@ -313,23 +325,26 @@
   .loader-logo {
     font-size: 3rem;
   }
-  
-  .hi-text, .developers-text {
+
+  .hi-text,
+  .developers-text {
     font-size: 3.5rem;
   }
-  
+
   .developers-big-text {
     font-size: 5rem;
   }
-  
-  .text-developers, .text-recruiters, .text-friends {
+
+  .text-developers,
+  .text-recruiters,
+  .text-friends {
     font-size: 2.5rem;
   }
-  
+
   .final-message span {
     font-size: 1rem;
   }
-  
+
   .loader-progress {
     bottom: 2rem;
     width: 150px;
@@ -340,29 +355,32 @@
   .loader-logo {
     font-size: 2.5rem;
   }
-  
-  .hi-text, .developers-text {
+
+  .hi-text,
+  .developers-text {
     font-size: 2.5rem;
   }
-  
+
   .developers-big-text {
     font-size: 3.5rem;
   }
-  
-  .text-developers, .text-recruiters, .text-friends {
+
+  .text-developers,
+  .text-recruiters,
+  .text-friends {
     font-size: 2rem;
   }
-  
+
   .hi-subtitle {
     font-size: 1rem;
   }
-  
+
   .final-message span {
     font-size: 0.9rem;
   }
-  
+
   .loader-progress {
     bottom: 1.5rem;
     width: 120px;
   }
-} 
+}

@@ -136,7 +136,11 @@
 }
 
 .resume-modal-open-btn {
-  background: linear-gradient(135deg, var(--modern-accent, #6366f1) 0%, var(--accent-secondary, #8b5cf6) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--modern-accent, #6366f1) 0%,
+    var(--accent-secondary, #8b5cf6) 100%
+  );
   color: #fff;
 }
 
@@ -168,32 +172,32 @@
   .resume-modal-backdrop {
     padding: 10px;
   }
-  
+
   .resume-modal-container {
     max-width: 100%;
   }
-  
+
   .resume-modal-content {
     height: 70vh;
   }
-  
+
   .resume-modal-close {
     top: 15px;
     right: 15px;
     width: 36px;
     height: 36px;
   }
-  
+
   .resume-modal-close svg {
     width: 18px;
     height: 18px;
   }
-  
+
   .resume-modal-actions {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .resume-modal-action-btn {
     width: 100%;
     padding: 10px 20px;
@@ -205,7 +209,7 @@
   .resume-modal-content {
     height: 60vh;
   }
-  
+
   .resume-modal-title {
     font-size: 1rem;
   }
