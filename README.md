@@ -61,7 +61,7 @@ The portfolio supports embedding various media types in Projects and Timeline:
 - **Styling:** CSS3 with CSS Variables
 - **Icons:** React Icons, Skill Icons API
 - **Email:** EmailJS
-- **Deployment:** GitHub Pages / Vercel
+- **Deployment:** GitHub Pages
 
 ---
 
@@ -631,7 +631,6 @@ const result = await emailjs.send(
 ├── index.html
 ├── vite.config.js               # Vite config (update base path here)
 ├── package.json                 # Dependencies & scripts (update homepage here)
-└── vercel.json                  # Vercel deployment config
 ```
 
 ---
@@ -641,14 +640,6 @@ const result = await emailjs.send(
 ### GitHub Pages (Recommended for Free Hosting)
 
 See the [Deploy to GitHub Pages](#-deploy-to-github-pages) section above.
-
-### Vercel
-
-1. Push your code to GitHub
-2. Connect your repository to [Vercel](https://vercel.com)
-3. Deploy with one click!
-
-The `vercel.json` is already configured for optimal deployment.
 
 ### Manual Deployment
 
