@@ -35,8 +35,8 @@ const Contact = () => {
 
     try {
       const result = await emailjs.send(
-        'service_5xf2rfu',
-        'template_9ou4pad',
+        'service_h1rl93b',
+        'template_953h3qj',
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -44,7 +44,7 @@ const Contact = () => {
           subject: `[PORTFOLIO] New message from ${formData.name}`,
           to_name: 'Harish Kumar Balaji',
         },
-        '4O35J-M4xAcLgDqIv'
+        'mQNLMv9ppWrobaDxE'
       );
 
       console.log('SUCCESS!', result.status, result.text);

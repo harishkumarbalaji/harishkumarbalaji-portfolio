@@ -542,13 +542,61 @@ To add local images, videos, or GIFs to your experience/projects:
 
 ### 📧 EmailJS Setup
 
-1. Create a free account at [EmailJS](https://www.emailjs.com/)
-2. Create an email service and template
-3. Update `src/components/Contact.jsx`:
+The contact form uses [EmailJS](https://www.emailjs.com/) to send emails directly from the browser — no backend required. Follow these steps to connect it to your own email:
+
+#### 1. Create a Free Account
+
+Sign up at [emailjs.com](https://www.emailjs.com/) (free tier: 200 emails/month).
+
+#### 2. Add an Email Service
+
+1. Go to **Email Services** → **Add New Service**
+2. Choose your email provider (Gmail, Outlook, etc.) and connect your account
+3. Note down your **Service ID** (e.g. `service_abc1234`)
+
+#### 3. Create an Email Template
+
+1. Go to **Email Templates** → **Create New Template**
+2. Set the **Subject** to: `{{subject}}`
+3. In the email body, use these template variables:
+
+| Variable         | Description                       |
+| ---------------- | --------------------------------- |
+| `{{from_name}}`  | Name of the person contacting you |
+| `{{from_email}}` | Their email address               |
+| `{{message}}`    | The message body                  |
+| `{{subject}}`    | Auto-generated subject line       |
+| `{{to_name}}`    | Your name (used in greeting)      |
+
+4. On the right sidebar, set:
+   - **Reply To**: `{{from_email}}`
+   - **From Name**: `{{from_name}}`
+5. Note down your **Template ID** (found in the **Settings** tab)
+
+#### 4. Get Your Public Key
+
+Go to **Account** → **General** → **API keys** and copy your **Public Key**.
+
+#### 5. Update the Code
+
+In `src/components/Contact.jsx`, replace the three credentials in the `emailjs.send()` call:
 
 ```javascript
-emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY');
+const result = await emailjs.send(
+  'YOUR_SERVICE_ID', // ← Your Service ID
+  'YOUR_TEMPLATE_ID', // ← Your Template ID
+  {
+    from_name: formData.name,
+    from_email: formData.email,
+    message: formData.message,
+    subject: `[PORTFOLIO] New message from ${formData.name}`,
+    to_name: 'YOUR NAME', // ← Your name
+  },
+  'YOUR_PUBLIC_KEY' // ← Your Public Key
+);
 ```
+
+> 💡 **Note:** The EmailJS Public Key is designed to be used in client-side code — it's safe to commit to your repository. EmailJS uses domain restrictions and rate limiting for security.
 
 ---
 
