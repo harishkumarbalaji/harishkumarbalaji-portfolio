@@ -141,7 +141,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
       return (
         <div className="timeline-media-item clickable" onClick={handleClick}>
           <div className="timeline-media-content">
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
             <img
               src={resolvedUrl}
               alt={item.title || 'Media'}
@@ -159,7 +159,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <iframe
               src={toYouTubeEmbed(item.url)}
@@ -179,7 +179,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <iframe
               src={toGoogleDriveEmbed(item.url)}
@@ -199,7 +199,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <iframe
               src={toOneDriveEmbed(item.url)}
@@ -218,7 +218,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <video
               src={resolvedUrl}
@@ -239,7 +239,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item timeline-media-linkedin linkedin-item clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <iframe
               src={toLinkedInEmbed(item.url)}
@@ -267,7 +267,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
         <div className="timeline-media-item timeline-media-slides clickable">
           <div className="timeline-media-content">
             <div className="media-click-overlay" onClick={handleClick}>
-              <div className="media-expand-hint">Click to expand</div>
+              <div className="media-expand-hint">Tap to expand</div>
             </div>
             <iframe
               src={toSlidesEmbed(item.url)}

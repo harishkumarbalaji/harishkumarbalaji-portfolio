@@ -245,7 +245,7 @@ const Projects = () => {
     if (kind === 'image') {
       return (
         <div className="media-item clickable" onClick={handleClick}>
-          <div className="media-expand-hint">Click to expand</div>
+          <div className="media-expand-hint">Tap to expand</div>
           <img className="media-thumb" src={normalizeUrl(url)} alt={title} loading="lazy" />
           {title && <div className="media-title">{title}</div>}
         </div>
@@ -257,7 +257,7 @@ const Projects = () => {
       return embed ? (
         <div className="media-item media-iframe clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <iframe
             src={embed}
@@ -276,7 +276,7 @@ const Projects = () => {
       return embed ? (
         <div className="media-item media-iframe clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <iframe
             src={embed}
@@ -302,7 +302,7 @@ const Projects = () => {
       return embed ? (
         <div className="media-item media-iframe clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <iframe src={embed} title={title} loading="lazy" allowFullScreen />
           {title && <div className="media-title">{title}</div>}
@@ -321,7 +321,7 @@ const Projects = () => {
       return (
         <div className="media-item clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <video
             className="media-video"
@@ -341,7 +341,7 @@ const Projects = () => {
       return embed ? (
         <div className="media-item media-iframe clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <a
             className="media-open-overlay"
@@ -377,7 +377,7 @@ const Projects = () => {
       return embed ? (
         <div className="media-item media-iframe slides clickable">
           <div className="media-click-overlay" onClick={handleClick}>
-            <div className="media-expand-hint">Click to expand</div>
+            <div className="media-expand-hint">Tap to expand</div>
           </div>
           <a
             className="media-open-overlay"

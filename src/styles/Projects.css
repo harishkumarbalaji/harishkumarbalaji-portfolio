@@ -881,4 +881,20 @@
   .media-thumb {
     height: 180px;
   }
+
+  .project-tech-tag {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .project-highlight-badge {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
 }

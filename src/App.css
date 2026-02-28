@@ -26,8 +26,11 @@ main {
 }
 
 @media (max-width: 480px) {
-  /* Additional mobile optimizations */
   .App {
     font-size: 14px;
+  }
+
+  main > section {
+    margin-bottom: 16px;
   }
 }

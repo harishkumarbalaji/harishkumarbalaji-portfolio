@@ -1001,8 +1001,11 @@
   }
 
   .timeline-technologies-modern .tech-tag {
-    font-size: 0.7rem;
-    padding: 3px 7px;
+    font-size: 0.75rem;
+    padding: 7px 12px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .timeline-details-modern {
@@ -1033,8 +1036,11 @@
   }
 
   .highlight-badge-modern {
-    font-size: 0.7rem;
-    padding: 3px 8px;
+    font-size: 0.75rem;
+    padding: 7px 12px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .timeline-gallery-modern {
