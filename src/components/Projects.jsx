@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import '../styles/Projects.css';
 
-// Helper functions moved outside component to avoid re-creation on each render
 const mapExplicitType = (type, url) => {
   const t = String(type || '').toLowerCase();
   if (t === 'google_slides' || t === 'slides') return 'slides';
@@ -66,17 +65,12 @@ const Projects = () => {
   const navigateModal = useCallback(
     (direction) => {
       if (!modalMedia || !modalMedia.gallery || modalMedia.gallery.length <= 1) return;
-
       const { gallery, index } = modalMedia;
       let newIndex = index + direction;
-
-      // Wrap around
       if (newIndex < 0) newIndex = gallery.length - 1;
       if (newIndex >= gallery.length) newIndex = 0;
-
       const newItem = gallery[newIndex];
       const newType = detectMedia(newItem);
-
       setModalMedia({ item: newItem, type: newType, gallery, index: newIndex });
     },
     [modalMedia]
@@ -86,7 +80,6 @@ const Projects = () => {
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
       .then((res) => res.json())
       .then((data) => {
-        // Sort projects by year (newest first)
         const sorted = [...(data.projects || [])].sort((a, b) => {
           const yearA = parseInt(a.year?.match(/\d{4}/)?.[0] || '0');
           const yearB = parseInt(b.year?.match(/\d{4}/)?.[0] || '0');
@@ -108,11 +101,9 @@ const Projects = () => {
       },
       { threshold: 0.1 }
     );
-
     cardsRef.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
-
     return () => observer.disconnect();
   }, [projects]);
 
@@ -128,36 +119,38 @@ const Projects = () => {
 
   const normalizeUrl = (url) => {
     if (!url) return '';
-    // External URLs (http/https) should be used as-is
     if (/^https?:\/\//i.test(url)) return url;
-    // Local paths need base URL prepended
     return `${import.meta.env.BASE_URL}${url.replace(/^\//, '')}`;
   };
 
   const getYouTubeId = (url) => {
     try {
       const u = new URL(url);
-      if (u.hostname.includes('youtu.be')) {
-        return u.pathname.slice(1);
-      }
-      if (u.hostname.includes('youtube.com')) {
-        return u.searchParams.get('v');
-      }
+      if (u.hostname.includes('youtu.be')) return u.pathname.slice(1);
+      if (u.hostname.includes('youtube.com')) return u.searchParams.get('v');
     } catch {
-      // Invalid URL
+      /* invalid URL */
+    }
+    return null;
+  };
+
+  const getYouTubeThumbnail = (url) => {
+    const id = getYouTubeId(url);
+    if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    if (url.includes('playlist') || url.includes('list=')) {
+      return null;
     }
     return null;
   };
 
   const toYouTubeEmbed = (url, { autoplay = 0, mute = 1 } = {}) => {
-    // Handle playlists
     if (url.includes('playlist') || url.includes('list=')) {
       try {
         const u = new URL(url);
         const listId = u.searchParams.get('list');
         if (listId) return `https://www.youtube.com/embed/videoseries?list=${listId}`;
       } catch {
-        // Invalid URL
+        /* invalid URL */
       }
     }
     const id = getYouTubeId(url);
@@ -193,47 +186,48 @@ const Projects = () => {
         return `https://docs.google.com/presentation/d/${id}/embed?start=true&loop=true&delayms=4000`;
       }
     } catch {
-      // Invalid URL
+      /* invalid URL */
     }
     return null;
   };
 
   const toLinkedInEmbed = (url) => {
     try {
-      // Handle ugcPost format anywhere in URL
       if (url.includes('ugcPost-')) {
         const match = url.match(/ugcPost-(\d+)/);
-        if (match) {
-          return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${match[1]}`;
-        }
+        if (match) return `https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:${match[1]}`;
       }
-
-      // Handle activity format (activity-XXXXX) anywhere in URL
       if (url.includes('activity-')) {
         const match = url.match(/activity-(\d+)/);
-        if (match) {
-          return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${match[1]}`;
-        }
+        if (match) return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${match[1]}`;
       }
-
-      // Handle /activity/ path format
       const u = new URL(url);
       const pathname = u.pathname;
       if (pathname.includes('/activity/')) {
         const m = pathname.match(/\/activity\/(\d+)/);
-        if (m && m[1]) {
-          return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${m[1]}`;
-        }
+        if (m && m[1]) return `https://www.linkedin.com/embed/feed/update/urn:li:activity:${m[1]}`;
       }
-
-      // Handle urn:li: format
       const urnIdx = url.indexOf('urn:li:');
       if (urnIdx !== -1) {
         const urn = url.slice(urnIdx).split(/[?&#\s]/)[0];
         return `https://www.linkedin.com/embed/feed/update/${urn}`;
       }
     } catch {
-      // Invalid URL
+      /* invalid URL */
+    }
+    return null;
+  };
+
+  const getCoverImage = (project) => {
+    const gallery = project.gallery || [];
+    for (const item of gallery) {
+      const kind = detectMedia(item);
+      if (kind === 'image') return { type: 'image', src: normalizeUrl(item.url) };
+      if (kind === 'youtube') {
+        const thumb = getYouTubeThumbnail(item.url);
+        if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url };
+      }
+      if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url) };
     }
     return null;
   };
@@ -244,7 +238,6 @@ const Projects = () => {
     const title = item?.title || 'Media';
 
     const handleClick = (e) => {
-      // Don't trigger modal for external link clicks
       if (e.target.tagName === 'A') return;
       if (onOpenModal && kind !== 'link') onOpenModal(item, kind);
     };
@@ -409,7 +402,6 @@ const Projects = () => {
       );
     }
 
-    // Generic link preview card
     let domain = '';
     try {
       domain = new URL(url).hostname.replace(/^www\./, '');
@@ -444,7 +436,6 @@ const Projects = () => {
     );
   };
 
-  // Modal component for expanded media view with navigation
   const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) => {
     const hasMultiple = gallery && gallery.length > 1;
 
@@ -465,9 +456,7 @@ const Projects = () => {
     }, [onClose, onNavigate, hasMultiple]);
 
     const handleBackdropClick = (e) => {
-      if (e.target.classList.contains('media-modal-backdrop')) {
-        onClose();
-      }
+      if (e.target.classList.contains('media-modal-backdrop')) onClose();
     };
 
     const renderModalContent = () => {
@@ -481,7 +470,6 @@ const Projects = () => {
               className="modal-media-image"
             />
           );
-
         case 'youtube':
           return (
             <iframe
@@ -492,7 +480,6 @@ const Projects = () => {
               allowFullScreen
             />
           );
-
         case 'gdrive':
           return (
             <iframe
@@ -503,7 +490,6 @@ const Projects = () => {
               allowFullScreen
             />
           );
-
         case 'onedrive':
           return (
             <iframe
@@ -513,14 +499,12 @@ const Projects = () => {
               allowFullScreen
             />
           );
-
         case 'video':
           return (
             <video src={normalizeUrl(url)} controls autoPlay className="modal-media-video">
               Your browser does not support the video tag.
             </video>
           );
-
         case 'linkedin':
           return (
             <iframe
@@ -530,7 +514,6 @@ const Projects = () => {
               allowFullScreen
             />
           );
-
         case 'slides':
           return (
             <iframe
@@ -540,7 +523,6 @@ const Projects = () => {
               allowFullScreen
             />
           );
-
         default:
           return null;
       }
@@ -554,8 +536,6 @@ const Projects = () => {
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
-
-          {/* Left navigation arrow */}
           {hasMultiple && (
             <button
               className="media-modal-nav media-modal-nav-left"
@@ -567,10 +547,7 @@ const Projects = () => {
               </svg>
             </button>
           )}
-
           <div className="media-modal-content">{renderModalContent()}</div>
-
-          {/* Right navigation arrow */}
           {hasMultiple && (
             <button
               className="media-modal-nav media-modal-nav-right"
@@ -582,8 +559,6 @@ const Projects = () => {
               </svg>
             </button>
           )}
-
-          {/* Title and counter */}
           <div className="media-modal-footer">
             {item?.title && <div className="media-modal-title">{item.title}</div>}
             {hasMultiple && (
@@ -592,7 +567,6 @@ const Projects = () => {
               </div>
             )}
           </div>
-
           <div className="media-modal-actions">
             <a
               href={normalizeUrl(item?.url || '')}
@@ -609,138 +583,139 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="projects-timeline">
-      <div className="projects-timeline-header">
+    <section id="projects" className="projects-section">
+      <div className="projects-header">
         <h2>{sectionTitle}</h2>
         <p>Key projects and achievements</p>
       </div>
 
-      <div className="projects-timeline-wrapper">
-        <div className="projects-timeline-list">
-          {projects.map((project, index) => {
-            const { text: shortDesc, isTruncated } = truncate(project.description, 220);
-            const isOpen = !!expanded[project.id];
-            const showDesc = isOpen ? project.description : shortDesc;
-            const hasGallery = Array.isArray(project.gallery) && project.gallery.length > 0;
-            const galleryItems = hasGallery ? project.gallery : [];
-            const isSingleGallery = hasGallery && galleryItems.length === 1;
+      <div className="projects-grid">
+        {projects.map((project, index) => {
+          const { text: shortDesc, isTruncated } = truncate(project.description, 220);
+          const isOpen = !!expanded[project.id];
+          const showDesc = isOpen ? project.description : shortDesc;
+          const hasGallery = Array.isArray(project.gallery) && project.gallery.length > 0;
+          const galleryItems = hasGallery ? project.gallery : [];
+          const cover = getCoverImage(project);
+          const isReversed = index % 2 !== 0;
 
-            return (
-              <div
-                key={project.id}
-                className={`project-timeline-row ${hasGallery ? '' : 'no-gallery'}`}
-                ref={(el) => (cardsRef.current[index] = el)}
-                style={{ '--card-index': index }}
-              >
-                {/* Year on the left - split into two lines */}
-                <div className="project-timeline-year">
-                  {project.year?.split(' - ').map((part, i) => (
-                    <span key={i} className="year-part">
-                      {i === 1 && <span className="year-separator">—</span>}
-                      {part}
-                    </span>
-                  ))}
+          return (
+            <div
+              key={project.id}
+              className={`project-card ${isReversed ? 'reversed' : ''} ${!cover ? 'no-cover' : ''}`}
+              ref={(el) => (cardsRef.current[index] = el)}
+              style={{ '--card-index': index }}
+            >
+              {/* Card Header */}
+              <div className="project-card-header">
+                <div className="project-card-header-left">
+                  <h3 className="project-card-title">{project.title}</h3>
+                  <div className="project-card-meta">
+                    <span className="project-card-category">{project.category}</span>
+                    <span className="project-card-year">{project.year}</span>
+                  </div>
                 </div>
-
-                {/* Timeline marker */}
-                <div className="project-timeline-marker">
-                  <div className="project-timeline-dot"></div>
-                  <div className="project-timeline-line"></div>
+                <div className="project-card-links">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link-btn github"
+                      title="View Code"
+                    >
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                    </a>
+                  )}
+                  {project.live && project.live !== '#' && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link-btn live"
+                      title="View Demo"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
+              </div>
 
-                {/* Content */}
-                <div className="project-timeline-content">
-                  {/* Title as main heading */}
-                  <h3 className="project-timeline-title">{project.title}</h3>
+              {/* Card Body: cover image + content, alternating sides */}
+              <div className="project-card-body">
+                {cover && (
+                  <div className="project-card-cover">
+                    {cover.type === 'image' && (
+                      <img src={cover.src} alt={project.title} loading="lazy" />
+                    )}
+                    {cover.type === 'youtube-thumb' && (
+                      <div
+                        className="cover-youtube"
+                        onClick={() => openModal(galleryItems[0], 'youtube', galleryItems, 0)}
+                      >
+                        <img src={cover.src} alt={project.title} loading="lazy" />
+                        <div className="cover-play-btn">
+                          <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+                    {cover.type === 'video' && (
+                      <video src={cover.src} muted playsInline preload="metadata" controls />
+                    )}
+                  </div>
+                )}
 
-                  {/* Category as subtitle */}
-                  <div className="project-timeline-category">{project.category}</div>
-
-                  <p className="project-timeline-description">{showDesc}</p>
+                <div className="project-card-content">
+                  <p className="project-card-description">{showDesc}</p>
                   {isTruncated && (
                     <button className="view-toggle" onClick={() => toggleExpand(project.id)}>
                       {isOpen ? 'View less' : 'View more'}
                     </button>
                   )}
 
-                  {/* Technologies */}
-                  <div className="project-timeline-technologies">
-                    <span className="tech-label">Technologies:</span>
-                    <div className="tech-tags">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className="project-tech-tag">
-                          {tech}
+                  <div className="project-card-technologies">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="project-tech-tag">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {project.highlights && project.highlights.length > 0 && (
+                    <div className="project-card-highlights">
+                      {project.highlights.map((h, i) => (
+                        <span key={i} className="project-highlight-badge">
+                          {h}
                         </span>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Highlights */}
-                  {project.highlights && project.highlights.length > 0 && (
-                    <div className="project-timeline-highlights">
-                      <span className="highlights-label">Highlights:</span>
-                      <div className="highlights-tags">
-                        {project.highlights.map((highlight, i) => (
-                          <span key={i} className="project-highlight-badge">
-                            {highlight}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   )}
-
-                  {/* Links */}
-                  <div className="project-timeline-links">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-timeline-link github"
-                      >
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        <span>Code</span>
-                      </a>
-                    )}
-                    {project.live && project.live !== '#' && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-timeline-link live"
-                      >
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                        </svg>
-                        <span>Demo</span>
-                      </a>
-                    )}
-                  </div>
                 </div>
-
-                {/* Gallery */}
-                {hasGallery && (
-                  <div className={`project-timeline-gallery ${isSingleGallery ? 'single' : ''}`}>
-                    {galleryItems.map((item, i) => (
-                      <MediaItem
-                        key={i}
-                        item={item}
-                        onOpenModal={(mediaItem, type) =>
-                          openModal(mediaItem, type, galleryItems, i)
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
               </div>
-            );
-          })}
-        </div>
+
+              {/* Gallery section at the bottom */}
+              {hasGallery && galleryItems.length > 0 && (
+                <div className="project-card-gallery">
+                  {galleryItems.map((item, i) => (
+                    <MediaItem
+                      key={i}
+                      item={item}
+                      onOpenModal={(mediaItem, type) => openModal(mediaItem, type, galleryItems, i)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      {/* Media Modal */}
       {modalMedia && (
         <MediaModal
           item={modalMedia.item}
