@@ -146,6 +146,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={resolvedUrl}
               alt={item.title || 'Media'}
               className="timeline-media-thumb"
+              decoding="async"
               onLoad={handleImageLoad}
             />
           </div>
@@ -164,6 +165,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={toYouTubeEmbed(item.url)}
               title={item.title || 'YouTube Video'}
               className="timeline-media-iframe"
+              loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -183,6 +185,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={toGoogleDriveEmbed(item.url)}
               title={item.title || 'Google Drive'}
               className="timeline-media-iframe"
+              loading="lazy"
               allow="autoplay"
               allowFullScreen
             />
@@ -202,6 +205,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={toOneDriveEmbed(item.url)}
               title={item.title || 'OneDrive'}
               className="timeline-media-iframe"
+              loading="lazy"
               allowFullScreen
             />
           </div>
@@ -219,6 +223,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
             <video
               src={resolvedUrl}
               controls
+              preload="metadata"
               className="timeline-media-video"
               onLoadedMetadata={handleVideoLoad}
             >
@@ -240,6 +245,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={toLinkedInEmbed(item.url)}
               title={item.title || 'LinkedIn Post'}
               className="timeline-media-iframe linkedin"
+              loading="lazy"
               allowFullScreen
             />
             <a
@@ -267,6 +273,7 @@ const MediaItem = ({ item, onOpenModal, onAspectRatio }) => {
               src={toSlidesEmbed(item.url)}
               title={item.title || 'Google Slides'}
               className="timeline-media-iframe slides"
+              loading="lazy"
               allowFullScreen
             />
             <a
@@ -653,6 +660,7 @@ const Timeline = () => {
                           src={getCompanyLogo(item)}
                           alt={`${item.company} logo`}
                           className="timeline-company-logo"
+                          decoding="async"
                         />
                       ) : (
                         <span className="timeline-icon-text">{item.icon}</span>

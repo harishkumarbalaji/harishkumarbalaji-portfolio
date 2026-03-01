@@ -124,6 +124,7 @@ const About = () => {
                         src={`${import.meta.env.BASE_URL}${image.replace(/^\//, '')}`}
                         alt={`Gallery ${index + 1}`}
                         className="carousel-image"
+                        decoding="async"
                       />
                     </div>
                   );
