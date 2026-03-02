@@ -44,27 +44,11 @@
   grid-template-columns: 100px 40px 1fr 1.2fr;
   gap: 16px;
   position: relative;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInProjectRow 0.6s ease-out forwards;
-  animation-delay: calc(var(--card-index, 0) * 0.1s);
   align-items: stretch;
 }
 
 .project-timeline-row.no-gallery {
   grid-template-columns: 100px 40px 1fr;
-}
-
-.project-timeline-row.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes fadeInProjectRow {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Timeline Marker */
