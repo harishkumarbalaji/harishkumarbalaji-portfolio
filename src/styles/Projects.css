@@ -41,23 +41,24 @@
   border: 1px solid var(--modern-border);
   box-shadow: 0 8px 32px var(--modern-shadow);
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInCard 0.6s ease-out forwards;
-  animation-delay: calc(var(--card-index, 0) * 0.12s);
-  transition: box-shadow 0.4s ease;
+  transition:
+    box-shadow 0.4s ease,
+    transform 0.5s ease;
 }
 
 .project-card.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+  animation: subtleReveal 0.5s ease-out;
 }
 
 .project-card:hover {
   box-shadow: 0 16px 48px var(--modern-shadow);
 }
 
-@keyframes fadeInCard {
+@keyframes subtleReveal {
+  from {
+    opacity: 0.6;
+    transform: translateY(16px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
