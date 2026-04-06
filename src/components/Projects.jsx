@@ -64,19 +64,45 @@ const getYouTubeId = (url) => {
   return null;
 };
 
-const toYouTubeEmbed = (url, { autoplay = 0, mute = 1 } = {}) => {
-  if (url.includes('playlist') || url.includes('list=')) {
+/**
+ * YouTube embed URLs. Browsers only allow autoplay when muted; unmuted needs a user gesture.
+ * For in-page previews we use autoplay + mute + loop (single videos) for a GIF-like effect.
+ */
+const toYouTubeEmbed = (url, { autoplay = 0, mute = 1, loop = false } = {}) => {
+  const isPlaylist = url.includes('playlist') || url.includes('list=');
+  if (isPlaylist) {
     try {
       const u = new URL(url);
       const listId = u.searchParams.get('list');
-      if (listId) return `https://www.youtube.com/embed/videoseries?list=${listId}`;
+      if (listId) {
+        const q = new URLSearchParams({
+          list: listId,
+          rel: '0',
+          modestbranding: '1',
+          playsinline: '1',
+          autoplay: autoplay ? '1' : '0',
+          mute: mute ? '1' : '0',
+        });
+        return `https://www.youtube.com/embed/videoseries?${q}`;
+      }
     } catch {
       /* invalid URL */
     }
   }
   const id = getYouTubeId(url);
   if (!id) return null;
-  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&playsinline=1&autoplay=${autoplay}&mute=${mute}`;
+  const q = new URLSearchParams({
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+    autoplay: autoplay ? '1' : '0',
+    mute: mute ? '1' : '0',
+  });
+  if (loop && id) {
+    q.set('loop', '1');
+    q.set('playlist', id);
+  }
+  return `https://www.youtube.com/embed/${id}?${q}`;
 };
 
 const toGDriveEmbed = (url) => {
@@ -152,7 +178,7 @@ const getCoverImage = (project) => {
     const kind = detectMedia(item);
     if (kind === 'image') return { type: 'image', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'youtube') {
-      const embedUrl = toYouTubeEmbed(item.url, { autoplay: 0, mute: 1 });
+      const embedUrl = toYouTubeEmbed(item.url, { autoplay: 1, mute: 1, loop: true });
       if (embedUrl) return { type: 'youtube-embed', embedUrl, url: item.url, coverIndex: i };
     }
     if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url), coverIndex: i };
@@ -185,7 +211,7 @@ const MediaItem = ({ item, onOpenModal }) => {
   }
 
   if (kind === 'youtube') {
-    const embed = toYouTubeEmbed(url, { autoplay: 0, mute: 1 });
+    const embed = toYouTubeEmbed(url, { autoplay: 1, mute: 1, loop: true });
     return embed ? (
       <div className="media-item media-iframe clickable">
         <div className="media-click-overlay" onClick={handleClick}>
