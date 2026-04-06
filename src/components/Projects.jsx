@@ -156,14 +156,20 @@ const truncate = (text, max = 220) => {
 
 const getCoverImage = (project) => {
   const gallery = project.gallery || [];
-  for (const item of gallery) {
+  for (let i = 0; i < gallery.length; i++) {
+    const item = gallery[i];
     const kind = detectMedia(item);
-    if (kind === 'image') return { type: 'image', src: normalizeUrl(item.url) };
+    if (kind === 'image')
+      return { type: 'image', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'youtube') {
       const thumb = getYouTubeThumbnail(item.url);
-      if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url };
+      if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url, coverIndex: i };
     }
-    if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url) };
+    if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url), coverIndex: i };
+    if (kind === 'slides') {
+      const embedUrl = toSlidesEmbed(item.url);
+      if (embedUrl) return { type: 'slides', embedUrl, url: item.url, coverIndex: i };
+    }
   }
   return null;
 };
@@ -597,6 +603,12 @@ const Projects = () => {
           const hasGallery = Array.isArray(project.gallery) && project.gallery.length > 0;
           const galleryItems = hasGallery ? project.gallery : [];
           const cover = getCoverImage(project);
+          const galleryStripItems =
+            cover && galleryItems.length > 1
+              ? galleryItems.filter((_, idx) => idx !== cover.coverIndex)
+              : galleryItems;
+          const showGalleryStrip =
+            hasGallery && galleryStripItems.length > 0 && !(galleryItems.length === 1 && cover);
 
           return (
             <div
@@ -627,6 +639,30 @@ const Projects = () => {
                     )}
                     {cover.type === 'video' && (
                       <video src={cover.src} muted playsInline preload="metadata" controls />
+                    )}
+                    {cover.type === 'slides' && (
+                      <div
+                        className="cover-slides-wrap"
+                        onClick={() => openModal(galleryItems[0], 'slides', galleryItems, 0)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(galleryItems[0], 'slides', galleryItems, 0);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Expand ${project.title} slides`}
+                      >
+                        <div className="media-click-overlay" aria-hidden />
+                        <div className="media-expand-hint">Tap to expand</div>
+                        <iframe
+                          src={cover.embedUrl}
+                          title={project.title}
+                          loading="lazy"
+                          allowFullScreen
+                        />
+                      </div>
                     )}
                   </div>
                 )}
@@ -697,16 +733,21 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Gallery section at the bottom */}
-              {hasGallery && galleryItems.length > 0 && (
+              {/* Gallery strip (hidden when a single item is already the cover) */}
+              {showGalleryStrip && (
                 <div className="project-card-gallery">
-                  {galleryItems.map((item, i) => (
-                    <MediaItem
-                      key={i}
-                      item={item}
-                      onOpenModal={(mediaItem, type) => openModal(mediaItem, type, galleryItems, i)}
-                    />
-                  ))}
+                  {galleryStripItems.map((item, stripIdx) => {
+                    const i = galleryItems.indexOf(item);
+                    return (
+                      <MediaItem
+                        key={`${project.id}-g-${stripIdx}`}
+                        item={item}
+                        onOpenModal={(mediaItem, type) =>
+                          openModal(mediaItem, type, galleryItems, i)
+                        }
+                      />
+                    );
+                  })}
                 </div>
               )}
             </div>
