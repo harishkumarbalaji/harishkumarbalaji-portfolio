@@ -159,14 +159,12 @@ const getCoverImage = (project) => {
   for (let i = 0; i < gallery.length; i++) {
     const item = gallery[i];
     const kind = detectMedia(item);
-    if (kind === 'image')
-      return { type: 'image', src: normalizeUrl(item.url), coverIndex: i };
+    if (kind === 'image') return { type: 'image', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'youtube') {
       const thumb = getYouTubeThumbnail(item.url);
       if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url, coverIndex: i };
       const embedUrl = toYouTubeEmbed(item.url, { autoplay: 0, mute: 1 });
-      if (embedUrl)
-        return { type: 'youtube-embed', embedUrl, url: item.url, coverIndex: i };
+      if (embedUrl) return { type: 'youtube-embed', embedUrl, url: item.url, coverIndex: i };
     }
     if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'slides') {
@@ -409,11 +407,7 @@ const MediaModal = ({ item, type, gallery, currentIndex, onClose, onNavigate }) 
     switch (type) {
       case 'image':
         return (
-          <img
-            src={normalizeUrl(url)}
-            alt={item?.title || 'Media'}
-            className="modal-media-image"
-          />
+          <img src={normalizeUrl(url)} alt={item?.title || 'Media'} className="modal-media-image" />
         );
       case 'youtube':
         return (
@@ -757,7 +751,12 @@ const Projects = () => {
                           className="project-link-btn live"
                           title="View Demo"
                         >
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
                             <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
                           </svg>
                         </a>
