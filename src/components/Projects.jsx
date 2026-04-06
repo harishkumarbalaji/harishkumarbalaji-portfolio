@@ -64,12 +64,6 @@ const getYouTubeId = (url) => {
   return null;
 };
 
-const getYouTubeThumbnail = (url) => {
-  const id = getYouTubeId(url);
-  if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-  return null;
-};
-
 const toYouTubeEmbed = (url, { autoplay = 0, mute = 1 } = {}) => {
   if (url.includes('playlist') || url.includes('list=')) {
     try {
@@ -158,8 +152,6 @@ const getCoverImage = (project) => {
     const kind = detectMedia(item);
     if (kind === 'image') return { type: 'image', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'youtube') {
-      const thumb = getYouTubeThumbnail(item.url);
-      if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url, coverIndex: i };
       const embedUrl = toYouTubeEmbed(item.url, { autoplay: 0, mute: 1 });
       if (embedUrl) return { type: 'youtube-embed', embedUrl, url: item.url, coverIndex: i };
     }
@@ -623,6 +615,10 @@ const Projects = () => {
           const showGalleryStrip =
             hasGallery && galleryStripEntries.length > 0 && !(galleryItems.length === 1 && cover);
 
+          const coverGalleryItem = cover ? galleryItems[cover.coverIndex] : null;
+          const coverMediaTitle =
+            (coverGalleryItem?.title && String(coverGalleryItem.title).trim()) || '';
+
           return (
             <div
               key={project.id}
@@ -634,105 +630,98 @@ const Projects = () => {
               <div className="project-card-main">
                 {cover && (
                   <div className="project-card-cover">
-                    {cover.type === 'image' && (
-                      <img src={cover.src} alt={project.title} loading="lazy" />
-                    )}
-                    {cover.type === 'youtube-thumb' && (
-                      <div
-                        className="cover-youtube"
-                        onClick={() =>
-                          openModal(
-                            galleryItems[cover.coverIndex],
-                            'youtube',
-                            galleryItems,
-                            cover.coverIndex
-                          )
-                        }
-                      >
+                    <div className="project-card-cover-visual">
+                      {cover.type === 'image' && (
                         <img src={cover.src} alt={project.title} loading="lazy" />
-                        <div className="cover-play-btn">
-                          <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
-                    {cover.type === 'youtube-embed' && (
-                      <div
-                        className="cover-youtube-embed-wrap"
-                        onClick={() =>
-                          openModal(
-                            galleryItems[cover.coverIndex],
-                            'youtube',
-                            galleryItems,
-                            cover.coverIndex
-                          )
-                        }
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
+                      )}
+                      {cover.type === 'youtube-embed' && (
+                        <div
+                          className="cover-youtube-embed-wrap"
+                          onClick={() =>
                             openModal(
                               galleryItems[cover.coverIndex],
                               'youtube',
                               galleryItems,
                               cover.coverIndex
-                            );
+                            )
                           }
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`Expand ${project.title} video`}
-                      >
-                        <div className="media-click-overlay" aria-hidden />
-                        <div className="media-expand-hint">Tap to expand</div>
-                        <iframe
-                          src={cover.embedUrl}
-                          title={project.title}
-                          loading="lazy"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen
-                        />
-                      </div>
-                    )}
-                    {cover.type === 'video' && (
-                      <video src={cover.src} muted playsInline preload="metadata" controls />
-                    )}
-                    {cover.type === 'slides' && (
-                      <div
-                        className="cover-slides-wrap"
-                        onClick={() =>
-                          openModal(
-                            galleryItems[cover.coverIndex],
-                            'slides',
-                            galleryItems,
-                            cover.coverIndex
-                          )
-                        }
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              openModal(
+                                galleryItems[cover.coverIndex],
+                                'youtube',
+                                galleryItems,
+                                cover.coverIndex
+                              );
+                            }
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={
+                            coverMediaTitle
+                              ? `Expand: ${coverMediaTitle}`
+                              : `Expand ${project.title} video`
+                          }
+                        >
+                          <div className="media-click-overlay" aria-hidden />
+                          <div className="media-expand-hint">Tap to expand</div>
+                          <iframe
+                            src={cover.embedUrl}
+                            title={coverMediaTitle || project.title}
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+                      {cover.type === 'video' && (
+                        <video src={cover.src} muted playsInline preload="metadata" controls />
+                      )}
+                      {cover.type === 'slides' && (
+                        <div
+                          className="cover-slides-wrap"
+                          onClick={() =>
                             openModal(
                               galleryItems[cover.coverIndex],
                               'slides',
                               galleryItems,
                               cover.coverIndex
-                            );
+                            )
                           }
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`Expand ${project.title} slides`}
-                      >
-                        <div className="media-click-overlay" aria-hidden />
-                        <div className="media-expand-hint">Tap to expand</div>
-                        <iframe
-                          src={cover.embedUrl}
-                          title={project.title}
-                          loading="lazy"
-                          allowFullScreen
-                        />
-                      </div>
-                    )}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              openModal(
+                                galleryItems[cover.coverIndex],
+                                'slides',
+                                galleryItems,
+                                cover.coverIndex
+                              );
+                            }
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={
+                            coverMediaTitle
+                              ? `Expand: ${coverMediaTitle}`
+                              : `Expand ${project.title} slides`
+                          }
+                        >
+                          <div className="media-click-overlay" aria-hidden />
+                          <div className="media-expand-hint">Tap to expand</div>
+                          <iframe
+                            src={cover.embedUrl}
+                            title={coverMediaTitle || project.title}
+                            loading="lazy"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {coverMediaTitle ? (
+                      <div className="media-title project-card-cover-title">{coverMediaTitle}</div>
+                    ) : null}
                   </div>
                 )}
 
