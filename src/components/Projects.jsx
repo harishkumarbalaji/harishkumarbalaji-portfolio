@@ -164,6 +164,9 @@ const getCoverImage = (project) => {
     if (kind === 'youtube') {
       const thumb = getYouTubeThumbnail(item.url);
       if (thumb) return { type: 'youtube-thumb', src: thumb, url: item.url, coverIndex: i };
+      const embedUrl = toYouTubeEmbed(item.url, { autoplay: 0, mute: 1 });
+      if (embedUrl)
+        return { type: 'youtube-embed', embedUrl, url: item.url, coverIndex: i };
     }
     if (kind === 'video') return { type: 'video', src: normalizeUrl(item.url), coverIndex: i };
     if (kind === 'slides') {
@@ -627,7 +630,14 @@ const Projects = () => {
                     {cover.type === 'youtube-thumb' && (
                       <div
                         className="cover-youtube"
-                        onClick={() => openModal(galleryItems[0], 'youtube', galleryItems, 0)}
+                        onClick={() =>
+                          openModal(
+                            galleryItems[cover.coverIndex],
+                            'youtube',
+                            galleryItems,
+                            cover.coverIndex
+                          )
+                        }
                       >
                         <img src={cover.src} alt={project.title} loading="lazy" />
                         <div className="cover-play-btn">
@@ -637,17 +647,66 @@ const Projects = () => {
                         </div>
                       </div>
                     )}
+                    {cover.type === 'youtube-embed' && (
+                      <div
+                        className="cover-youtube-embed-wrap"
+                        onClick={() =>
+                          openModal(
+                            galleryItems[cover.coverIndex],
+                            'youtube',
+                            galleryItems,
+                            cover.coverIndex
+                          )
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(
+                              galleryItems[cover.coverIndex],
+                              'youtube',
+                              galleryItems,
+                              cover.coverIndex
+                            );
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Expand ${project.title} video`}
+                      >
+                        <div className="media-click-overlay" aria-hidden />
+                        <div className="media-expand-hint">Tap to expand</div>
+                        <iframe
+                          src={cover.embedUrl}
+                          title={project.title}
+                          loading="lazy"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      </div>
+                    )}
                     {cover.type === 'video' && (
                       <video src={cover.src} muted playsInline preload="metadata" controls />
                     )}
                     {cover.type === 'slides' && (
                       <div
                         className="cover-slides-wrap"
-                        onClick={() => openModal(galleryItems[0], 'slides', galleryItems, 0)}
+                        onClick={() =>
+                          openModal(
+                            galleryItems[cover.coverIndex],
+                            'slides',
+                            galleryItems,
+                            cover.coverIndex
+                          )
+                        }
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
-                            openModal(galleryItems[0], 'slides', galleryItems, 0);
+                            openModal(
+                              galleryItems[cover.coverIndex],
+                              'slides',
+                              galleryItems,
+                              cover.coverIndex
+                            );
                           }
                         }}
                         role="button"
