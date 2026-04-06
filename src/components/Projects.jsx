@@ -67,9 +67,6 @@ const getYouTubeId = (url) => {
 const getYouTubeThumbnail = (url) => {
   const id = getYouTubeId(url);
   if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-  if (url.includes('playlist') || url.includes('list=')) {
-    return null;
-  }
   return null;
 };
 
@@ -536,32 +533,49 @@ const Projects = () => {
     setModalMedia(null);
   }, []);
 
-  const navigateModal = useCallback(
-    (direction) => {
-      if (!modalMedia || !modalMedia.gallery || modalMedia.gallery.length <= 1) return;
-      const { gallery, index } = modalMedia;
+  const navigateModal = useCallback((direction) => {
+    setModalMedia((prev) => {
+      if (!prev?.gallery || prev.gallery.length <= 1) return prev;
+      const { gallery, index } = prev;
       let newIndex = index + direction;
       if (newIndex < 0) newIndex = gallery.length - 1;
       if (newIndex >= gallery.length) newIndex = 0;
       const newItem = gallery[newIndex];
-      const newType = detectMedia(newItem);
-      setModalMedia({ item: newItem, type: newType, gallery, index: newIndex });
-    },
-    [modalMedia]
-  );
+      return {
+        item: newItem,
+        type: detectMedia(newItem),
+        gallery,
+        index: newIndex,
+      };
+    });
+  }, []);
 
   useEffect(() => {
+    let cancelled = false;
     fetch(`${import.meta.env.BASE_URL}portfolioData.json`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
+        if (cancelled) return;
         const sorted = [...(data.projects || [])].sort((a, b) => {
           const yearA = parseInt(a.year?.match(/\d{4}/)?.[0] || '0');
           const yearB = parseInt(b.year?.match(/\d{4}/)?.[0] || '0');
           return yearB - yearA;
         });
         setProjects(sorted);
-        setSectionTitle(data.sections.projects.title);
+        setSectionTitle(data.sections?.projects?.title ?? '');
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setProjects([]);
+          setSectionTitle('');
+        }
       });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -600,12 +614,14 @@ const Projects = () => {
           const hasGallery = Array.isArray(project.gallery) && project.gallery.length > 0;
           const galleryItems = hasGallery ? project.gallery : [];
           const cover = getCoverImage(project);
-          const galleryStripItems =
+          const galleryStripEntries =
             cover && galleryItems.length > 1
-              ? galleryItems.filter((_, idx) => idx !== cover.coverIndex)
-              : galleryItems;
+              ? galleryItems
+                  .map((gItem, idx) => ({ item: gItem, galleryIndex: idx }))
+                  .filter(({ galleryIndex }) => galleryIndex !== cover.coverIndex)
+              : galleryItems.map((gItem, idx) => ({ item: gItem, galleryIndex: idx }));
           const showGalleryStrip =
-            hasGallery && galleryStripItems.length > 0 && !(galleryItems.length === 1 && cover);
+            hasGallery && galleryStripEntries.length > 0 && !(galleryItems.length === 1 && cover);
 
           return (
             <div
@@ -794,18 +810,15 @@ const Projects = () => {
               {/* Gallery strip (hidden when a single item is already the cover) */}
               {showGalleryStrip && (
                 <div className="project-card-gallery">
-                  {galleryStripItems.map((item, stripIdx) => {
-                    const i = galleryItems.indexOf(item);
-                    return (
-                      <MediaItem
-                        key={`${project.id}-g-${stripIdx}`}
-                        item={item}
-                        onOpenModal={(mediaItem, type) =>
-                          openModal(mediaItem, type, galleryItems, i)
-                        }
-                      />
-                    );
-                  })}
+                  {galleryStripEntries.map(({ item: stripItem, galleryIndex }) => (
+                    <MediaItem
+                      key={`${project.id}-g-${galleryIndex}`}
+                      item={stripItem}
+                      onOpenModal={(mediaItem, type) =>
+                        openModal(mediaItem, type, galleryItems, galleryIndex)
+                      }
+                    />
+                  ))}
                 </div>
               )}
             </div>
