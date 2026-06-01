@@ -1,0 +1,85 @@
+.share-tile-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--modern-card-hover);
+  border: 1px solid var(--modern-border);
+  color: var(--modern-text-secondary);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.share-tile-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.share-tile-btn:hover,
+.share-tile-btn:focus-visible {
+  background: var(--modern-accent);
+  color: #fff;
+  border-color: var(--modern-accent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.share-tile-btn-feedback {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  border-radius: 6px;
+  background: var(--modern-text-primary);
+  color: var(--modern-card-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  animation: share-feedback-in 0.2s ease forwards;
+}
+
+@keyframes share-feedback-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Brief highlight when opening a shared link */
+.tile-share-highlight {
+  animation: tile-share-pulse 2.5s ease-out;
+}
+
+@keyframes tile-share-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--modern-accent) 55%, transparent);
+  }
+  15% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--modern-accent) 35%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.project-card.tile-share-highlight,
+.timeline-row-modern.tile-share-highlight {
+  outline: 2px solid color-mix(in srgb, var(--modern-accent) 70%, transparent);
+  outline-offset: 4px;
+}

@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import ShareTileButton from './ShareTileButton';
+import { useShareLinkNavigation } from '../hooks/useShareLinkNavigation';
+import { getTileElementId } from '../utils/shareLink';
 import '../styles/Projects.css';
 
 const mapExplicitType = (type, url) => {
@@ -543,6 +546,8 @@ const Projects = () => {
   const [modalMedia, setModalMedia] = useState(null);
   const cardsRef = useRef([]);
 
+  useShareLinkNavigation('project', { isReady: projects.length > 0 });
+
   const openModal = useCallback((item, type, gallery = [], index = 0) => {
     setModalMedia({ item, type, gallery, index });
   }, []);
@@ -648,6 +653,7 @@ const Projects = () => {
           return (
             <div
               key={project.id}
+              id={getTileElementId('project', project.id)}
               className={`project-card ${!cover ? 'no-cover' : ''}`}
               ref={(el) => (cardsRef.current[index] = el)}
               style={{ '--card-index': index }}
@@ -761,6 +767,12 @@ const Projects = () => {
                       </div>
                     </div>
                     <div className="project-card-links">
+                      <ShareTileButton
+                        kind="project"
+                        shareId={project.id}
+                        label={project.title}
+                        className="project-link-btn share"
+                      />
                       {project.github && (
                         <a
                           href={project.github}

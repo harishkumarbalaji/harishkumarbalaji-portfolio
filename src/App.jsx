@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useShareLinkBootstrap } from './hooks/useShareLinkBootstrap';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -12,6 +13,7 @@ import MetaTags from './components/MetaTags';
 import './App.css';
 
 function App() {
+  useShareLinkBootstrap();
   const [metadata, setMetadata] = useState(null);
 
   useEffect(() => {
