@@ -174,6 +174,13 @@ const truncate = (text, max = 220) => {
   return { text: text.slice(0, max).trim() + '…', isTruncated: true };
 };
 
+/** Omit `github` in portfolioData.json (or use empty / `#`) to hide the code link icon. */
+const getProjectGithubUrl = (github) => {
+  const url = typeof github === 'string' ? github.trim() : '';
+  if (!url || url === '#') return null;
+  return url;
+};
+
 const getCoverImage = (project) => {
   const gallery = project.gallery || [];
   for (let i = 0; i < gallery.length; i++) {
@@ -649,6 +656,7 @@ const Projects = () => {
           const coverGalleryItem = cover ? galleryItems[cover.coverIndex] : null;
           const coverMediaTitle =
             (coverGalleryItem?.title && String(coverGalleryItem.title).trim()) || '';
+          const githubUrl = getProjectGithubUrl(project.github);
 
           return (
             <div
@@ -773,9 +781,9 @@ const Projects = () => {
                         label={project.title}
                         className="project-link-btn share"
                       />
-                      {project.github && (
+                      {githubUrl && (
                         <a
-                          href={project.github}
+                          href={githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="project-link-btn github"

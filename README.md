@@ -285,6 +285,8 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
 
 #### 4. **Projects**
 
+> **Optional links:** Add `"github"` only when you have a repository URL; omit the field and the code icon is hidden. For demos, use `"live"` (omit or set to `"#"` to hide the external-link icon).
+
 ```json
 {
   "projects": [
