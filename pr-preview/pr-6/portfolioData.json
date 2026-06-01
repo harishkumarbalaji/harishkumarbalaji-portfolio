@@ -236,7 +236,6 @@
       ],
       "highlights": ["Isaac ROS", "Behavior Trees", "ORB Visual SLAM", "A* Heuristics"],
       "image": "robot",
-      "live": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
       "category": "Robotics & Navigation",
       "gallery": [
         {
@@ -255,7 +254,6 @@
       "highlights": ["Finalist", "2nd in Simulation", "Custom RRT Planner", "Autoware"],
       "image": "autonomous",
       "github": "https://github.com/harishkumarbalaji/japan-automotive-ai-challenge-2023",
-      "live": "https://youtu.be/QRy0JJIan08?si=1_renilhYjiIOriz",
       "category": "Autonomous Vehicles",
       "gallery": [
         {
@@ -290,7 +288,6 @@
       ],
       "highlights": ["3rd Place Nationals", "Reinforcement Learning", "Team Lead"],
       "image": "racing",
-      "live": "#",
       "category": "AI & Machine Learning",
       "gallery": [
         {
@@ -315,7 +312,6 @@
       ],
       "highlights": ["2nd Place", "Team Lead", "Modified Wall Follower", "Arduino Mega"],
       "image": "maze",
-      "live": "#",
       "category": "Embedded Systems",
       "gallery": [
         {
