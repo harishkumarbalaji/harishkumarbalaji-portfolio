@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import ShareTileButton from './ShareTileButton';
+import { useShareLinkNavigation } from '../hooks/useShareLinkNavigation';
+import { getTileElementId } from '../utils/shareLink';
 import '../styles/Timeline.css';
 
 // Media type detection helpers (same as Projects)
@@ -506,6 +509,22 @@ const Timeline = () => {
   const [expanded, setExpanded] = useState({});
   const [modalMedia, setModalMedia] = useState(null);
 
+  const prepareTimelineShare = useCallback((id) => {
+    if (String(id).startsWith('edu-')) {
+      setActiveFilter('education');
+    } else if (String(id).startsWith('exp-')) {
+      setActiveFilter('experience');
+    } else {
+      setActiveFilter('all');
+    }
+  }, []);
+
+  useShareLinkNavigation('timeline', {
+    isReady: filteredData.length > 0,
+    prepareForId: prepareTimelineShare,
+    retryKey: filteredData.map((item) => item.id).join(','),
+  });
+
   const toggleExpand = (id) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
@@ -642,6 +661,7 @@ const Timeline = () => {
             return (
               <div
                 key={item.id}
+                id={getTileElementId('timeline', item.id)}
                 className={`timeline-row-modern ${hasGallery ? '' : 'no-gallery'}`}
                 style={{ '--card-index': idx }}
               >
@@ -667,7 +687,15 @@ const Timeline = () => {
                       )}
                     </div>
                     <div className="timeline-header-info">
-                      <h3 className="timeline-title-modern">{item.title}</h3>
+                      <div className="timeline-title-row">
+                        <h3 className="timeline-title-modern">{item.title}</h3>
+                        <ShareTileButton
+                          kind="timeline"
+                          shareId={item.id}
+                          label={`${item.title} at ${item.company}`}
+                          className="timeline-share-btn"
+                        />
+                      </div>
                       <div className="timeline-company-modern">
                         {item.website ? (
                           <a

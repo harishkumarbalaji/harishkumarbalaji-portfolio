@@ -31,6 +31,17 @@ A stunning, fully customizable portfolio template built with React + Vite. Featu
 | **Timeline** | Experience & Education with company logos and media attachments        |
 | **Contact**  | Working contact form with EmailJS integration                          |
 
+### 🔗 **Shareable project & experience links**
+
+Each project card and timeline (experience/education) row has a **share** control that copies a deep link (or opens the system share sheet on supported devices). When someone opens that link, the portfolio scrolls to the matching tile and briefly highlights it.
+
+| Link type              | Example hash                         | Tile id in JSON                                                               |
+| ---------------------- | ------------------------------------ | ----------------------------------------------------------------------------- |
+| Project                | `#project/1`                         | `projects[].id` (number)                                                      |
+| Experience / education | `#timeline/exp-0`, `#timeline/edu-1` | Order in `experience` / `education` arrays (`exp-0` = first experience, etc.) |
+
+Full URL shape: `https://YOUR_USERNAME.github.io/portfolio/#project/2` (path prefix follows your `vite.config.js` `base`).
+
 ### 🎬 **Media Gallery Support**
 
 The portfolio supports embedding various media types in Projects and Timeline:
@@ -617,6 +628,7 @@ const result = await emailjs.send(
 │   │   ├── Hero.jsx
 │   │   ├── About.jsx
 │   │   ├── Projects.jsx
+│   │   ├── ShareTileButton.jsx
 │   │   ├── Skills.jsx
 │   │   ├── Timeline.jsx
 │   │   ├── Contact.jsx
@@ -624,6 +636,9 @@ const result = await emailjs.send(
 │   ├── styles/                  # Component CSS files
 │   ├── data/
 │   │   └── portfolioData.json   # Source data file (edit this!)
+│   ├── hooks/                   # useShareLinkBootstrap, useShareLinkNavigation
+│   ├── utils/
+│   │   └── shareLink.js         # Deep-link hash build/parse and scroll
 │   ├── context/
 │   │   └── ThemeContext.jsx     # Theme management
 │   ├── App.jsx
