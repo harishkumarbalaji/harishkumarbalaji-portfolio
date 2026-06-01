@@ -70,9 +70,11 @@ const ShareTileButton = ({ kind, shareId, label = 'item', className = '' }) => {
         <circle cx="18" cy="19" r="3" />
         <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" strokeLinecap="round" />
       </svg>
-      <span className="share-tile-btn-feedback" aria-live="polite">
-        {feedback ? feedbackText : null}
-      </span>
+      {feedback ? (
+        <span className="share-tile-btn-feedback" role="status">
+          {feedbackText}
+        </span>
+      ) : null}
     </button>
   );
 };
