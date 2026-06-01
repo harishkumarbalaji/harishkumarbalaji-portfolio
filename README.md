@@ -285,7 +285,7 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
 
 #### 4. **Projects**
 
-> **Optional links:** Add `"github"` only when you have a repository URL; omit the field and the code icon is hidden. For demos, use `"live"` (omit or set to `"#"` to hide the external-link icon).
+> **Optional links:** Add `"github"` only when you have a repository URL; omit the field and the code icon is hidden. Demos and videos usually belong in `gallery` (click cover or thumbnails to expand). Use `"live"` only if you need a separate external-link button for a URL that is not in the gallery.
 
 ```json
 {
@@ -298,7 +298,6 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
       "technologies": ["React", "Node.js"],
       "highlights": ["Key Feature 1", "Metric 2"],
       "github": "https://github.com/...",
-      "live": "https://...",
       "gallery": [
         { "title": "Demo Video", "url": "https://youtube.com/...", "type": "youtube" },
         {
