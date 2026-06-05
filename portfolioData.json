@@ -236,8 +236,6 @@
       ],
       "highlights": ["Isaac ROS", "Behavior Trees", "ORB Visual SLAM", "A* Heuristics"],
       "image": "robot",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
       "category": "Robotics & Navigation",
       "gallery": [
         {
@@ -255,8 +253,7 @@
       "technologies": ["C++", "Python", "Autoware", "RRT", "CARLA", "ROS2", "Path Planning"],
       "highlights": ["Finalist", "2nd in Simulation", "Custom RRT Planner", "Autoware"],
       "image": "autonomous",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "https://youtu.be/QRy0JJIan08?si=1_renilhYjiIOriz",
+      "github": "https://github.com/harishkumarbalaji/japan-automotive-ai-challenge-2023",
       "category": "Autonomous Vehicles",
       "gallery": [
         {
@@ -291,8 +288,6 @@
       ],
       "highlights": ["3rd Place Nationals", "Reinforcement Learning", "Team Lead"],
       "image": "racing",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "#",
       "category": "AI & Machine Learning",
       "gallery": [
         {
@@ -317,8 +312,6 @@
       ],
       "highlights": ["2nd Place", "Team Lead", "Modified Wall Follower", "Arduino Mega"],
       "image": "maze",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "#",
       "category": "Embedded Systems",
       "gallery": [
         {
@@ -575,28 +568,67 @@
     {
       "category": "Programming Languages & Systems",
       "skills": [
-        { "name": "C++", "icon": "https://skillicons.dev/icons?i=cpp" },
-        { "name": "Rust", "icon": "https://skillicons.dev/icons?i=rust" },
-        { "name": "Python", "icon": "https://skillicons.dev/icons?i=python" },
-        { "name": "C", "icon": "https://skillicons.dev/icons?i=c" },
-        { "name": "Bash", "icon": "https://skillicons.dev/icons?i=bash" },
-        { "name": "Java", "icon": "https://skillicons.dev/icons?i=java" },
-        { "name": "MATLAB", "icon": "https://skillicons.dev/icons?i=matlab" },
-        { "name": "Linux", "icon": "https://skillicons.dev/icons?i=linux" },
-        { "name": "Arduino", "icon": "https://skillicons.dev/icons?i=arduino" }
+        {
+          "name": "C++",
+          "icon": "https://skillicons.dev/icons?i=cpp"
+        },
+        {
+          "name": "Rust",
+          "icon": "https://skillicons.dev/icons?i=rust"
+        },
+        {
+          "name": "Python",
+          "icon": "https://skillicons.dev/icons?i=python"
+        },
+        {
+          "name": "C",
+          "icon": "https://skillicons.dev/icons?i=c"
+        },
+        {
+          "name": "Bash",
+          "icon": "https://skillicons.dev/icons?i=bash"
+        },
+        {
+          "name": "Java",
+          "icon": "https://skillicons.dev/icons?i=java"
+        },
+        {
+          "name": "MATLAB",
+          "icon": "https://skillicons.dev/icons?i=matlab"
+        },
+        {
+          "name": "Linux",
+          "icon": "https://skillicons.dev/icons?i=linux"
+        },
+        {
+          "name": "Arduino",
+          "icon": "https://skillicons.dev/icons?i=arduino"
+        }
       ]
     },
     {
       "category": "Robotics & Autonomy Frameworks",
       "skills": [
-        { "name": "ROS", "icon": "https://skillicons.dev/icons?i=ros" },
+        {
+          "name": "ROS",
+          "icon": "https://skillicons.dev/icons?i=ros"
+        },
         {
           "name": "Gazebo",
           "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gazebo/gazebo-original.svg"
         },
-        { "name": "OpenCV", "icon": "https://skillicons.dev/icons?i=opencv" },
-        { "name": "PyTorch", "icon": "https://skillicons.dev/icons?i=pytorch" },
-        { "name": "TensorFlow", "icon": "https://skillicons.dev/icons?i=tensorflow" },
+        {
+          "name": "OpenCV",
+          "icon": "https://skillicons.dev/icons?i=opencv"
+        },
+        {
+          "name": "PyTorch",
+          "icon": "https://skillicons.dev/icons?i=pytorch"
+        },
+        {
+          "name": "TensorFlow",
+          "icon": "https://skillicons.dev/icons?i=tensorflow"
+        },
         {
           "name": "NumPy",
           "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
@@ -606,12 +638,30 @@
     {
       "category": "DevOps & Cloud Platforms",
       "skills": [
-        { "name": "Docker", "icon": "https://skillicons.dev/icons?i=docker" },
-        { "name": "AWS", "icon": "https://skillicons.dev/icons?i=aws" },
-        { "name": "Jenkins", "icon": "https://skillicons.dev/icons?i=jenkins" },
-        { "name": "GitHub Actions", "icon": "https://skillicons.dev/icons?i=githubactions" },
-        { "name": "Git", "icon": "https://skillicons.dev/icons?i=git" },
-        { "name": "CMake", "icon": "https://skillicons.dev/icons?i=cmake" }
+        {
+          "name": "Docker",
+          "icon": "https://skillicons.dev/icons?i=docker"
+        },
+        {
+          "name": "AWS",
+          "icon": "https://skillicons.dev/icons?i=aws"
+        },
+        {
+          "name": "Jenkins",
+          "icon": "https://skillicons.dev/icons?i=jenkins"
+        },
+        {
+          "name": "GitHub Actions",
+          "icon": "https://skillicons.dev/icons?i=githubactions"
+        },
+        {
+          "name": "Git",
+          "icon": "https://skillicons.dev/icons?i=git"
+        },
+        {
+          "name": "CMake",
+          "icon": "https://skillicons.dev/icons?i=cmake"
+        }
       ]
     }
   ]
