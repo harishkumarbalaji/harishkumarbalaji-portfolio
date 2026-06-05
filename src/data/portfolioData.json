@@ -236,8 +236,6 @@
       ],
       "highlights": ["Isaac ROS", "Behavior Trees", "ORB Visual SLAM", "A* Heuristics"],
       "image": "robot",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "https://youtube.com/playlist?list=PLzezqllTnDcfAa9ELDv1A_hJ9iF0Fzbwo&si=_Rm22YqeXh2nDNg3",
       "category": "Robotics & Navigation",
       "gallery": [
         {
@@ -255,8 +253,7 @@
       "technologies": ["C++", "Python", "Autoware", "RRT", "CARLA", "ROS2", "Path Planning"],
       "highlights": ["Finalist", "2nd in Simulation", "Custom RRT Planner", "Autoware"],
       "image": "autonomous",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "https://youtu.be/QRy0JJIan08?si=1_renilhYjiIOriz",
+      "github": "https://github.com/harishkumarbalaji/japan-automotive-ai-challenge-2023",
       "category": "Autonomous Vehicles",
       "gallery": [
         {
@@ -291,8 +288,6 @@
       ],
       "highlights": ["3rd Place Nationals", "Reinforcement Learning", "Team Lead"],
       "image": "racing",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "#",
       "category": "AI & Machine Learning",
       "gallery": [
         {
@@ -317,8 +312,6 @@
       ],
       "highlights": ["2nd Place", "Team Lead", "Modified Wall Follower", "Arduino Mega"],
       "image": "maze",
-      "github": "https://github.com/harishkumarbalaji",
-      "live": "#",
       "category": "Embedded Systems",
       "gallery": [
         {

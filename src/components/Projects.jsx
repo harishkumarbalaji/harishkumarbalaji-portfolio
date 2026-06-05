@@ -174,6 +174,13 @@ const truncate = (text, max = 220) => {
   return { text: text.slice(0, max).trim() + '…', isTruncated: true };
 };
 
+/** Omit link fields in portfolioData.json (or use empty / `#`) to hide the matching icon. */
+const getOptionalProjectUrl = (value) => {
+  const url = typeof value === 'string' ? value.trim() : '';
+  if (!url || url === '#') return null;
+  return url;
+};
+
 const getCoverImage = (project) => {
   const gallery = project.gallery || [];
   for (let i = 0; i < gallery.length; i++) {
@@ -649,6 +656,8 @@ const Projects = () => {
           const coverGalleryItem = cover ? galleryItems[cover.coverIndex] : null;
           const coverMediaTitle =
             (coverGalleryItem?.title && String(coverGalleryItem.title).trim()) || '';
+          const githubUrl = getOptionalProjectUrl(project.github);
+          const liveUrl = getOptionalProjectUrl(project.live);
 
           return (
             <div
@@ -773,9 +782,9 @@ const Projects = () => {
                         label={project.title}
                         className="project-link-btn share"
                       />
-                      {project.github && (
+                      {githubUrl && (
                         <a
-                          href={project.github}
+                          href={githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="project-link-btn github"
@@ -786,9 +795,9 @@ const Projects = () => {
                           </svg>
                         </a>
                       )}
-                      {project.live && project.live !== '#' && (
+                      {liveUrl && (
                         <a
-                          href={project.live}
+                          href={liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="project-link-btn live"
