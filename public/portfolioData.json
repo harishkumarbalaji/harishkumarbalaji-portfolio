@@ -219,9 +219,11 @@
       }
     ]
   },
+  "shareAliases": {},
   "projects": [
     {
       "id": 1,
+      "slug": "optimal-indoor-path-planning",
       "title": "Optimal Indoor Path Planning",
       "year": "May 2023 - Aug 2024",
       "description": "Engineered and steered an indoor robotic navigation project leveraging Nvidia's Isaac ROS dockers on Jetson Xavier NX, integrating Behavior Trees (BT) Navigator for efficient decision-making in food delivery from cafeteria to desk. Improved localization accuracy by integrating ORB Visual SLAM and optimized navigation speed by modifying A* heuristics based on dynamic obstacle detection from CCTVs.",
@@ -247,6 +249,7 @@
     },
     {
       "id": 2,
+      "slug": "japan-automotive-ai-challenge",
       "title": "Japan Automotive AI Challenge",
       "year": "Jun 2023 - Nov 2023",
       "description": "Led a 3-member team to optimize Autoware's behavior path planner and implemented a custom RRT planner for obstacle avoidance in narrow paths for a driverless golf cart. Secured second position in the simulation round and participated in the finals held at the University of Tokyo.",
@@ -275,6 +278,7 @@
     },
     {
       "id": 3,
+      "slug": "aws-deepracer-league",
       "title": "AWS Deepracer League",
       "year": "Jan 2022 - May 2022",
       "description": "Coordinated a 4-member team to achieve third position in the 'AWS Deepracer League - Nationals' leaderboard, skillfully applying various strategies in creating a Reinforcement Learning model for autonomous racing. Implemented advanced RL algorithms and optimization techniques for high-speed autonomous navigation.",
@@ -299,6 +303,7 @@
     },
     {
       "id": 4,
+      "slug": "world-robotics-championship",
       "title": "World Robotics Championship",
       "year": "Mar 2019 - Sep 2019",
       "description": "Led a 5-member team to achieve second place in the 'Micromouse - Mazesolver' competition by designing a self-navigating robot that utilized a modified left-wall follower algorithm on resource-constrained hardware like Arduino Mega, enabling efficient navigation and solving of intricate mazes.",
@@ -324,6 +329,7 @@
   ],
   "education": [
     {
+      "slug": "uiuc-meng-autonomy-robotics",
       "year": "Aug 2024 - Dec 2025",
       "title": "M.Eng. Autonomy and Robotics",
       "company": "University of Illinois at Urbana-Champaign",
@@ -346,6 +352,7 @@
       ]
     },
     {
+      "slug": "anna-university-beng-ece",
       "year": "Aug 2017 - May 2021",
       "title": "B.Eng. Electronics and Communication Engineering",
       "company": "Anna University",
@@ -364,6 +371,7 @@
   ],
   "experience": [
     {
+      "slug": "zipline-simulation-intern-2025",
       "year": "Aug 2025 - Dec 2025",
       "title": "Simulation Engineering Intern",
       "company": "Zipline",
@@ -408,6 +416,7 @@
       ]
     },
     {
+      "slug": "skydio-systems-design-intern-2025",
       "year": "May 2025 - Aug 2025",
       "title": "Systems Design Engineer Intern",
       "company": "Skydio",
@@ -447,6 +456,7 @@
       ]
     },
     {
+      "slug": "earthsense-robotics-intern-2025",
       "year": "Dec 2024 - May 2025",
       "title": "Robotics Software Engineer Intern",
       "company": "EarthSense",
@@ -501,6 +511,7 @@
       ]
     },
     {
+      "slug": "thoughtworks-application-developer",
       "year": "Mar 2021 - Aug 2024",
       "title": "Application Developer",
       "company": "Thoughtworks",
@@ -535,6 +546,7 @@
       ]
     },
     {
+      "slug": "speedways-electric-iot-intern-2020",
       "year": "Jun 2020 - Aug 2020",
       "title": "IoT and Robotics Intern",
       "company": "Speedways Electric",

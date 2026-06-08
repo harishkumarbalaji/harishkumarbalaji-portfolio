@@ -35,12 +35,25 @@ A stunning, fully customizable portfolio template built with React + Vite. Featu
 
 Each project card and timeline (experience/education) row has a **share** control that copies a deep link (or opens the system share sheet on supported devices). When someone opens that link, the portfolio scrolls to the matching tile and briefly highlights it.
 
-| Link type              | Example hash                         | Tile id in JSON                                                               |
-| ---------------------- | ------------------------------------ | ----------------------------------------------------------------------------- |
-| Project                | `#project/1`                         | `projects[].id` (number)                                                      |
-| Experience / education | `#timeline/exp-0`, `#timeline/edu-1` | Order in `experience` / `education` arrays (`exp-0` = first experience, etc.) |
+| Link type              | Example hash                               | Stable id in JSON                            |
+| ---------------------- | ------------------------------------------ | -------------------------------------------- |
+| Project                | `#project/japan-automotive-ai-challenge`   | `projects[].slug` (never reuse after delete) |
+| Experience / education | `#timeline/zipline-simulation-intern-2025` | `experience[].slug` / `education[].slug`     |
 
-Full URL shape: `https://YOUR_USERNAME.github.io/portfolio/#project/2` (path prefix follows your `vite.config.js` `base`).
+Legacy links (`#project/2`, `#timeline/exp-0`) still work: they resolve to the matching slug automatically and the URL updates to the canonical hash.
+
+If a link no longer matches any tile (removed entry), the page scrolls to the section and shows a short notice instead of the wrong card.
+
+Full URL shape: `https://YOUR_USERNAME.github.io/portfolio/#project/japan-automotive-ai-challenge` (path prefix follows your `vite.config.js` `base`).
+
+Add optional **`shareAliases`** in `portfolioData.json` to keep old hashes working after you remove or rename slugs:
+
+```json
+"shareAliases": {
+  "timeline/exp-0": "zipline-simulation-intern-2025",
+  "project/99": "some-retired-project-slug"
+}
+```
 
 ### 🎬 **Media Gallery Support**
 
@@ -285,6 +298,8 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
 
 #### 4. **Projects**
 
+> **Slugs:** Every project and timeline entry needs a unique `"slug"` for share links. Use lowercase words separated by hyphens. Do not change or reuse slugs once links have been shared.
+
 > **Optional links:** Add `"github"` only when you have a repository URL; omit the field and the code icon is hidden. Demos and videos usually belong in `gallery` (click cover or thumbnails to expand). Use `"live"` only if you need a separate external-link button for a URL that is not in the gallery.
 
 ```json
@@ -292,6 +307,7 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
   "projects": [
     {
       "id": 1,
+      "slug": "my-project-name",
       "title": "Project Name",
       "year": "Jan 2024 - Present",
       "description": "Full description...",
@@ -317,6 +333,7 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
 {
   "experience": [
     {
+      "slug": "company-role-2024",
       "year": "2023 - Present",
       "title": "Job Title",
       "company": "Company Name",
@@ -335,6 +352,7 @@ When you share your portfolio link anywhere (WhatsApp, Slack, email, messaging a
   ],
   "education": [
     {
+      "slug": "university-degree",
       "year": "2020 - 2024",
       "title": "Degree Name",
       "company": "University Name",
@@ -630,6 +648,7 @@ const result = await emailjs.send(
 │   │   ├── About.jsx
 │   │   ├── Projects.jsx
 │   │   ├── ShareTileButton.jsx
+│   │   ├── ShareLinkNotice.jsx
 │   │   ├── Skills.jsx
 │   │   ├── Timeline.jsx
 │   │   ├── Contact.jsx
@@ -639,7 +658,8 @@ const result = await emailjs.send(
 │   │   └── portfolioData.json   # Source data file (edit this!)
 │   ├── hooks/                   # useShareLinkBootstrap, useShareLinkNavigation
 │   ├── utils/
-│   │   └── shareLink.js         # Deep-link hash build/parse and scroll
+│   │   ├── shareLink.js         # Hash build/parse, scroll, not-found notice
+│   │   └── shareLinkRegistry.js # Slug + legacy alias resolution
 │   ├── context/
 │   │   └── ThemeContext.jsx     # Theme management
 │   ├── App.jsx
