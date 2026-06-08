@@ -10,6 +10,7 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import BackToTop from './components/ScrollProgress';
 import MetaTags from './components/MetaTags';
+import ShareLinkNotice from './components/ShareLinkNotice';
 import './App.css';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Contact />
         </main>
         <BackToTop />
+        <ShareLinkNotice />
       </div>
     </ThemeProvider>
   );

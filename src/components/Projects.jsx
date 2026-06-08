@@ -662,7 +662,7 @@ const Projects = () => {
           return (
             <div
               key={project.id}
-              id={getTileElementId('project', project.id)}
+              id={getTileElementId('project', project.slug)}
               className={`project-card ${!cover ? 'no-cover' : ''}`}
               ref={(el) => (cardsRef.current[index] = el)}
               style={{ '--card-index': index }}
@@ -778,7 +778,7 @@ const Projects = () => {
                     <div className="project-card-links">
                       <ShareTileButton
                         kind="project"
-                        shareId={project.id}
+                        shareSlug={project.slug}
                         label={project.title}
                         className="project-link-btn share"
                       />

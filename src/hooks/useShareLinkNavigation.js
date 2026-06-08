@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { focusTileFromHash, parseShareHash } from '../utils/shareLink';
+import {
+  focusTileFromHash,
+  getShareRegistry,
+  notifyShareLinkNotFound,
+  parseShareHash,
+  replaceShareHash,
+  resolveShareTarget,
+} from '../utils/shareLink';
 
 const NAV_EVENT = 'portfolio-share-navigate';
 const MAX_ATTEMPTS = 40;
@@ -7,14 +14,16 @@ const RETRY_MS = 80;
 
 /**
  * Scrolls to a project or timeline tile when the URL hash matches (or after navigation events).
+ * Resolves legacy hashes (project/2, timeline/exp-0) to stable slugs via share registry.
  * @param {'project' | 'timeline'} kind
  * @param {object} options
  * @param {boolean} options.isReady - data loaded and tile should be in the DOM (or soon)
- * @param {(id: string) => void} [options.prepareForId] - e.g. switch timeline filter before scroll
+ * @param {(target: { slug: string, category: string | null }) => void} [options.prepareForTarget]
  */
-export function useShareLinkNavigation(kind, { isReady, prepareForId, retryKey } = {}) {
-  const pendingIdRef = useRef(null);
+export function useShareLinkNavigation(kind, { isReady, prepareForTarget, retryKey } = {}) {
+  const pendingRawIdRef = useRef(null);
   const retryTimerRef = useRef(null);
+  const notFoundHandledRef = useRef(false);
 
   const clearRetry = useCallback(() => {
     if (retryTimerRef.current) {
@@ -24,34 +33,64 @@ export function useShareLinkNavigation(kind, { isReady, prepareForId, retryKey }
   }, []);
 
   const tryFocus = useCallback(
-    (id) => {
-      if (!id) return false;
-      const ok = focusTileFromHash(kind, id);
+    (rawId) => {
+      if (!rawId) return false;
+
+      const registry = getShareRegistry();
+      if (!registry) return false;
+
+      const target = resolveShareTarget(kind, rawId, registry);
+      if (!target) return false;
+
+      prepareForTarget?.(target);
+
+      const ok = focusTileFromHash(kind, target.slug);
       if (ok) {
-        pendingIdRef.current = null;
+        pendingRawIdRef.current = null;
+        notFoundHandledRef.current = false;
         clearRetry();
+        if (target.slug !== rawId) {
+          replaceShareHash(kind, target.slug);
+        }
       }
       return ok;
     },
-    [kind, clearRetry]
+    [kind, prepareForTarget, clearRetry]
   );
 
+  const handleNotFound = useCallback(() => {
+    if (notFoundHandledRef.current) return;
+    notFoundHandledRef.current = true;
+    pendingRawIdRef.current = null;
+    clearRetry();
+    notifyShareLinkNotFound(kind);
+  }, [kind, clearRetry]);
+
   const scheduleFocus = useCallback(
-    (id, attempt = 0) => {
-      if (!id) return;
-      pendingIdRef.current = id;
-      prepareForId?.(id);
+    (rawId, attempt = 0) => {
+      if (!rawId) return;
+      pendingRawIdRef.current = rawId;
+      notFoundHandledRef.current = false;
 
-      if (tryFocus(id)) return;
+      if (tryFocus(rawId)) return;
 
-      if (attempt >= MAX_ATTEMPTS) return;
+      const registry = getShareRegistry();
+      if (registry && !resolveShareTarget(kind, rawId, registry)) {
+        handleNotFound();
+        return;
+      }
+
+      if (attempt >= MAX_ATTEMPTS) {
+        handleNotFound();
+        return;
+      }
 
       clearRetry();
       retryTimerRef.current = window.setTimeout(() => {
-        scheduleFocus(id, attempt + 1);
+        scheduleFocus(rawId, attempt + 1);
       }, RETRY_MS);
     },
-    [prepareForId, tryFocus, clearRetry]
+    [kind, tryFocus, handleNotFound, clearRetry]
   );
 
   const queueFromHash = useCallback(() => {
@@ -81,9 +120,9 @@ export function useShareLinkNavigation(kind, { isReady, prepareForId, retryKey }
 
   useEffect(() => {
     if (!isReady) return;
-    const id = pendingIdRef.current;
-    if (id) {
-      tryFocus(id);
+    const rawId = pendingRawIdRef.current;
+    if (rawId) {
+      tryFocus(rawId);
     } else {
       queueFromHash();
     }
@@ -93,3 +132,5 @@ export function useShareLinkNavigation(kind, { isReady, prepareForId, retryKey }
 
   return { scheduleFocus };
 }
+
+export { NAV_EVENT as SHARE_NAV_EVENT };

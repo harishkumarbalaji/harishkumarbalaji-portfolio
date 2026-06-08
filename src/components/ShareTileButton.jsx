@@ -5,11 +5,11 @@ import '../styles/ShareTileButton.css';
 /**
  * Copy (or native-share) a deep link to a project or timeline tile.
  * @param {'project' | 'timeline'} kind
- * @param {string | number} shareId
+ * @param {string} shareSlug permanent slug from portfolioData.json
  * @param {string} [label] - accessible name, e.g. project title
  * @param {string} [className] - extra classes (project-link-btn, etc.)
  */
-const ShareTileButton = ({ kind, shareId, label = 'item', className = '' }) => {
+const ShareTileButton = ({ kind, shareSlug, label = 'item', className = '' }) => {
   const [feedback, setFeedback] = useState(null);
 
   const handleClick = useCallback(
@@ -17,8 +17,8 @@ const ShareTileButton = ({ kind, shareId, label = 'item', className = '' }) => {
       event.preventDefault();
       event.stopPropagation();
 
-      const url = buildShareUrl(kind, shareId);
-      const hash = buildShareHash(kind, shareId);
+      const url = buildShareUrl(kind, shareSlug);
+      const hash = buildShareHash(kind, shareSlug);
       if (!url || !hash) return;
 
       const shareTitle = typeof document !== 'undefined' ? document.title : 'Portfolio';
@@ -50,7 +50,7 @@ const ShareTileButton = ({ kind, shareId, label = 'item', className = '' }) => {
         window.history.replaceState(null, '', `#${hash}`);
       }
     },
-    [kind, shareId]
+    [kind, shareSlug]
   );
 
   const feedbackText =

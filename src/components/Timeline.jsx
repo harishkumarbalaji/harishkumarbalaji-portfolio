@@ -509,10 +509,10 @@ const Timeline = () => {
   const [expanded, setExpanded] = useState({});
   const [modalMedia, setModalMedia] = useState(null);
 
-  const prepareTimelineShare = useCallback((id) => {
-    if (String(id).startsWith('edu-')) {
+  const prepareTimelineShare = useCallback((target) => {
+    if (target?.category === 'education') {
       setActiveFilter('education');
-    } else if (String(id).startsWith('exp-')) {
+    } else if (target?.category === 'experience') {
       setActiveFilter('experience');
     } else {
       setActiveFilter('all');
@@ -521,8 +521,8 @@ const Timeline = () => {
 
   useShareLinkNavigation('timeline', {
     isReady: filteredData.length > 0,
-    prepareForId: prepareTimelineShare,
-    retryKey: filteredData.map((item) => item.id).join(','),
+    prepareForTarget: prepareTimelineShare,
+    retryKey: filteredData.map((item) => item.slug).join(','),
   });
 
   const toggleExpand = (id) => {
@@ -564,14 +564,12 @@ const Timeline = () => {
       })
       .then((data) => {
         // Combine education and experience data
-        const educationData = (data.education || []).map((item, idx) => ({
+        const educationData = (data.education || []).map((item) => ({
           ...item,
-          id: `edu-${idx}`,
           category: 'education',
         }));
-        const experienceData = (data.experience || []).map((item, idx) => ({
+        const experienceData = (data.experience || []).map((item) => ({
           ...item,
-          id: `exp-${idx}`,
           category: 'experience',
         }));
         const combined = [...educationData, ...experienceData];
@@ -656,12 +654,12 @@ const Timeline = () => {
           {filteredData.map((item, idx) => {
             const hasGallery = item.gallery && item.gallery.length > 0;
             const galleryCount = item.gallery?.length || 0;
-            const isExpanded = expanded[item.id];
+            const isExpanded = expanded[item.slug];
 
             return (
               <div
-                key={item.id}
-                id={getTileElementId('timeline', item.id)}
+                key={item.slug}
+                id={getTileElementId('timeline', item.slug)}
                 className={`timeline-row-modern ${hasGallery ? '' : 'no-gallery'}`}
                 style={{ '--card-index': idx }}
               >
@@ -691,7 +689,7 @@ const Timeline = () => {
                         <h3 className="timeline-title-modern">{item.title}</h3>
                         <ShareTileButton
                           kind="timeline"
-                          shareId={item.id}
+                          shareSlug={item.slug}
                           label={`${item.title} at ${item.company}`}
                           className="timeline-share-btn"
                         />
@@ -751,7 +749,7 @@ const Timeline = () => {
                         ))}
                       </ul>
                       {item.details.length > 2 && (
-                        <button className="view-toggle" onClick={() => toggleExpand(item.id)}>
+                        <button className="view-toggle" onClick={() => toggleExpand(item.slug)}>
                           {isExpanded ? 'View less' : `View ${item.details.length - 2} more...`}
                         </button>
                       )}
