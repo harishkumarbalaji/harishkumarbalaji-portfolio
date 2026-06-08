@@ -16,9 +16,24 @@ See `package.json` scripts for the full list. Summary:
 
 - **Dev server:** `npm run dev`
 - **Lint:** `npm run lint` (ESLint 9)
-- **Format check:** `npm run format:check` (Prettier)
+- **Format (fix):** `npm run format` (Prettier — run after editing any `.md`, `.js`, `.jsx`, `.json`, or `.css`)
+- **Format check:** `npm run format:check` (Prettier — must pass; same as CI)
 - **Build:** `npm run build` (Vite production build)
 - **Preview prod build:** `npm run preview`
+- **CI locally (required before push/PR):** `npm run check` — runs `lint`, `format:check`, and `build` in order
+
+### Before every commit, push, or PR
+
+**Always run `npm run check` and confirm it exits 0.** GitHub Actions runs the same steps; do not push if any step fails.
+
+If `format:check` fails (often on `README.md` after doc edits), run `npm run format` then re-run `npm run check`.
+
+Typical workflow:
+
+```bash
+npm run format    # after editing docs or if format:check failed
+npm run check     # lint + format:check + build — must pass before push
+```
 
 ### Non-obvious notes
 

@@ -35,10 +35,10 @@ A stunning, fully customizable portfolio template built with React + Vite. Featu
 
 Each project card and timeline (experience/education) row has a **share** control that copies a deep link (or opens the system share sheet on supported devices). When someone opens that link, the portfolio scrolls to the matching tile and briefly highlights it.
 
-| Link type              | Example hash                                      | Stable id in JSON                          |
-| ---------------------- | ------------------------------------------------- | ------------------------------------------ |
-| Project                | `#project/japan-automotive-ai-challenge`          | `projects[].slug` (never reuse after delete) |
-| Experience / education | `#timeline/zipline-simulation-intern-2025`        | `experience[].slug` / `education[].slug`   |
+| Link type              | Example hash                               | Stable id in JSON                            |
+| ---------------------- | ------------------------------------------ | -------------------------------------------- |
+| Project                | `#project/japan-automotive-ai-challenge`   | `projects[].slug` (never reuse after delete) |
+| Experience / education | `#timeline/zipline-simulation-intern-2025` | `experience[].slug` / `education[].slug`     |
 
 Legacy links (`#project/2`, `#timeline/exp-0`) still work: they resolve to the matching slug automatically and the URL updates to the canonical hash.
 
